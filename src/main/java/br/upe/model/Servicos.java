@@ -1,10 +1,12 @@
-package br.upe.servicos;
+package br.upe.model;
 
 import java.util.ArrayList;
 
-import br.upe.fornecedor.Fornecedor;
-import br.upe.requisicao.Requisicao;
-import br.upe.servico.Servico;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter 
+@Setter
 
 public class Servicos extends Requisicao{
 

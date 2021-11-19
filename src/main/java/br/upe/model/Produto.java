@@ -1,6 +1,10 @@
-package br.upe.produto;
+package br.upe.model;
 
-import br.upe.tipoproduto.TipoProduto;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter 
+@Setter
 
 public class Produto {
 

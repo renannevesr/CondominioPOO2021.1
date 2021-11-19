@@ -1,9 +1,12 @@
-package br.upe.almoxarifado;
+package br.upe.model;
 
 import java.util.ArrayList;
 
-import br.upe.produto.Produto;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter 
+@Setter
 public class Almoxarifado {
 
 	private ArrayList<Produto> estoque;

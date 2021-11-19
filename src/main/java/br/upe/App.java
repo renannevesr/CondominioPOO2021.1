@@ -6,6 +6,6 @@ package br.upe;
  */
 public class App {
     public static void main(String[] args) {
-        System.out.println("Jackson do Pandeiro Socio oculto da BRAPOR");
+        System.out.println("Condomínio UPE");
     }
 }

@@ -1,9 +1,12 @@
-package br.upe.contabil;
+package br.upe.model;
 
 import java.util.ArrayList;
 
-import br.upe.conta.Conta;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter 
+@Setter
 public class Contabil {
 
 	private double saldoGlobal;

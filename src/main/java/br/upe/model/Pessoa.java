@@ -1,8 +1,13 @@
-package br.upe.pessoa;
+package br.upe.model;
 
 import java.util.ArrayList;
 
-public abstract class Pessoa {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter 
+@Setter
+public class Pessoa {
 	
 	private String nome; 
 	private String cpf;

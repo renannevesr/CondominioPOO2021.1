@@ -1,4 +1,10 @@
-package br.upe.servico;
+package br.upe.model;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter 
+@Setter
 
 public class Servico {
 	

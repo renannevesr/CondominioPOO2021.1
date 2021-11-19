@@ -1,4 +1,10 @@
-package br.upe.veiculo;
+package br.upe.model;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter 
+@Setter
 
 public class Veiculo {
 

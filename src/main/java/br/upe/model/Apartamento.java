@@ -1,12 +1,12 @@
-package br.upe.apartamento;
+package br.upe.model;
 
 import java.util.ArrayList;
 
-import br.upe.condomino.Condomino;
+import lombok.Getter;
+import lombok.Setter;
 
-import br.upe.morador.Morador;
-import br.upe.veiculo.Veiculo;
-
+@Getter 
+@Setter
 public class Apartamento {
 
 	private int numero;

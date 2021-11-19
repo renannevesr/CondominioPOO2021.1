@@ -1,11 +1,12 @@
-package br.upe.movimentacao;
+package br.upe.model;
 
 import java.util.ArrayList;
 
-import br.upe.fornecedor.Fornecedor;
-import br.upe.produto.Produto;
-import br.upe.requisicao.Requisicao;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter 
+@Setter
 public class Movimentacao extends Requisicao{
 
 	private ArrayList<Produto> produtos;

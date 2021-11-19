@@ -1,8 +1,12 @@
-package br.upe.funcionario;
-
-import br.upe.pessoa.Pessoa;
+package br.upe.model;
 
 import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter 
+@Setter
 
 public class Funcionario extends Pessoa {
 	

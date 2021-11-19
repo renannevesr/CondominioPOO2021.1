@@ -1,9 +1,12 @@
-package br.upe.reservas;
+package br.upe.model;
 
 import java.util.Date;
 
-import br.upe.apartamento.Apartamento;
-import br.upe.espacos.Espaco;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter 
+@Setter
 
 public class Reservas {
 

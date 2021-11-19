@@ -1,9 +1,12 @@
-package br.upe.contaReceber;
+package br.upe.model;
 
 import java.util.Date;
 
-import br.upe.apartamento.Apartamento;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter 
+@Setter
 public class ContaReceber {
 
 	private Date dataEmissao;
