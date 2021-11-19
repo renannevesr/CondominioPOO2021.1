@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public abstract class Requisicao {
 	
-	private Pessoa requerente;
+	private Funcionario requerente;
 	private double valorTotal;
 	private Date data;
 
