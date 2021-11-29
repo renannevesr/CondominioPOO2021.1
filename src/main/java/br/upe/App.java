@@ -18,13 +18,13 @@ public class App {
         
         //JPAPessoaDAO jpaPessoaDAO = new JPAPessoaDAO();
         JPAVeiculoDAO jpaVeiculoDAO = new JPAVeiculoDAO();
-        
+        Veiculo veiculoNovo = new Veiculo(null, "KKK-0009", "Onix", "Prata");
        // Visitante visitante1 = new Visitante (null, "Teste", "123456789", null, 102);
         //Veiculo v1 = new Veiculo (null, "KKK-0008", "Celta", "Preto");
         
         //jpaPessoaDAO.salva(visitante1);
-        //jpaVeiculoDAO.salva(v1);
-        jpaVeiculoDAO.lista();
+        jpaVeiculoDAO.salva(veiculoNovo);
+        //jpaVeiculoDAO.lista();
         /*ArrayList<String> acesso = new ArrayList();
         acesso.add("1");
         Morador morador1 = new Morador (null, "Teste", "123456789", acesso );
