@@ -28,6 +28,9 @@ public abstract class Pessoa {
 	//@OneToOne uma pessoa tem so um acesso
 	private ArrayList<String> acesso; //List
 	
+	public Pessoa() {
+		
+	}
 	
 	public Pessoa (Long id, String nome, String cpf, ArrayList<String> acesso) {
 		this.id = id;
