@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public abstract class Requisicao {
+public abstract class Requisicao implements EntidadeBase{
 	
 	private Funcionario requerente;
 	private double valorTotal;

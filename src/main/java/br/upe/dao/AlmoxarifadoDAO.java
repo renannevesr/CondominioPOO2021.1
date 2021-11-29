@@ -1,5 +1,12 @@
 package br.upe.dao;
 
-public interface AlmoxarifadoDAO {
+import br.upe.model.Almoxarifado;
+
+public interface AlmoxarifadoDAO{
+
+	
+public class JPAAlmoxarifadoDAO extends GenericDAO<Almoxarifado>{
+		
+}
 
 }

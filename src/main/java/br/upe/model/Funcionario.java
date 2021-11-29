@@ -11,11 +11,15 @@ import lombok.Setter;
 @Getter 
 @Setter
 @Entity
-public class Funcionario extends Pessoa {
+public class Funcionario extends Pessoa{
 	
 	private Date dataAdmissao;
 	private String carteiraTrabalho;
 	private String funcao;
+	
+	public Funcionario() {
+		
+	}
 	
 	public Funcionario (Long id, String nome, String cpf, ArrayList<String> acesso, Date dataAdmissao, String carteiraTrabalho, String funcao) {
 		super(id, nome, cpf, acesso);

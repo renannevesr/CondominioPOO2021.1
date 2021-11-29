@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 //@Data
 //@Builder
-public abstract class Pessoa {
+public abstract class Pessoa implements EntidadeBase{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; 

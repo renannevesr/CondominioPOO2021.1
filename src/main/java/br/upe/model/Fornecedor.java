@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @AllArgsConstructor
-public class Fornecedor {
+public class Fornecedor implements EntidadeBase{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

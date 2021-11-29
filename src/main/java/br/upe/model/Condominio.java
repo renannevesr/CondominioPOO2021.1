@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @AllArgsConstructor
-public class Condominio {
+public class Condominio implements EntidadeBase{
 	@Id @GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
