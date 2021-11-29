@@ -2,10 +2,6 @@ package br.upe.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import br.upe.connectionDB.ConnectionDB;
 import br.upe.model.Pessoa;
 
@@ -28,9 +24,13 @@ public class JPAPessoaDAO implements PessoaDAO{
 		}
 		
 		public List<Pessoa> lista(){	
-
-			List<Pessoa> pessoas = conexao.em.createQuery("select p from Pessoa p").getResultList();
+			
+			List<Pessoa> pessoas = conexao.em.createQuery("select p from Visitante p").getResultList();
 			conexao.em.close();
+			
+			for(Pessoa p:pessoas) {
+				System.out.println(p.getId() + " | " + p.getNome() + " | " + p.getCpf() + " | " + p.getAcesso());	
+			}
 			
 			return pessoas;
 		}
