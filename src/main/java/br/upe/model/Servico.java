@@ -5,12 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter 
 @Setter
 @Entity
+@AllArgsConstructor
 public class Servico {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +23,6 @@ public class Servico {
 	private double valor;
 	
 	public Servico() {
-		
-	}
-	
-	public Servico(Long id, String nome, String tipo, String descricao, double valor) {
 		
 	}
 
