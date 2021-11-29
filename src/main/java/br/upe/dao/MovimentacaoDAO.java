@@ -1,5 +1,5 @@
 package br.upe.dao;
 
-public interface MovimentaoDAO {
+public interface MovimentacaoDAO {
 
 }

@@ -4,12 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter 
 @Setter
 @Entity
+@AllArgsConstructor
 public class Veiculo {
 
 	@Id @GeneratedValue
@@ -20,12 +22,5 @@ public class Veiculo {
 	
 	public Veiculo() {
 		
-	}
-	
-	public Veiculo (Long id, String placa, String modelo, String cor) {
-		this.id = id;
-		this.placa = placa;
-		this.modelo = modelo;
-		this.cor = cor;
 	}
 }

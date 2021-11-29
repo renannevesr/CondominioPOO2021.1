@@ -28,10 +28,6 @@ public interface CondominoDAO {
 			
 			List<Condomino> condominos = conexao.em.createQuery("select c from Condomino c").getResultList();
 			conexao.em.close();
-/*			for (Condomino c: condominos) {
-				System.out.println(c.getId()+ " - " + c.getNome() + " - " + c.getCpf() + " - " + c.getAcesso() + " - " + c.getContato());
-
-			}*/
 			return condominos;
 		}
 	}
