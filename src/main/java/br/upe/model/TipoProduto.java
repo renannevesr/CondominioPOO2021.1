@@ -5,12 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter 
 @Setter
 @Entity
+@AllArgsConstructor
 public class TipoProduto {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +24,4 @@ public class TipoProduto {
 		
 	}
 	
-	public TipoProduto(Long id, String nome, int quantidadeMin) {
-		this.id = id;
-		this.nome = nome;
-		this.quantidadeMin = quantidadeMin;
-	}
 }

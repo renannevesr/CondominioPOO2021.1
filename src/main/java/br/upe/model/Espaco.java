@@ -5,12 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter 
 @Setter
 @Entity
+@AllArgsConstructor
 public class Espaco {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +25,5 @@ public class Espaco {
 		
 	}
 	
-	public Espaco(Long id, String nome, String descricao) {
-		this.id = id;
-		this.nome = nome;
-		this.descricao = descricao;
-	}
+
 }
