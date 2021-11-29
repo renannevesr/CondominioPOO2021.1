@@ -12,7 +12,7 @@ import lombok.Setter;
 @Entity
 public class Visitante extends Pessoa{
 
-	private int apartamento; 
+	private int apartamento;	
 	
 	public Visitante(Long id, String nome, String cpf, ArrayList<String> acesso, int apartamento) {
 		super(id, nome, cpf, acesso);

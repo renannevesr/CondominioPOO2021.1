@@ -6,14 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 //import lombok.Builder;
-//import lombok.Data;
 import lombok.Getter;
 //import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@MappedSuperclass
 @Getter 
 @Setter
 //@Data
@@ -24,7 +24,9 @@ public abstract class Pessoa {
 	private Long id; 
 	private String nome; 
 	private String cpf;
-	private ArrayList<String> acesso;
+	//@OneToMany uma pessoa tem varios acessos
+	//@OneToOne uma pessoa tem so um acesso
+	private ArrayList<String> acesso; //List
 	
 	
 	public Pessoa (Long id, String nome, String cpf, ArrayList<String> acesso) {
