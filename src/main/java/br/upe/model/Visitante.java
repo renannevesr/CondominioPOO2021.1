@@ -1,7 +1,5 @@
 package br.upe.model;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
 
 import lombok.Getter;
@@ -18,8 +16,4 @@ public class Visitante extends Pessoa{
 		
 	}
 	
-	public Visitante(Long id, String nome, String cpf, ArrayList<String> acesso, int apartamento) {
-		super(id, nome, cpf, acesso);
-		this.apartamento = apartamento;
-	}
 }

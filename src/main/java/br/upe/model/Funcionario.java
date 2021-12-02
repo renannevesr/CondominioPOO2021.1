@@ -1,16 +1,17 @@
 package br.upe.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.Entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter 
 @Setter
 @Entity
+@ToString
 public class Funcionario extends Pessoa{
 	
 	private Date dataAdmissao;
@@ -21,11 +22,4 @@ public class Funcionario extends Pessoa{
 		
 	}
 	
-	public Funcionario (Long id, String nome, String cpf, ArrayList<String> acesso, Date dataAdmissao, String carteiraTrabalho, String funcao) {
-		super(id, nome, cpf, acesso);
-		this.dataAdmissao = dataAdmissao;
-		this.carteiraTrabalho = carteiraTrabalho;
-		this.funcao = funcao;
-	}
-
 }
