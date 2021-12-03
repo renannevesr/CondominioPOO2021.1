@@ -1,17 +1,19 @@
 package br.upe.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 @Getter 
 @Setter
 @Entity
+@NoArgsConstructor
 @AllArgsConstructor
 public class TipoProduto implements EntidadeBase{
 
@@ -19,9 +21,5 @@ public class TipoProduto implements EntidadeBase{
 	private Long id;
 	private String nome;
 	private int quantidadeMin;
-	
-	public TipoProduto() {
-		
-	}
-	
+
 }

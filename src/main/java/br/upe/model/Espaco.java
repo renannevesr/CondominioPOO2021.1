@@ -7,11 +7,13 @@ import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter 
 @Setter
 @Entity
+@NoArgsConstructor
 @AllArgsConstructor
 public class Espaco implements EntidadeBase{
 
@@ -19,11 +21,5 @@ public class Espaco implements EntidadeBase{
 	private Long id;
 	private String nome;
 	private String descricao;
-	
-	
-	public Espaco() {
-		
-	}
-	
 
 }
