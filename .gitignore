@@ -1,7 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/maven,eclipse,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=maven,eclipse,intellij
 
-src/main/java/META-INF/persistence.xml
+# Persistence.xml
+*/META-INF/*
 
 ### Eclipse ###
 .metadata
