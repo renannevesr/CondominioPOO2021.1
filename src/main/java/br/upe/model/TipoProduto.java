@@ -5,10 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Getter 
 @Setter
@@ -21,5 +25,6 @@ public class TipoProduto implements EntidadeBase{
 	private Long id;
 	private String nome;
 	private int quantidadeMin;
-
+	@OneToMany(mappedBy = "tipo",cascade = CascadeType.ALL)
+	private List<Produto> produtos;
 }
