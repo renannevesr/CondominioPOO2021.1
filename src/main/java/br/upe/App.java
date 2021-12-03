@@ -38,15 +38,15 @@ public class App {
         v1.setApartamento(apartamento);
         morador.setApartamento(apartamento);
         
-        daoApartamento.salvar(apartamento);
-        daoApartamento.salvar(apartamento2);
+        daoApartamento.salvarOuAtualizar(apartamento);
+        daoApartamento.salvarOuAtualizar(apartamento2);
         
         ContaReceber contareceber = new ContaReceber();
         ContaReceber contareceber2 = new ContaReceber();
         contareceber.setApartamento(apartamento);
         contareceber2.setApartamento(apartamento2);
-        daoContaReceber.salvar(contareceber);
-        daoContaReceber.salvar(contareceber2);
+        daoContaReceber.salvarOuAtualizar(contareceber);
+        daoContaReceber.salvarOuAtualizar(contareceber2);
         
 
         

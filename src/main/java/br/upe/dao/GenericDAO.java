@@ -6,7 +6,7 @@ import br.upe.model.EntidadeBase;
 
 public class GenericDAO<Generic extends EntidadeBase>{
 	
-		public Generic salvar (Generic g) throws Exception{
+		public Generic salvarOuAtualizar(Generic g) throws Exception{
 			
 			ConnectionDB conexao = new ConnectionDB();
 			
@@ -30,15 +30,15 @@ public class GenericDAO<Generic extends EntidadeBase>{
 			return g;
 		}
 		
-		public List<Generic> listar(Object o){
+		public List<Generic> listar(Generic g){
 			
 			ConnectionDB conexao = new ConnectionDB();
 			List<Generic> listaGenerica = null;
 			try {
 				
-			String table = o.getClass().getSimpleName();
+			String table = g.getClass().getSimpleName();
 				
-			listaGenerica = conexao.em.createQuery("select o from " + table + " o").getResultList();
+			listaGenerica = conexao.em.createQuery("select g from " + table + " g").getResultList();
 				
 			}catch (Exception e) {
 				System.out.println(e);
@@ -48,19 +48,6 @@ public class GenericDAO<Generic extends EntidadeBase>{
 		
 			return listaGenerica;
 		}
-		
-		/*public Generic consultarPorId(Class<Generic> o, Long id) {
-			ConnectionDB conexao = new ConnectionDB();
-			Generic g = null;
-			
-			try {
-				g = conexao.em.find(o, id);
-			}finally {
-				conexao.em.close();
-			}
-			
-			return g;
-		}*/
 		
 		public void remover(Class<Generic> o, Long id) {
 			
