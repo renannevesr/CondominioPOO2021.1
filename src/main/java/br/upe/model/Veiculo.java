@@ -17,7 +17,6 @@ public class Veiculo implements EntidadeBase{
 	private String placa;
 	private String modelo;
 	private String cor;
-
 	@ManyToOne
 	private Apartamento apartamento;
 

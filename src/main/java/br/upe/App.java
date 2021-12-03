@@ -22,19 +22,18 @@ public class App {
        
         GenericDAO<Apartamento> daoApartamento = new GenericDAO<Apartamento>();
         GenericDAO<ContaReceber> daoContaReceber = new GenericDAO<ContaReceber>();
-        Veiculo v1 = new Veiculo ("KKK-0008", "Celta", "Preto");
-        
-       
-        
+        Veiculo v1 = new Veiculo ();
+             
         List<Morador> listamorador = new ArrayList();
         List<Veiculo> listaVeiculo = new ArrayList();
         listamorador.add(morador);
         listaVeiculo.add(v1);
         apartamento.setMoradores(listamorador);
         apartamento.setNumero(103);
-        apartamento.setPropietario(condomino);
+        apartamento.setCondomino(condomino);
         apartamento.setTaxaCondominio(1500);
         apartamento.setVeiculos(listaVeiculo);
+        apartamento.setBloco("A");
         
         v1.setApartamento(apartamento);
         morador.setApartamento(apartamento);
@@ -44,8 +43,8 @@ public class App {
         
         ContaReceber contareceber = new ContaReceber();
         ContaReceber contareceber2 = new ContaReceber();
-        contareceber.setResponsavel(apartamento);
-        contareceber2.setResponsavel(apartamento2);
+        contareceber.setApartamento(apartamento);
+        contareceber2.setApartamento(apartamento2);
         daoContaReceber.salvar(contareceber);
         daoContaReceber.salvar(contareceber2);
         

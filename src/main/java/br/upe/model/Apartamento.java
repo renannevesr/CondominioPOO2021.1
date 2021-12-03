@@ -19,12 +19,12 @@ public class Apartamento implements EntidadeBase{
 	private Long id;
 	private int numero;
 	@ManyToOne (cascade = CascadeType.ALL)
-	@JoinColumn(name="propietario_id")
-	private Condomino propietario;
+	@JoinColumn(name="condomino_id")
+	private Condomino condomino;
 	private double taxaCondominio;
 	@OneToMany(mappedBy = "apartamento", cascade = CascadeType.ALL)
 	private List<Morador> moradores;
 	@OneToMany(mappedBy = "apartamento", cascade = CascadeType.ALL)
 	private List<Veiculo> veiculos;
-
+	private String bloco;
 }

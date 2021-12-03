@@ -27,6 +27,6 @@ public class ContaReceber implements EntidadeBase{
 	private double valor;
 	private String status;
 	@ManyToOne 
-	private Apartamento responsavel;
+	private Apartamento apartamento;
 
 }
