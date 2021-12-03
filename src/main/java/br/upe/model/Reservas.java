@@ -2,6 +2,7 @@ package br.upe.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,9 @@ public class Reservas implements EntidadeBase{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Apartamento responsavel;
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn(name="apartamento_id")
+	private Apartamento apartamento;
 	@ManyToOne
 	@JoinColumn(name = "espaco_id")
 	private Espaco espaco;
