@@ -2,18 +2,31 @@ package br.upe.model;
 
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-@Getter 
-@Setter
-public class ContaReceber {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+public class ContaReceber implements EntidadeBase{
+
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private Date dataEmissao;
 	private Date dataVencimento;
 	private Date competencia;
 	private double valor;
 	private String status;
-	private Apartamento responsavel;
-	
+	@ManyToOne 
+	private Apartamento apartamento;
+
 }

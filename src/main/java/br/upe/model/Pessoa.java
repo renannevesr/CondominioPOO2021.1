@@ -1,15 +1,25 @@
 package br.upe.model;
 
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-@Getter 
-@Setter
-public class Pessoa {
+@MappedSuperclass
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public abstract class Pessoa implements EntidadeBase{
 	
-	private String nome; 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id; 
+	private String nome;
 	private String cpf;
-	private ArrayList<String> acesso;
+	//Todo - Verificar Lib de Autenticacao e Autorizacao do Spring
+	//private List<String> acesso;
+
 }

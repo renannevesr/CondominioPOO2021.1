@@ -1,15 +1,19 @@
 package br.upe.model;
 
-import java.util.Date;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Getter
 @Setter
-public abstract class Requisicao {
+@NoArgsConstructor
+@AllArgsConstructor
+public abstract class Requisicao implements EntidadeBase{
 	
-	private Pessoa requerente;
+	private Funcionario requerente;
 	private double valorTotal;
 	private Date data;
 

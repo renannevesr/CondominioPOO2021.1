@@ -1,14 +1,23 @@
 package br.upe.model;
 
-import java.util.ArrayList;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.List;
 
 @Getter 
 @Setter
-public class Almoxarifado {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Almoxarifado implements EntidadeBase{
 
-	private ArrayList<Produto> estoque;
-	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private List<Produto> estoque;
+
 }

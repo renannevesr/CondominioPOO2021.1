@@ -1,18 +1,30 @@
 package br.upe.model;
 
-import java.util.ArrayList;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter 
-@Setter
-public class Apartamento {
+import javax.persistence.*;
+import java.util.List;
 
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Apartamento implements EntidadeBase{
+
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private int numero;
-	private Condomino propietario;
-	private ArrayList<Morador> moradores;
-	private ArrayList<Veiculo> veiculos;
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn(name="condomino_id")
+	private Condomino condomino;
 	private double taxaCondominio;
-	
+	@OneToMany(mappedBy = "apartamento", cascade = CascadeType.ALL)
+	private List<Morador> moradores;
+	@OneToMany(mappedBy = "apartamento", cascade = CascadeType.ALL)
+	private List<Veiculo> veiculos;
+	private String bloco;
 }
