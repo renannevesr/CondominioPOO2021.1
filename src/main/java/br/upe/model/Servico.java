@@ -27,6 +27,6 @@ public class Servico implements EntidadeBase{
 	private String tipo;
 	private String descricao;
 	private double valor;
-	@ManyToMany(mappedBy = "listaservicos",cascade = CascadeType.ALL)
-	private List<ListaServicos> servicos;
+	/*@ManyToMany(mappedBy = "listaservicos",cascade = CascadeType.ALL)
+	private List<ListaServicos> servicos;*/
 }

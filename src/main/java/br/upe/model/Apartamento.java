@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
-
 
 @Entity
 @Data
@@ -22,9 +20,5 @@ public class Apartamento implements EntidadeBase{
 	@JoinColumn(name="condomino_id")
 	private Condomino condomino;
 	private double taxaCondominio;
-	@OneToMany(mappedBy = "apartamento", cascade = CascadeType.ALL)
-	private List<Morador> moradores;
-	@OneToMany(mappedBy = "apartamento", cascade = CascadeType.ALL)
-	private List<Veiculo> veiculos;
 	private String bloco;
 }

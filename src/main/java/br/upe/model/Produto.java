@@ -1,5 +1,6 @@
 package br.upe.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,29 +12,31 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter 
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString
 public class Produto implements EntidadeBase{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String marca;
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name = "tipoproduto_id")
 	private TipoProduto tipo;
 	private String descricao;
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name = "movimentacao_id")
 	private Movimentacao movimentacao;
 	private int quantidade;
 	private double volume;
 	private double valor;
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name = "almoxarifado_id")
-	private Almoxarifado almoxarifado;
+	private Almoxarifado almoxarifado;*/
 	
 }

@@ -1,13 +1,9 @@
 package br.upe.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,9 +21,4 @@ public class Fornecedor implements EntidadeBase{
 	private Long id;
 	private String nome;
 	private String documentoId;
-	@OneToMany(mappedBy = "fornecedor",cascade = CascadeType.ALL)
-	private List<Movimentacao> movimentacao;
-	@OneToMany(mappedBy = "fornecedor",cascade = CascadeType.ALL)
-	private List<ListaServicos> servicos;
-
 }
