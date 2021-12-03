@@ -1,17 +1,19 @@
 package br.upe.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 @Getter 
 @Setter
 @Entity
+@NoArgsConstructor
 @AllArgsConstructor
 public class Servico implements EntidadeBase{
 
@@ -21,9 +23,6 @@ public class Servico implements EntidadeBase{
 	private String tipo;
 	private String descricao;
 	private double valor;
-	
-	public Servico() {
-		
-	}
+
 
 }

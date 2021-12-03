@@ -7,11 +7,13 @@ import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter 
 @Setter
 @Entity
+@NoArgsConstructor
 @AllArgsConstructor
 public class Conta implements EntidadeBase{
 
@@ -22,9 +24,5 @@ public class Conta implements EntidadeBase{
 	private String tipo;
 	private String banco;
 	private double saldo;
-	
-	public Conta() {
-		
-	}
 	
 }

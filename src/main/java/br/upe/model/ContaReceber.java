@@ -9,10 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class ContaReceber implements EntidadeBase{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +28,5 @@ public class ContaReceber implements EntidadeBase{
 	private String status;
 	@ManyToOne 
 	private Apartamento responsavel;
-	
-	
-	public ContaReceber() {
-		
-	}
+
 }

@@ -1,18 +1,18 @@
 package br.upe.model;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.Date;
 
 @Getter 
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Reservas implements EntidadeBase{
 
@@ -23,9 +23,5 @@ public class Reservas implements EntidadeBase{
 	private Date dataSolicitacao;
 	private Date dataUtilizacao;
 	private double valor;
-	
-	public Reservas() {
-		
-	}
-	
+
 }
