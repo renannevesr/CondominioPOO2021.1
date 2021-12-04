@@ -1,11 +1,19 @@
 package br.upe.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 @Getter 
 @Setter
@@ -21,5 +29,11 @@ public class Conta implements EntidadeBase{
 	private String tipo;
 	private String banco;
 	private double saldo;
+	@OneToMany (cascade = CascadeType.ALL)
+	@JoinColumn(name="conta_id")
+	private List<OperacaoEntrada> operacaoEntrada;
+	@OneToMany (cascade = CascadeType.ALL)
+	@JoinColumn(name="conta_id")
+	private List<OperacaoSaida> operacaoSaida;
 
 }
