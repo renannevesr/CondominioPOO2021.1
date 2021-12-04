@@ -1,13 +1,9 @@
 package br.upe.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +23,4 @@ public class Servico implements EntidadeBase{
 	private String tipo;
 	private String descricao;
 	private double valor;
-	/*@ManyToMany(mappedBy = "listaservicos",cascade = CascadeType.ALL)
-	private List<ListaServicos> servicos;*/
 }

@@ -23,6 +23,5 @@ public class TipoProduto implements EntidadeBase{
 	private Long id;
 	private String nome;
 	private int quantidadeMin;
-	/*@OneToMany(mappedBy = "tipo",cascade = CascadeType.ALL)
-	private List<Produto> produtos;*/
+	
 }

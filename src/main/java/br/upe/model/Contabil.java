@@ -12,13 +12,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Contabil implements EntidadeBase{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private double saldoGlobal;
 
-	@OneToMany
+	@OneToMany (cascade = CascadeType.ALL)
 	@JoinColumn(name = "contabil_id")
 	private List<Conta> contas;
 	

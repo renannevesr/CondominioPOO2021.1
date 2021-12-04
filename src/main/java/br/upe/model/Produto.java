@@ -35,8 +35,5 @@ public class Produto implements EntidadeBase{
 	private int quantidade;
 	private double volume;
 	private double valor;
-	/*@ManyToOne
-	@JoinColumn(name = "almoxarifado_id")
-	private Almoxarifado almoxarifado;*/
-	
+
 }

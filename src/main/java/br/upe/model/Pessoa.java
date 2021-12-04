@@ -19,7 +19,5 @@ public abstract class Pessoa implements EntidadeBase{
 	private Long id; 
 	private String nome;
 	private String cpf;
-	//Todo - Verificar Lib de Autenticacao e Autorizacao do Spring
-	//private List<String> acesso;
 
 }
