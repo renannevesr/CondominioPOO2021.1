@@ -29,11 +29,15 @@ public class Conta implements EntidadeBase{
 	private String tipo;
 	private String banco;
 	private double saldo;
-	@OneToMany (cascade = CascadeType.ALL)
+	/*@OneToMany (cascade = CascadeType.ALL)
 	@JoinColumn(name="conta_id")
+	private List<OperacaoEntrada> operacaoEntrada;*/
+	/*@OneToMany (cascade = CascadeType.ALL)
+	@JoinColumn(name="conta_id")
+	private List<Requisicao> requisicao;*/
+	/*@OneToMany (mappedBy = "conta")
 	private List<OperacaoEntrada> operacaoEntrada;
-	@OneToMany (cascade = CascadeType.ALL)
-	@JoinColumn(name="conta_id")
-	private List<OperacaoSaida> operacaoSaida;
+	@OneToMany 
+	private List<Requisicao> requisicao;*/
 
 }

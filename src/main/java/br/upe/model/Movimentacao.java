@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Movimentacao extends Requisicao implements EntidadeBase{
+public class Movimentacao extends Requisicao{
 
 	private String tipo;
 
