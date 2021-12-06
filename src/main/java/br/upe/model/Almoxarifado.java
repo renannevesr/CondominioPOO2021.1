@@ -19,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Almoxarifado implements EntidadeBase{
+public class Almoxarifado{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

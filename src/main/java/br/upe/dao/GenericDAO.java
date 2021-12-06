@@ -1,22 +1,31 @@
 package br.upe.dao;
+import java.io.Serializable;
 import java.util.List;
 
-import br.upe.connectionDB.ConnectionDB;
-import br.upe.model.EntidadeBase;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
-public class GenericDAO<Generic extends EntidadeBase>{
+import br.upe.connectionDB.ConnectionDB;
+
+public class GenericDAO<Generic, Id extends Serializable>{
 	
-		public Generic salvarOuAtualizar(Generic g) throws Exception{
+	   private Class<Generic> persistedClass;
+	   
+	   protected GenericDAO() {
+	   }
+
+	   protected GenericDAO(Class<Generic> persistedClass) {
+	       this();
+	       this.persistedClass = persistedClass;
+	   }
+	   
+		public Generic salvar(Generic g) throws Exception{
 			
 			ConnectionDB conexao = new ConnectionDB();
 			
 			try {
 				conexao.em.getTransaction().begin();
-				if(g.getId() == null) {
-					conexao.em.persist(g);
-				} else {
-					g = conexao.em.merge(g);
-				}
+				conexao.em.persist(g);
 				conexao.em.getTransaction().commit();
 			}catch(Exception e){
 				System.out.println(e.getMessage());
@@ -30,33 +39,53 @@ public class GenericDAO<Generic extends EntidadeBase>{
 			return g;
 		}
 		
-		public List<Generic> listar(Generic g){
+		public Generic atualizar(Generic g) throws Exception{
 			
 			ConnectionDB conexao = new ConnectionDB();
-			List<Generic> listaGenerica = null;
+			
 			try {
-				
-			String table = g.getClass().getSimpleName();
-				
-			listaGenerica = conexao.em.createQuery("select g from " + table + " g").getResultList();
-				
-			}catch (Exception e) {
-				System.out.println(e);
-			}finally {
+				conexao.em.getTransaction().begin();
+				conexao.em.merge(g);
+				conexao.em.getTransaction().commit();
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				conexao.em.getTransaction().rollback();
+			}
+			finally {
 				conexao.em.close();
 			}
 		
-			return listaGenerica;
+			return g;
 		}
 		
-		public void remover(Class<Generic> o, Long id) {
+		public List<Generic> listar() {
+			   ConnectionDB conexao = new ConnectionDB();
+			   
+			   List<Generic> listaGenerica = null;
+			   
+			   CriteriaBuilder builder = conexao.em.getCriteriaBuilder();
+		       CriteriaQuery<Generic> query = builder.createQuery(persistedClass);
+		       query.from(persistedClass);
+		       
+		       listaGenerica = conexao.em.createQuery(query).getResultList();
+		       
+		       return listaGenerica;
+		   }
+		
+		public Generic buscarPorId(Id id) {
+			  ConnectionDB conexao = new ConnectionDB();
+		       return conexao.em.find(persistedClass, id);
+		 }
+		
+		public void remover(Id id) {
 			
 			ConnectionDB conexao = new ConnectionDB();
 			
-			Generic g = conexao.em.find(o, id);
+			Generic entity = buscarPorId(id);
 			try {
 				conexao.em.getTransaction().begin();
-				conexao.em.remove(g);
+				conexao.em.remove(entity);
 				conexao.em.getTransaction().commit();
 			}catch(Exception e) {
 				System.out.print(e.getMessage());

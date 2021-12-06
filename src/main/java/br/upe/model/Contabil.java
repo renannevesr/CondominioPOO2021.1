@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Contabil implements EntidadeBase{
+public class Contabil{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

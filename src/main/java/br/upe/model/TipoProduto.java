@@ -17,7 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class TipoProduto implements EntidadeBase{
+public class TipoProduto{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

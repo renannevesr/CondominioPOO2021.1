@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class OperacaoEntrada implements EntidadeBase{
+public abstract class OperacaoEntrada{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

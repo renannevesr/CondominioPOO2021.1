@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Condominio implements EntidadeBase{
+public class Condominio{
 	@Id @GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;

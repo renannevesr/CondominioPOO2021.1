@@ -15,7 +15,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Espaco implements EntidadeBase{
+public class Espaco{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

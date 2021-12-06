@@ -6,8 +6,11 @@ import br.upe.model.Condomino;
 public interface CondominoDAO {
 	
 	
-	public class JPACondominoDAO extends GenericDAO<Condomino>{
+	public class JPACondominoDAO extends GenericDAO<Condomino, Long>{
 		
+		public JPACondominoDAO() {
+		       super(Condomino.class);
+		    }   
 	}
 	
 }

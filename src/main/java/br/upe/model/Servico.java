@@ -15,7 +15,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Servico implements EntidadeBase{
+public class Servico{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

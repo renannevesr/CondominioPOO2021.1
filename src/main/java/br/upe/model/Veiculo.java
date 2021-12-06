@@ -10,7 +10,7 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Veiculo implements EntidadeBase{
+public class Veiculo{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
