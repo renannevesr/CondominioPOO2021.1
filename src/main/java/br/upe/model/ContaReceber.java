@@ -15,7 +15,5 @@ import lombok.NoArgsConstructor;
 public class ContaReceber extends OperacaoEntrada{
 
 	private Date dataVencimento;
-	//private String status;
-	
 
 }

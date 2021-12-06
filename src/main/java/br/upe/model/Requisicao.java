@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class Requisicao implements EntidadeBase{
+public abstract class Requisicao{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -37,4 +37,9 @@ public abstract class Requisicao implements EntidadeBase{
 	@JoinColumn(name = "conta_id")
 	private Conta conta;
 
+	public Requisicao(Double valorTotal, Date data, Conta conta) {
+		this.valorTotal = valorTotal;
+		this.data = data;
+		this.conta = conta;
+	}
 }

@@ -4,23 +4,24 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter 
 @Setter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
-public class Conta implements EntidadeBase{
+@ToString
+public class Conta{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -29,15 +30,31 @@ public class Conta implements EntidadeBase{
 	private String tipo;
 	private String banco;
 	private double saldo;
-	/*@OneToMany (cascade = CascadeType.ALL)
+
+	//Operacoes de saida (contabil)
+	@OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="conta_id")
-	private List<OperacaoEntrada> operacaoEntrada;*/
-	/*@OneToMany (cascade = CascadeType.ALL)
+	private List<Movimentacao> movimentacao;
+	@OneToMany (cascade = CascadeType.ALL)
 	@JoinColumn(name="conta_id")
-	private List<Requisicao> requisicao;*/
-	/*@OneToMany (mappedBy = "conta")
-	private List<OperacaoEntrada> operacaoEntrada;
-	@OneToMany 
-	private List<Requisicao> requisicao;*/
+	private List<ListaServicos> listaServicos;
+	
+	//Operacoes de Entrada (contabil)
+	@OneToMany (cascade = CascadeType.ALL)
+	@JoinColumn(name="conta_id")
+	private List<ContaReceber> contaReceber;
+	@OneToMany (cascade = CascadeType.ALL)
+	@JoinColumn(name="conta_id")
+	private List<Reservas> reservas;
+	
+	public Conta(Long id, String agencia, String numeroConta, String tipo, String banco, double saldo) {
+		super();
+		this.id = id;
+		this.agencia = agencia;
+		this.numeroConta = numeroConta;
+		this.tipo = tipo;
+		this.banco = banco;
+		this.saldo = saldo;
+	}
 
 }

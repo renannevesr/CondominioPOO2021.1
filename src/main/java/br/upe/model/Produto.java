@@ -20,7 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 @ToString
-public class Produto implements EntidadeBase{
+public class Produto{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -29,9 +29,6 @@ public class Produto implements EntidadeBase{
 	@JoinColumn(name = "tipoproduto_id")
 	private TipoProduto tipo;
 	private String descricao;
-	@ManyToOne (cascade = CascadeType.ALL)
-	@JoinColumn(name = "movimentacao_id")
-	private Movimentacao movimentacao;
 	private int quantidade;
 	private double volume;
 	private double valor;
