@@ -5,9 +5,11 @@ import br.upe.model.Espaco;
 public interface EspacoDAO {
 
 	
-public class JPAEspacoDAO extends GenericDAO<Espaco> {	
+public class JPAEspacoDAO extends GenericDAO<Espaco, Long> {	
 	
-	
+	public JPAEspacoDAO() {
+	       super(Espaco.class);
+	    }   
 }
 
 }

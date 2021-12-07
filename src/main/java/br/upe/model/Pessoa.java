@@ -13,7 +13,7 @@ import javax.persistence.MappedSuperclass;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class Pessoa implements EntidadeBase{
+public abstract class Pessoa{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; 

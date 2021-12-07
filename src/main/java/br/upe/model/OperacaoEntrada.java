@@ -1,36 +1,33 @@
 package br.upe.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter 
-@Setter
+@MappedSuperclass
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@ToString
-public class Produto{
+public abstract class OperacaoEntrada{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String marca;
+	private Date dataEmissao;
 	@ManyToOne (cascade = CascadeType.ALL)
-	@JoinColumn(name = "tipoproduto_id")
-	private TipoProduto tipo;
-	private String descricao;
-	private int quantidade;
-	private double volume;
+	@JoinColumn (name = "apartamento_id")
+	private Apartamento apartamento;
 	private double valor;
-
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn(name = "conta_id")
+	private Conta conta;
 }
