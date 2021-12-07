@@ -5,8 +5,11 @@ import br.upe.model.Almoxarifado;
 public interface AlmoxarifadoDAO{
 
 	
-public class JPAAlmoxarifadoDAO extends GenericDAO<Almoxarifado>{
+public class JPAAlmoxarifadoDAO extends GenericDAO<Almoxarifado, Long>{
 		
+	public JPAAlmoxarifadoDAO() {
+	       super(Almoxarifado.class);
+	    }   
 }
 
 }

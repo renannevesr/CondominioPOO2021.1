@@ -13,13 +13,11 @@ import javax.persistence.MappedSuperclass;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class Pessoa implements EntidadeBase{
+public abstract class Pessoa{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; 
 	private String nome;
 	private String cpf;
-	//Todo - Verificar Lib de Autenticacao e Autorizacao do Spring
-	//private List<String> acesso;
 
 }
