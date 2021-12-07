@@ -17,6 +17,8 @@ local.properties
 .loadpath
 .recommenders
 
+src/main/java/META-INF/persistence.xml
+
 # External tool builders
 .externalToolBuilders/
 
