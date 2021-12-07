@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ListaServicos extends Requisicao{
+public class RequisicaoServicos extends Requisicao{
 
 	@ManyToMany
 	@JoinTable(name = "listaservicos_servicos", joinColumns =  @JoinColumn(name ="listaservicos_id"), inverseJoinColumns = @JoinColumn (name = "servico_id"))

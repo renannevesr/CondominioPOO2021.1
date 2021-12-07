@@ -1,13 +1,13 @@
 package br.upe.dao;
 
-import br.upe.model.ListaServicos;
+import br.upe.model.RequisicaoServicos;
 
 public interface ServicosDAO {
 
-	public class JPAServicosDAO extends GenericDAO<ListaServicos, Long>{	
+	public class JPAServicosDAO extends GenericDAO<RequisicaoServicos, Long>{	
 	
 		public JPAServicosDAO() {
-	       super(ListaServicos.class);
+	       super(RequisicaoServicos.class);
 	    }   
 	}
 }

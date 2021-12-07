@@ -34,10 +34,10 @@ public class Conta{
 	//Operacoes de saida (contabil)
 	@OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="conta_id")
-	private List<Movimentacao> movimentacao;
+	private List<RequisicaoProduto> movimentacao;
 	@OneToMany (cascade = CascadeType.ALL)
 	@JoinColumn(name="conta_id")
-	private List<ListaServicos> listaServicos;
+	private List<RequisicaoServicos> listaServicos;
 	
 	//Operacoes de Entrada (contabil)
 	@OneToMany (cascade = CascadeType.ALL)

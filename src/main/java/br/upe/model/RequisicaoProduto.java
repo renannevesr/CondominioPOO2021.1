@@ -20,7 +20,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Movimentacao extends Requisicao{
+public class RequisicaoProduto extends Requisicao{
 
 	private String tipo;
 	@OneToMany (cascade = CascadeType.ALL)
@@ -28,7 +28,7 @@ public class Movimentacao extends Requisicao{
 	private List<Produto> produtos;
 	
 
-	public Movimentacao(Double valorTotal, Date data, Conta conta, String tipo, List<Produto> produtos) {
+	public RequisicaoProduto(Double valorTotal, Date data, Conta conta, String tipo, List<Produto> produtos) {
 		super(valorTotal, data, conta);
 		this.tipo = tipo;
 		this.produtos = produtos;
