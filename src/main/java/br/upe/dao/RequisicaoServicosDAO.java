@@ -2,7 +2,7 @@ package br.upe.dao;
 
 import br.upe.model.RequisicaoServicos;
 
-public interface ServicosDAO {
+public interface RequisicaoServicosDAO {
 
 	public class JPAServicosDAO extends GenericDAO<RequisicaoServicos, Long>{	
 	
