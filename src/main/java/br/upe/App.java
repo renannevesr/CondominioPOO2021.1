@@ -21,6 +21,8 @@ public class App {
         //listar as movimentacoes por conta
         System.out.println(contaDao.buscarPorId(1l).getMovimentacao());
         
+        System.out.println("Chama as meretrizes que a multa tá paga");
+        
     }
     
 }
