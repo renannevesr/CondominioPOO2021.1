@@ -14,6 +14,8 @@ local.properties
 .loadpath
 .recommenders
 
+src/main/java/META-INF/persistence.xml
+
 # External tool builders
 .externalToolBuilders/
 
@@ -77,6 +79,8 @@ local.properties
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/
+condominioUPE.iml
 
 # AWS User-specific
 .idea/**/aws.xml

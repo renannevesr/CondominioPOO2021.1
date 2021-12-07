@@ -1,14 +1,17 @@
 package br.upe.model;
 
-import java.util.Date;
+import lombok.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.Entity;
+import java.util.Date;
 
 @Getter 
 @Setter
-
-public class Funcionario extends Pessoa {
+@Entity
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+public class Funcionario extends Pessoa{
 	
 	private Date dataAdmissao;
 	private String carteiraTrabalho;

@@ -1,15 +1,25 @@
 package br.upe.model;
 
-import java.util.ArrayList;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Getter 
 @Setter
-public class Contabil {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Contabil implements EntidadeBase{
 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private double saldoGlobal;
-	private ArrayList<Conta> contas;
+
+	@OneToMany
+	@JoinColumn(name = "contabil_id")
+	private List<Conta> contas;
 	
 }
