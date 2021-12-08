@@ -1,7 +1,8 @@
 package br.upe;
 
-import br.upe.dao.ContaDAO.JPAContaDAO;
-import br.upe.dao.RequisicaoProdutoDAO.JPARequisicaoProdutoDAO;
+import br.upe.model.dao.ContaDAO.JPAContaDAO;
+import br.upe.model.dao.RequisicaoProdutoDAO.JPARequisicaoProdutoDAO;
+import br.upe.model.service.FuncionarioService;
 
 
 public class App {
@@ -22,6 +23,9 @@ public class App {
         System.out.println(contaDao.buscarPorId(1l).getMovimentacao());
         
         System.out.println("Chama as meretrizes que a multa tá paga");
+        
+        FuncionarioService funcionario = new FuncionarioService();
+        funcionario.cadastrar(null);
         
     }
     
