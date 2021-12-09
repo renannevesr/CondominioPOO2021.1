@@ -25,4 +25,13 @@ public class UtilsServices {
 		}
 	}
 	
+public static void dataDepois(Date date) throws Exception{
+		
+		Date data = new Date();
+		
+		if(data.after(date)) {
+			throw new Exception("Data invalida");
+		}
+	}
+	
 }
