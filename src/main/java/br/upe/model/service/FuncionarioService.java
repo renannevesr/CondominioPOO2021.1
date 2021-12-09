@@ -1,9 +1,8 @@
 package br.upe.model.service;
 
-import java.util.Date;
-
 import br.upe.model.dao.FuncionarioDAO.JPAFuncionarioDAO;
 import br.upe.model.entity.Funcionario;
+import br.upe.utils.UtilsServices;
 
 public class FuncionarioService {
 
@@ -15,17 +14,16 @@ public class FuncionarioService {
 	
 	public void cadastrar(Funcionario funcionario) {
 		
-		Date data = new Date();
-		
-		if(funcionario.getCpf().length() != 11 || !funcionario.getCpf().matches("\\d+")) {
-			System.out.println("O campo de CPF está incorreto!");
-		}else if(data.before(funcionario.getDataAdmissao())){
-			System.out.println("A data que você inseriu é maior que a atual.");
-		}else{
-			dao.salvar(funcionario);
+		try {			
+			UtilsServices.validaCPF(funcionario.getCpf());
+			UtilsServices.validaNome(funcionario.getNome());
+			UtilsServices.dataAntes(funcionario.getDataAdmissao());
+			dao.salvar(funcionario);	
+		}catch (Exception e) {
+			System.out.print(e.getMessage());
+			e.printStackTrace();
 		}
-		
+
 	}
 
- }
-
+}

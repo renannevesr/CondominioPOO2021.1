@@ -2,8 +2,6 @@ package br.upe;
 
 import java.util.Date;
 
-import br.upe.model.dao.ContaDAO.JPAContaDAO;
-import br.upe.model.dao.RequisicaoProdutoDAO.JPARequisicaoProdutoDAO;
 import br.upe.model.entity.Funcionario;
 import br.upe.model.service.FuncionarioService;
 
@@ -28,13 +26,22 @@ public class App {
 
         System.out.println("Chama as meretrizes que a multa tá paga");
         
-        @SuppressWarnings("deprecation")
-        Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "201985", "Jardineiro");
-        novoFuncionario.setNome("Tuca do degrade");
-        novoFuncionario.setCpf("12345686145");
+        //@SuppressWarnings("deprecation")
+        Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "209885", "Porteiro");
+        novoFuncionario.setNome("Cirbas");
+        novoFuncionario.setCpf("12986646145");
         FuncionarioService funcionario = new FuncionarioService();
         funcionario.cadastrar(novoFuncionario);
         
+        //Condominio b = new Condominio(null, "Torres Gemeas", "78945698714", "Rua da Meretrix")
+        		
+        //Condomino b = new Condomino("(81) - 9 9845-7989");
+        //b.setNome("André da massa");
+        //b.setCpf("65432185189");
+        //Apartamento a = new Apartamento(null, 71, b, 432.78,"Bloco A");
+        //Veiculo novoVeiculo = new Veiculo(null, "PEN-0070", "Celta", "Preto", a);
+        //VeiculoService veiculo = new VeiculoService();
+        //veiculo.cadastrar(novoVeiculo);
     }
     
 }

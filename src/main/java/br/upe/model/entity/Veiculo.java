@@ -14,10 +14,11 @@ public class Veiculo{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(unique = true)
 	private String placa;
 	private String modelo;
 	private String cor;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Apartamento apartamento;
 
 }
