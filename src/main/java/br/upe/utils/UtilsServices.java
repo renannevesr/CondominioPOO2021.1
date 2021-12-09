@@ -10,9 +10,21 @@ public class UtilsServices {
 		}
 	}
 	
-	public static void validaNome(String nome) throws Exception {
-		if(!nome.matches("\\D+")) {
-			throw new Exception("Nome invalido!");
+	public static void validaCNPJ(String cnpj) throws Exception {
+		if(cnpj.length() != 14 || !cnpj.matches("\\d+")) {
+			throw new Exception("CNPJ invalido!");
+		}
+	}
+	
+	public static void apenasLetras(String texto) throws Exception {
+		if(!texto.matches("\\D+")) {
+			throw new Exception("Caracteres invalidos!");
+		}
+	}
+	
+	public static void apenasNumeros(String texto) throws Exception {
+		if(texto.matches("\\D+")) {
+			throw new Exception("Caracteres invalidos!");
 		}
 	}
 	

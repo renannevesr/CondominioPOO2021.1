@@ -28,8 +28,8 @@ public class App {
         
         //@SuppressWarnings("deprecation")
         Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "209885", "Porteiro");
-        novoFuncionario.setNome("Cirbas");
-        novoFuncionario.setCpf("12986646145");
+        novoFuncionario.setNome("Dudu");
+        novoFuncionario.setCpf("12786461945");
         FuncionarioService funcionario = new FuncionarioService();
         funcionario.cadastrar(novoFuncionario);
         

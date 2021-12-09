@@ -4,9 +4,9 @@ import br.upe.model.entity.RequisicaoServicos;
 
 public interface RequisicaoServicosDAO {
 
-	public class JPAServicosDAO extends GenericDAO<RequisicaoServicos, Long>{	
+	public class JPARequisicaoServicosDAO extends GenericDAO<RequisicaoServicos, Long>{	
 	
-		public JPAServicosDAO() {
+		public JPARequisicaoServicosDAO() {
 	       super(RequisicaoServicos.class);
 	    }   
 	}

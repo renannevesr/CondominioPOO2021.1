@@ -6,17 +6,13 @@ import br.upe.utils.UtilsServices;
 
 public class MoradorService {
 
-	private JPAMoradorDAO dao;
-	
-	public MoradorService() {
-		this.dao = new JPAMoradorDAO();
-	}
+	private JPAMoradorDAO dao = new JPAMoradorDAO();
 	
 	public void cadastrar (Morador morador) {
 		
 		try {			
 			UtilsServices.validaCPF(morador.getCpf());
-			UtilsServices.validaNome(morador.getNome());
+			UtilsServices.apenasLetras(morador.getNome());
 			dao.salvar(morador);
 		} catch (Exception e) {
 			System.out.print(e.getMessage());

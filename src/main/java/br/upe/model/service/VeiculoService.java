@@ -5,11 +5,7 @@ import br.upe.model.entity.Veiculo;
 
 public class VeiculoService {
 
-	private JPAVeiculoDAO dao;
-	
-	public VeiculoService() {
-		this.dao = new JPAVeiculoDAO();
-	}
+	private JPAVeiculoDAO dao = new JPAVeiculoDAO();
 	
 	public void cadastrar (Veiculo veiculo) {
 		if(veiculo.getCor().matches("\\d+")) {
