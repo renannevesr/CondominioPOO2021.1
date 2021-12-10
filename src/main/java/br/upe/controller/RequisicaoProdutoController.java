@@ -2,7 +2,6 @@ package br.upe.controller;
 
 import br.upe.model.dao.RequisicaoProdutoDAO.JPARequisicaoProdutoDAO;
 import br.upe.model.entity.RequisicaoProduto;
-import br.upe.validator.ValidatorController;
 
 public class RequisicaoProdutoController {
 

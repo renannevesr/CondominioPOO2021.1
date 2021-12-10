@@ -3,7 +3,13 @@ package br.upe;
 import java.util.Date;
 
 import br.upe.controller.FuncionarioController;
+import br.upe.controller.UsuarioController;
+import br.upe.model.dao.FuncionarioDAO;
+import br.upe.model.dao.FuncionarioDAO.JPAFuncionarioDAO;
+import br.upe.model.dao.PessoaDAO;
+import br.upe.model.dao.PessoaDAO.JPAPessoaDAO;
 import br.upe.model.entity.Funcionario;
+import br.upe.model.entity.Usuario;
 
 
 public class App {
@@ -27,11 +33,23 @@ public class App {
         System.out.println("Chama as meretrizes que a multa tá paga");
         
         //@SuppressWarnings("deprecation")
-        Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "209885", "Porteiro");
-        novoFuncionario.setNome("Dudu");
-        novoFuncionario.setCpf("12786461945");
-        FuncionarioController funcionario = new FuncionarioController();
-        funcionario.cadastrar(novoFuncionario);
+        //Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "209885", "Porteiro");
+        //novoFuncionario.setNome("Dudu");
+        //novoFuncionario.setCpf("12786461945");
+        //FuncionarioController funcionario = new FuncionarioController();
+        //funcionario.cadastrar(novoFuncionario);
+        
+        //JPAFuncionarioDAO dao = new JPAFuncionarioDAO(); 
+        //Funcionario novoFuncionario = dao.buscarPorId(1l);
+
+        
+//        Usuario novoUsuario = new Usuario(null, "dev1234", novoFuncionario, null);
+  //      novoUsuario.setUser(novoFuncionario);
+    //    UsuarioController usuario = new UsuarioController();
+      //  usuario.cadastrar(novoUsuario);
+        
+        PessoaDAO dao = new JPAPessoaDAO();
+        System.out.println(dao.buscarCPF("12786461945"));
         
         //Condominio b = new Condominio(null, "Torres Gemeas", "78945698714", "Rua da Meretrix")
         		
