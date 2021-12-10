@@ -23,7 +23,7 @@ public class Usuario {
 	private Long id;
 	private String senha;
 	@OneToOne
-	@JoinColumn(name = "funcionario_id")
+	@JoinColumn(name = "funcionario_id", unique = true)
 	private Funcionario funcionario;
 	private String user;
 	

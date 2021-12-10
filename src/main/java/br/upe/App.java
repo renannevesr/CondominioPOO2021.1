@@ -33,23 +33,22 @@ public class App {
         System.out.println("Chama as meretrizes que a multa tá paga");
         
         //@SuppressWarnings("deprecation")
-        //Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "209885", "Porteiro");
+       // Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "209885", "Porteiro");
         //novoFuncionario.setNome("Dudu");
         //novoFuncionario.setCpf("12786461945");
-        //FuncionarioController funcionario = new FuncionarioController();
+        FuncionarioController funcionario = new FuncionarioController();
         //funcionario.cadastrar(novoFuncionario);
         
-        //JPAFuncionarioDAO dao = new JPAFuncionarioDAO(); 
-        //Funcionario novoFuncionario = dao.buscarPorId(1l);
+        JPAPessoaDAO dao = new JPAPessoaDAO(); 
 
+        Funcionario novoFuncionario =  (Funcionario) dao.buscarCPF(new Funcionario(), "12786461945");
+        Usuario novoUsuario = new Usuario(null, "dev1234", novoFuncionario, null);
+        novoUsuario.setUser(novoFuncionario);
+        UsuarioController usuario = new UsuarioController();
+        usuario.cadastrar(novoUsuario);
+       
         
-//        Usuario novoUsuario = new Usuario(null, "dev1234", novoFuncionario, null);
-  //      novoUsuario.setUser(novoFuncionario);
-    //    UsuarioController usuario = new UsuarioController();
-      //  usuario.cadastrar(novoUsuario);
         
-        PessoaDAO dao = new JPAPessoaDAO();
-        System.out.println(dao.buscarCPF("12786461945"));
         
         //Condominio b = new Condominio(null, "Torres Gemeas", "78945698714", "Rua da Meretrix")
         		

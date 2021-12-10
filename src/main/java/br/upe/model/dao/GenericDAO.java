@@ -6,9 +6,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import br.upe.connectionDB.ConnectionDB;
-import br.upe.model.entity.Pessoa;
 
-public class GenericDAO<Generic, Id extends Serializable> implements PessoaDAO{
+public class GenericDAO<Generic, Id extends Serializable>{
 	
 	   private Class<Generic> persistedClass;
 	   
@@ -97,11 +96,6 @@ public class GenericDAO<Generic, Id extends Serializable> implements PessoaDAO{
 			}
 			
 		}
-
-		@Override
-		public Pessoa buscarCPF(String cpf) {
-			ConnectionDB conexao = new ConnectionDB();
-			return (Pessoa) conexao.em.find(persistedClass, cpf);
-		}
+		
 	}
 
