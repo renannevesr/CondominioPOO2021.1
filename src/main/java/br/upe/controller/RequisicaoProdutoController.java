@@ -1,10 +1,10 @@
-package br.upe.model.service;
+package br.upe.controller;
 
 import br.upe.model.dao.RequisicaoProdutoDAO.JPARequisicaoProdutoDAO;
 import br.upe.model.entity.RequisicaoProduto;
-import br.upe.utils.UtilsServices;
+import br.upe.validator.ValidatorController;
 
-public class RequisicaoProdutoService {
+public class RequisicaoProdutoController {
 
 	private JPARequisicaoProdutoDAO dao = new JPARequisicaoProdutoDAO();
 	

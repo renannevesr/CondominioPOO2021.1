@@ -2,8 +2,8 @@ package br.upe;
 
 import java.util.Date;
 
+import br.upe.controller.FuncionarioController;
 import br.upe.model.entity.Funcionario;
-import br.upe.model.service.FuncionarioService;
 
 
 public class App {
@@ -30,7 +30,7 @@ public class App {
         Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "209885", "Porteiro");
         novoFuncionario.setNome("Dudu");
         novoFuncionario.setCpf("12786461945");
-        FuncionarioService funcionario = new FuncionarioService();
+        FuncionarioController funcionario = new FuncionarioController();
         funcionario.cadastrar(novoFuncionario);
         
         //Condominio b = new Condominio(null, "Torres Gemeas", "78945698714", "Rua da Meretrix")

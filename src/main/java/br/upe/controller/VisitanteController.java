@@ -1,9 +1,9 @@
-package br.upe.model.service;
+package br.upe.controller;
 
 import br.upe.model.dao.VisitanteDAO.JPAVisitanteDAO;
 import br.upe.model.entity.Visitante;
 
-public class VisitanteService {
+public class VisitanteController {
 
 	JPAVisitanteDAO dao = new JPAVisitanteDAO();
 	

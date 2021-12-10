@@ -1,17 +1,17 @@
-package br.upe.model.service;
+package br.upe.controller;
 
 import br.upe.model.dao.CondominioDAO.JPACondominioDAO;
 import br.upe.model.entity.Condominio;
-import br.upe.utils.UtilsServices;
+import br.upe.validator.ValidatorController;
 
-public class CondominioService {
+public class CondominioController {
 
 	private JPACondominioDAO dao = new JPACondominioDAO();
 	
 	public void cadastrar (Condominio condominio) {
 		
 		try {
-			UtilsServices.validaCNPJ(condominio.getCnpj());
+			ValidatorController.validaCNPJ(condominio.getCnpj());
 			dao.salvar(condominio);
 		} catch (Exception e) {
 			System.out.print(e.getMessage());

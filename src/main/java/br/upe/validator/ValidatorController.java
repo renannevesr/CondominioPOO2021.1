@@ -1,8 +1,8 @@
-package br.upe.utils;
+package br.upe.validator;
 
 import java.util.Date;
 
-public class UtilsServices {
+public class ValidatorController {
 	
 	public static void validaCPF(String cpf) throws Exception {
 		if(cpf.length() != 11 || !cpf.matches("\\d+")) {

@@ -1,9 +1,9 @@
-package br.upe.model.service;
+package br.upe.controller;
 
 import br.upe.model.dao.ProdutoDAO.JPAProdutoDAO;
 import br.upe.model.entity.Produto;
 
-public class ProdutoService {
+public class ProdutoController {
 
 	private JPAProdutoDAO dao = new JPAProdutoDAO();
 	

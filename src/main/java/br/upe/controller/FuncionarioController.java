@@ -1,19 +1,19 @@
-package br.upe.model.service;
+package br.upe.controller;
 
 import br.upe.model.dao.FuncionarioDAO.JPAFuncionarioDAO;
 import br.upe.model.entity.Funcionario;
-import br.upe.utils.UtilsServices;
+import br.upe.validator.ValidatorController;
 
-public class FuncionarioService {
+public class FuncionarioController {
 
 	private JPAFuncionarioDAO dao = new JPAFuncionarioDAO();
 	
 	public void cadastrar(Funcionario funcionario) {
 		
 		try {			
-			UtilsServices.validaCPF(funcionario.getCpf());
-			UtilsServices.apenasLetras(funcionario.getNome());
-			UtilsServices.dataAntes(funcionario.getDataAdmissao());
+			ValidatorController.validaCPF(funcionario.getCpf());
+			ValidatorController.apenasLetras(funcionario.getNome());
+			ValidatorController.dataAntes(funcionario.getDataAdmissao());
 			dao.salvar(funcionario);	
 		}catch (Exception e) {
 			System.out.print(e.getMessage());

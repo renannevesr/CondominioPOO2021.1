@@ -1,9 +1,9 @@
-package br.upe.model.service;
+package br.upe.controller;
 
 import br.upe.model.dao.RequisicaoServicosDAO.JPARequisicaoServicosDAO;
 import br.upe.model.entity.RequisicaoServicos;
 
-public class RequisicaoServicosService {
+public class RequisicaoServicosController {
 
 	private JPARequisicaoServicosDAO dao = new JPARequisicaoServicosDAO();
 	

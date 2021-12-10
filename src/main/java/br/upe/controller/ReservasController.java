@@ -1,9 +1,9 @@
-package br.upe.model.service;
+package br.upe.controller;
 
 import br.upe.model.dao.ReservasDAO.JPAReservasDAO;
 import br.upe.model.entity.Reservas;
 
-public class ReservasServices {
+public class ReservasController {
 
 	private JPAReservasDAO dao = new JPAReservasDAO();
 	

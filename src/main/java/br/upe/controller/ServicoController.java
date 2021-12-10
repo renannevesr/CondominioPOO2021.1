@@ -1,9 +1,9 @@
-package br.upe.model.service;
+package br.upe.controller;
 
 import br.upe.model.dao.ServicoDAO.JPAServicoDAO;
 import br.upe.model.entity.Servico;
 
-public class ServicoService {
+public class ServicoController {
 
 	private JPAServicoDAO dao = new JPAServicoDAO();
 	
