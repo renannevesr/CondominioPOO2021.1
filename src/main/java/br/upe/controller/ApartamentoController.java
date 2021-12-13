@@ -10,7 +10,6 @@ public class ApartamentoController {
 	
 	public void cadastrar (Apartamento apartamento) {
 		try {
-			ValidatorController.apenasLetras(apartamento.getBloco());
 			dao.salvar(apartamento);
 		} catch (Exception e) {
 			System.out.print(e.getMessage());

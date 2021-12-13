@@ -1,14 +1,21 @@
 package br.upe;
 
+import java.text.DateFormat;
 import java.util.Date;
 
+import br.upe.controller.ApartamentoController;
 import br.upe.controller.FuncionarioController;
+import br.upe.controller.ReservasController;
 import br.upe.controller.UsuarioController;
-import br.upe.model.dao.FuncionarioDAO;
-import br.upe.model.dao.FuncionarioDAO.JPAFuncionarioDAO;
-import br.upe.model.dao.PessoaDAO;
+import br.upe.model.dao.EspacoDAO.JPAEspacoDAO;
 import br.upe.model.dao.PessoaDAO.JPAPessoaDAO;
+import br.upe.model.entity.Apartamento;
+import br.upe.model.entity.Blocos;
+import br.upe.model.entity.Espaco;
+import br.upe.model.entity.Espacos;
+import br.upe.model.entity.FuncaoFuncionario;
 import br.upe.model.entity.Funcionario;
+import br.upe.model.entity.Reservas;
 import br.upe.model.entity.Usuario;
 
 
@@ -33,29 +40,45 @@ public class App {
         System.out.println("Chama as meretrizes que a multa tá paga");
         
         //@SuppressWarnings("deprecation")
-       // Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "209885", "Porteiro");
-        //novoFuncionario.setNome("Dudu");
-        //novoFuncionario.setCpf("12786461945");
+        Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "209885", FuncaoFuncionario.PORTEIRO);
+        novoFuncionario.setNome("Dudu");
+        novoFuncionario.setCpf("12569998821");
         FuncionarioController funcionario = new FuncionarioController();
         //funcionario.cadastrar(novoFuncionario);
         
         JPAPessoaDAO dao = new JPAPessoaDAO(); 
 
-        Funcionario novoFuncionario =  (Funcionario) dao.buscarCPF(new Funcionario(), "12786461945");
+        //Funcionario novoFuncionario =  (Funcionario) dao.buscarCPF(new Funcionario(), "12786461945");
         Usuario novoUsuario = new Usuario(null, "dev1234", novoFuncionario, null);
         novoUsuario.setUser(novoFuncionario);
         UsuarioController usuario = new UsuarioController();
-        usuario.cadastrar(novoUsuario);
+        //usuario.cadastrar(novoUsuario);
        
+        Espaco e = new Espaco(null, Espacos.ACADEMIA, "oi");
+        JPAEspacoDAO daoE = new JPAEspacoDAO();
+        daoE.salvar(e);
         
+        Espaco novoEspaco = daoE.buscarPorId(2l);
+        Reservas r = new Reservas ();
+        r.setEspaco(novoEspaco);
+        r.setValor(200.0);
+        DateFormat f = DateFormat.getDateInstance();
+        //Date data2 = f.parse("20/12/2021");
+        r.setDataUtilizacao(new Date(2021, 12, 20));
         
+        ReservasController rc = new ReservasController();
+        //rc.cadastrar(r);
+        //Reservas r = new Reservas (null, new Date(), null, 200.0, null  null, novoEspaco, new Date());
         
         //Condominio b = new Condominio(null, "Torres Gemeas", "78945698714", "Rua da Meretrix")
         		
         //Condomino b = new Condomino("(81) - 9 9845-7989");
         //b.setNome("André da massa");
         //b.setCpf("65432185189");
-        //Apartamento a = new Apartamento(null, 71, b, 432.78,"Bloco A");
+  
+        ApartamentoController dao2 = new ApartamentoController();
+        Apartamento a = new Apartamento(null, 72, null, 432.78, Blocos.C);
+      //  dao2.cadastrar(a);
         //Veiculo novoVeiculo = new Veiculo(null, "PEN-0070", "Celta", "Preto", a);
         //VeiculoService veiculo = new VeiculoService();
         //veiculo.cadastrar(novoVeiculo);

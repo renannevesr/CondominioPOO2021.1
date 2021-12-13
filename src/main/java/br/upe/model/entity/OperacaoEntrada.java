@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,8 @@ public abstract class OperacaoEntrada{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Date dataEmissao;
+	@CreationTimestamp
+	private Date dataEmissao;//dataEmissao iniciar como newDate (solicitacao feita naquele momento)
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn (name = "apartamento_id")
 	private Apartamento apartamento;
@@ -30,4 +33,5 @@ public abstract class OperacaoEntrada{
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name = "conta_id")
 	private Conta conta;
+	
 }

@@ -8,10 +8,14 @@ public class VeiculoController {
 	private JPAVeiculoDAO dao = new JPAVeiculoDAO();
 	
 	public void cadastrar (Veiculo veiculo) {
-		if(veiculo.getCor().matches("\\d+")) {
-			System.out.print("Cor invalida");
-		} else {
-			dao.salvar(veiculo);
+		try {
+			if(veiculo.getCor().matches("\\d+")) {
+				System.out.print("Cor invalida");
+			} else {
+				dao.salvar(veiculo);
+			}
+		}catch(Exception e) {
+			e.getMessage();
 		}
 	}
 	

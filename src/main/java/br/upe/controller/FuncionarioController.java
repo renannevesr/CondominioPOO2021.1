@@ -17,7 +17,7 @@ public class FuncionarioController {
 			dao.salvar(funcionario);	
 		}catch (Exception e) {
 			System.out.print(e.getMessage());
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 	}

@@ -3,6 +3,11 @@ package br.upe.model.entity;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import java.util.Date;
 
 @Getter 
@@ -13,8 +18,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class Funcionario extends Pessoa{
 	
+	@Temporal(TemporalType.DATE)
 	private Date dataAdmissao;
 	private String carteiraTrabalho;
-	private String funcao;
+	@Enumerated(EnumType.STRING)
+	private FuncaoFuncionario funcao;
 
 }

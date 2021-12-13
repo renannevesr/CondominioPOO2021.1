@@ -1,9 +1,12 @@
 package br.upe.model.dao;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+
+import org.hibernate.exception.ConstraintViolationException;
 
 import br.upe.connectionDB.ConnectionDB;
 
@@ -19,7 +22,7 @@ public class GenericDAO<Generic, Id extends Serializable>{
 	       this.persistedClass = persistedClass;
 	   }
 	   
-		public Generic salvar(Generic g){
+		public Generic salvar(Generic g) throws Exception{
 			
 			ConnectionDB conexao = new ConnectionDB();
 			
@@ -27,7 +30,11 @@ public class GenericDAO<Generic, Id extends Serializable>{
 				conexao.em.getTransaction().begin();
 				conexao.em.persist(g);
 				conexao.em.getTransaction().commit();
-			}catch(Exception e){
+			}
+			catch(Exception e){
+				if(e instanceof SQLException) {
+					throw new Exception ("Dados duplicados!");
+				}
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 				conexao.em.getTransaction().rollback();

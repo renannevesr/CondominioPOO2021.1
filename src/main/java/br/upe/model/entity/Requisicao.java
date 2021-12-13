@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 //import javax.persistence.MappedSuperclass;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +34,7 @@ public abstract class Requisicao{
 	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
 	private double valorTotal;
+	@CreationTimestamp
 	private Date data;
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name = "conta_id")
