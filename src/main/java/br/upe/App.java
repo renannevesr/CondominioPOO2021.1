@@ -9,6 +9,7 @@ import br.upe.controller.ReservasController;
 import br.upe.controller.UsuarioController;
 import br.upe.model.dao.EspacoDAO.JPAEspacoDAO;
 import br.upe.model.dao.PessoaDAO.JPAPessoaDAO;
+import br.upe.model.dao.ReservasDAO.JPAReservasDAO;
 import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Blocos;
 import br.upe.model.entity.Espaco;
@@ -56,9 +57,9 @@ public class App {
        
         Espaco e = new Espaco(null, Espacos.ACADEMIA, "oi");
         JPAEspacoDAO daoE = new JPAEspacoDAO();
-        daoE.salvar(e);
+        //daoE.salvar(e);
         
-        Espaco novoEspaco = daoE.buscarPorId(2l);
+        Espaco novoEspaco = daoE.buscarPorId(1l);
         Reservas r = new Reservas ();
         r.setEspaco(novoEspaco);
         r.setValor(200.0);
@@ -67,7 +68,12 @@ public class App {
         r.setDataUtilizacao(new Date(2021, 12, 20));
         
         ReservasController rc = new ReservasController();
-        //rc.cadastrar(r);
+       // rc.cadastrar(r);
+        JPAReservasDAO daoR = new JPAReservasDAO();
+        System.out.println(daoR.buscarPorId(1l).getDataEmissao());
+        
+        
+        
         //Reservas r = new Reservas (null, new Date(), null, 200.0, null  null, novoEspaco, new Date());
         
         //Condominio b = new Condominio(null, "Torres Gemeas", "78945698714", "Rua da Meretrix")

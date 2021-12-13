@@ -34,7 +34,7 @@ public class Conta{
 	//Operacoes de saida (contabil)
 	@OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="conta_id")
-	private List<RequisicaoProduto> movimentacao;
+	private List<RequisicaoProdutoCompra> movimentacao;
 	@OneToMany (cascade = CascadeType.ALL)
 	@JoinColumn(name="conta_id")
 	private List<RequisicaoServicos> listaServicos;
