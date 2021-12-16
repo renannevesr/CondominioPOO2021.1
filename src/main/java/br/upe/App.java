@@ -59,9 +59,10 @@ public class App {
         JPAEspacoDAO daoE = new JPAEspacoDAO();
         //daoE.salvar(e);
         
-        Espaco novoEspaco = daoE.buscarPorId(1l);
+        System.out.print(daoE.buscarPorId(1l));
+
         Reservas r = new Reservas ();
-        r.setEspaco(novoEspaco);
+       // r.setEspaco(novoEspaco);
         r.setValor(200.0);
         DateFormat f = DateFormat.getDateInstance();
         //Date data2 = f.parse("20/12/2021");
@@ -70,7 +71,7 @@ public class App {
         ReservasController rc = new ReservasController();
        // rc.cadastrar(r);
         JPAReservasDAO daoR = new JPAReservasDAO();
-        System.out.println(daoR.buscarPorId(1l).getDataEmissao());
+       // System.out.println(daoR.buscarPorId(1l).getDataEmissao());
         
         
         
