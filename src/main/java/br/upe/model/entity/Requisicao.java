@@ -36,9 +36,10 @@ public abstract class Requisicao{
 	private double valorTotal;
 	@CreationTimestamp
 	private Date data;
-	@ManyToOne (cascade = CascadeType.ALL)
+	@ManyToOne 
 	@JoinColumn(name = "conta_id")
 	private Conta conta;
+
 
 	public Requisicao(Double valorTotal, Date data, Conta conta) {
 		this.valorTotal = valorTotal;

@@ -23,12 +23,24 @@ import lombok.ToString;
 public class RequisicaoProdutoCompra extends Requisicao{
 
 	private String tipo;
-	@OneToMany (cascade = CascadeType.ALL)
+	/*@OneToMany 
 	@JoinColumn(name="reqProdutoCompra_id")
-	private List<Produto> produtos;
+	private List<Produto> produtos;*/
+	@OneToMany 
+	@JoinColumn(name="reqProdutoCompra_id")
+	private List<Item> produtos;
 	
+	public double getValorTotal() {
+		double valor = 0;
+		
+		for(Item listaproduto: produtos) {
+			valor += listaproduto.getValor()*listaproduto.getQuantidade();
+		}
+		
+		return valor;
+	}
 
-	public RequisicaoProdutoCompra(Double valorTotal, Date data, Conta conta, String tipo, List<Produto> produtos) {
+	public RequisicaoProdutoCompra(Double valorTotal, Date data, Conta conta, String tipo, List<Item> produtos) {
 		super(valorTotal, data, conta);
 		this.tipo = tipo;
 		this.produtos = produtos;

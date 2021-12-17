@@ -29,8 +29,8 @@ public class Produto{
 	@JoinColumn(name = "tipoproduto_id")
 	private TipoProduto tipo;
 	private String descricao;
-	private int quantidade;
+	//private int quantidade;
 	private double volume;
-	private double valor;
+	//private double valor;
 
 }

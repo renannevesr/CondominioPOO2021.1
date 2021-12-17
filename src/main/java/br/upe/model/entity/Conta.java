@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,12 +30,13 @@ public class Conta{
 	private String numeroConta;
 	private String tipo;
 	private String banco;
+	@Transient
 	private double saldo;
 
 	//Operacoes de saida (contabil)
 	@OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="conta_id")
-	private List<RequisicaoProdutoCompra> movimentacao;
+	private List<RequisicaoProdutoCompra> produtoCompra;
 	@OneToMany (cascade = CascadeType.ALL)
 	@JoinColumn(name="conta_id")
 	private List<RequisicaoServicos> listaServicos;
@@ -46,6 +48,29 @@ public class Conta{
 	@OneToMany (cascade = CascadeType.ALL)
 	@JoinColumn(name="conta_id")
 	private List<Reservas> reservas;
+	
+	
+	public double getSaldo() {
+		double valor = 0;
+		
+		for (Reservas reserva: reservas) {
+			valor += reserva.getValor();
+		}
+		
+		for (ContaReceber contareceber: contaReceber) {
+			valor += contareceber.getValor();
+		}
+		
+		for(RequisicaoProdutoCompra produtocompra: produtoCompra) {
+			valor -= produtocompra.getValorTotal();
+		}
+		
+		for(RequisicaoServicos listaservicos: listaServicos) {
+			valor -= listaservicos.getValorTotal();
+		}
+		
+		return valor;
+	}
 	
 	public Conta(Long id, String agencia, String numeroConta, String tipo, String banco, double saldo) {
 		super();

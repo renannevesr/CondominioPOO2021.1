@@ -35,7 +35,12 @@ public class RequisicaoProdutoEstoque {
 	private Funcionario funcionario;
 	@CreationTimestamp
 	private Date data;
-	@OneToMany (cascade = CascadeType.ALL)
+	/*@OneToMany (cascade = CascadeType.ALL)
 	@JoinColumn(name="reqProdutoEstoque_id")
-	private List<Produto> produtos;
+	private List<Produto> produtos;*/
+	@OneToMany
+	@JoinColumn(name="reqProdutoEstoque_id")
+	private List<Item> itens;
+	
+	
 }

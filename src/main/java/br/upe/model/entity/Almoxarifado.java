@@ -23,8 +23,11 @@ public class Almoxarifado{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	/*@OneToMany
+	@JoinColumn(name = "almoxarifado_id")
+	private List<Produto> produtos;*/
 	@OneToMany
 	@JoinColumn(name = "almoxarifado_id")
-	private List<Produto> produtos;
+	private List<Item> estoque;
 
 }
