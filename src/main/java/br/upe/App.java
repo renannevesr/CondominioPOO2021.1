@@ -1,13 +1,14 @@
 package br.upe;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
-//import br.upe.controllersJavaFX.MediaPlayer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-//import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 //public class App {
@@ -17,9 +18,11 @@ public class App extends Application {
     
     @Override
     public void start(Stage stage) throws IOException {
+    	music();
     	scene = new Scene(loadFXML("login"), 700, 500);
     	stage.setScene(scene);
     	stage.show();
+    	
     }
 
     public static void setRoot(String fxml) throws IOException {
@@ -31,13 +34,13 @@ public class App extends Application {
         return fxmlLoader.load();
     }
     
-//    MediaPlayer mediaPlayer;
-//	public void music() {
-//		String s = "../../../src/main/resources/assets/login_music.mp3";
-//		Media h = new Media(Paths.get(s).toUri().toString());
-//		mediaPlayer = new MediaPlayer(h);
-//		mediaPlayer.play();	
-//	}
+    MediaPlayer mediaPlayer;
+	public void music() {
+		String s = "login_music.mp3";
+		Media h = new Media(Paths.get(s).toUri().toString());
+		mediaPlayer = new MediaPlayer(h);
+		mediaPlayer.play();	
+	}
 	
     public static void main(String[] args) throws Exception {
 //    	Funcionario novoFuncionario = new Funcionario();

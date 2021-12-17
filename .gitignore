@@ -3,7 +3,7 @@
 
 # Persistence.xml
 */META-INF/*
-
+*.mp3
 assets/
 
 *.sql
