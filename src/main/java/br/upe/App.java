@@ -2,12 +2,8 @@ package br.upe;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Date;
 
-import br.upe.controller.FuncionarioController;
 import br.upe.migrations.Migration;
-import br.upe.model.dao.FuncionarioDAO.JPAFuncionarioDAO;
-import br.upe.model.entity.Funcionario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +19,7 @@ public class App extends Application {
     
     @Override
     public void start(Stage stage) throws IOException {
-    	//music();
+    	music();
     	scene = new Scene(loadFXML("login"), 700, 500);
     	stage.setScene(scene);
     	stage.show();
@@ -41,9 +37,10 @@ public class App extends Application {
     
     MediaPlayer mediaPlayer;
 	public void music() {
-		String s = "login_music.mp3";
+		String s = "./mp3/login_music.mp3";
 		Media h = new Media(Paths.get(s).toUri().toString());
 		mediaPlayer = new MediaPlayer(h);
+		mediaPlayer.setVolume(0.2);
 		mediaPlayer.play();	
 	}
 	
