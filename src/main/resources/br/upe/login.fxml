@@ -10,16 +10,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.controllersJavaFX.Login">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-radius: 5px; -fx-border-radius: 5px;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.controllersJavaFX.Login">
    <left>
-      <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="500.0" prefWidth="212.0" style="-fx-background-color: linear-gradient(to right,  #0598ff, #F2F7F9);" BorderPane.alignment="CENTER" />
    </left>
    <center>
-      <AnchorPane prefHeight="500.0" prefWidth="351.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="500.0" prefWidth="351.0" style="-fx-background-color: #F2F7F9;" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="user" layoutX="90.0" layoutY="194.0" prefHeight="32.0" prefWidth="180.0" promptText="Usuário" style="-fx-background-color: transparent; -fx-border-color: #525252; -fx-border-width: 0px 0px 2px 0px;" />
-            <PasswordField fx:id="password" layoutX="90.0" layoutY="234.0" minHeight="32.0" minWidth="180.0" promptText="Senha" style="-fx-background-color: transparent; -fx-border-color: #525252; -fx-border-width: 0px 0px 2px 0px;" />
-			<Button fx:id="login_button" layoutX="90.0" layoutY="289.0" minHeight="32.0" minWidth="180.0" mnemonicParsing="false" onAction="#switchToHome" style="-fx-background-color: #0598ff; -fx-cursor: hand;" text="Login" textFill="WHITE">
+            <TextField fx:id="user" layoutX="138.0" layoutY="196.0" prefHeight="32.0" prefWidth="232.0" promptText="Conta" style="-fx-background-color: #DDEAF3; -fx-border-color: none; -fx-background-radius: 5px;">
+               <font>
+                  <Font size="12.0" />
+               </font></TextField>
+            <PasswordField fx:id="password" layoutX="138.0" layoutY="245.0" minHeight="32.0" minWidth="180.0" prefWidth="232.0" promptText="Senha" style="-fx-background-color: #DDEAF3; -fx-border-color: none; -fx-background-radius: 5px;" />
+			<Button fx:id="login_button" layoutX="138.0" layoutY="305.0" minHeight="32.0" minWidth="180.0" mnemonicParsing="false" onAction="#switchToHome" prefWidth="232.0" style="-fx-background-color: #4EADEE; -fx-cursor: hand;" text="Login" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -27,14 +30,16 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label layoutX="84.0" layoutY="118.0" minHeight="40.0" minWidth="60.0" text="Torres Gêmeas">
+            <Label layoutX="178.0" layoutY="125.0" minHeight="40.0" minWidth="60.0" style="-fx-font-weight: bold;" text="Torres Gêmeas" textFill="#807e7e">
 			
                <font>
-                  <Font size="24.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <FontAwesomeIconView fill="#0598ff" glyphName="USER" layoutX="62.0" layoutY="218.0" scaleX="1.5" scaleY="1.5" />
-            <FontAwesomeIconView fill="#0598ff" glyphName="KEY" layoutX="62.0" layoutY="261.0" scaleX="1.5" scaleY="1.5" />
+            <FontAwesomeIconView fill="#4eadee" glyphName="USER" layoutX="114.0" layoutY="216.0" scaleX="1.5" scaleY="1.5" />
+            <FontAwesomeIconView fill="#4eadee" glyphName="KEY" layoutX="113.0" layoutY="266.0" scaleX="1.5" scaleY="1.5" text="" />
+            <FontAwesomeIconView fill="#4eadee" glyphName="BUILDING" layoutX="219.0" layoutY="97.0" scaleX="3.0" scaleY="3.0" text="" />
+            <FontAwesomeIconView fill="#4eadee" glyphName="BUILDING" layoutX="266.0" layoutY="98.0" scaleX="3.0" scaleY="3.0" />
          </children>
       </AnchorPane>
    </center>
