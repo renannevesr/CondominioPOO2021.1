@@ -38,7 +38,7 @@ public class Login {
 				FuncionarioController funcController = new FuncionarioController();
 				Funcionario f = funcController.buscaCPF(login);
 				if(f.getSenha().equals(password)) {
-					App.setRoot("home");
+					App.setRoot("administrativo");
 				}else{
 					Alerts.showAlert("Login", "Login2", "Login ou senha incorreta burro!", AlertType.ERROR);
 				}
