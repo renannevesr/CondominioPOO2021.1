@@ -26,5 +26,9 @@ public class Espaco{
 	@Enumerated (EnumType.STRING)
 	private Espacos nomeEspaco;
 	private String observacoes;
+	
+	public Espaco(Espacos nomeEspaco) {
+		this.nomeEspaco =nomeEspaco;
+	}
 
 }

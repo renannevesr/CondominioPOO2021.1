@@ -2,7 +2,12 @@ package br.upe;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Date;
 
+import br.upe.controller.FuncionarioController;
+import br.upe.migrations.Migration;
+import br.upe.model.dao.FuncionarioDAO.JPAFuncionarioDAO;
+import br.upe.model.entity.Funcionario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +23,7 @@ public class App extends Application {
     
     @Override
     public void start(Stage stage) throws IOException {
-    	music();
+    	//music();
     	scene = new Scene(loadFXML("login"), 700, 500);
     	stage.setScene(scene);
     	stage.show();
@@ -43,14 +48,9 @@ public class App extends Application {
 	}
 	
     public static void main(String[] args) throws Exception {
-//    	Funcionario novoFuncionario = new Funcionario();
-//    	novoFuncionario.setDataAdmissao(new Date(120, 10, 20));
-//        novoFuncionario.setNome("Dudu");
-//        novoFuncionario.setCpf("12345678900");
-//        novoFuncionario.setSenha("123456");
-//        FuncionarioController funcionario = new FuncionarioController();
-//        funcionario.cadastrar(novoFuncionario);
     	
+    	Migration.init();
+    
     	launch();
 //        System.out.println("Condomínio UPE");
 //
