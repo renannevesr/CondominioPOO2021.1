@@ -2,15 +2,17 @@ package br.upe;
 
 import java.io.IOException;
 
+//import br.upe.controllersJavaFX.MediaPlayer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+//import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-
+//public class App {
 public class App extends Application {
-	
+
     private static Scene scene;
     
     @Override
@@ -28,20 +30,32 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
+    
+//    MediaPlayer mediaPlayer;
+//	public void music() {
+//		String s = "../../../src/main/resources/assets/login_music.mp3";
+//		Media h = new Media(Paths.get(s).toUri().toString());
+//		mediaPlayer = new MediaPlayer(h);
+//		mediaPlayer.play();	
+//	}
 	
     public static void main(String[] args) throws Exception {
+//    	Funcionario novoFuncionario = new Funcionario();
+//    	novoFuncionario.setDataAdmissao(new Date(120, 10, 20));
+//        novoFuncionario.setNome("Dudu");
+//        novoFuncionario.setCpf("12345678900");
+//        novoFuncionario.setSenha("123456");
+//        FuncionarioController funcionario = new FuncionarioController();
+//        funcionario.cadastrar(novoFuncionario);
+    	
     	launch();
 //        System.out.println("Condomínio UPE");
 //
-//        Funcionario novoFuncionario = new Funcionario(new Date(120, 10, 20), "209885", FuncaoFuncionario.PORTEIRO);
-//        novoFuncionario.setNome("Dudu");
-//        novoFuncionario.setCpf("12569998821");
-//        FuncionarioController funcionario = new FuncionarioController();
-//        //funcionario.cadastrar(novoFuncionario);
+        
 //        
 //        JPAPessoaDAO dao = new JPAPessoaDAO(); 
 //
-//        //Funcionario novoFuncionario =  (Funcionario) dao.buscarCPF(new Funcionario(), "12786461945");
+//        Funcionario novoFuncionario =  (Funcionario) dao.buscarCPF(new Funcionario(), "12786461945");
 //        Usuario novoUsuario = new Usuario(null, "dev1234", novoFuncionario, null);
 //        novoUsuario.setUser(novoFuncionario);
 //        UsuarioController usuario = new UsuarioController();
