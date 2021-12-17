@@ -28,11 +28,12 @@ public class Login {
 	
 	@FXML
     private void switchToHome() throws IOException {
+		
 		String login = this.user.getText();
 		String password = this.password.getText();
 		try {
 			if(login.isEmpty() || password.isEmpty()) {
-				Alerts.showAlert("Login", "Login2", "Preencha todos os campos sua besta!", AlertType.ERROR);
+				Alerts.showAlert("Login", "", "Preencha todos os campos sua besta!", AlertType.ERROR);
 			}else {
 				FuncionarioController funcController = new FuncionarioController();
 				Funcionario f = funcController.buscaCPF(login);
