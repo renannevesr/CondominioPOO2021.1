@@ -4,6 +4,10 @@
 # Persistence.xml
 */META-INF/*
 
+assets/
+
+*.sql
+
 ### Eclipse ###
 .metadata
 bin/
