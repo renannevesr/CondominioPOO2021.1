@@ -36,9 +36,10 @@ public class App extends Application {
     
     MediaPlayer mediaPlayer;
 	public void music() {
-		String s = "login_music.mp3";
+		String s = "./mp3/login_music.mp3";
 		Media h = new Media(Paths.get(s).toUri().toString());
 		mediaPlayer = new MediaPlayer(h);
+		mediaPlayer.setVolume(0.2);
 		mediaPlayer.play();	
 	}
 	
