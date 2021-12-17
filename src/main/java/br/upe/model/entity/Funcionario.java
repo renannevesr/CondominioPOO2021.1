@@ -23,5 +23,13 @@ public class Funcionario extends Pessoa{
 	private String carteiraTrabalho;
 	@Enumerated(EnumType.STRING)
 	private FuncaoFuncionario funcao;
+	private String senha;
+	
+	public Funcionario(Long id, String nome, String cpf, Date dataAdmissao, String carteiraTrabalho, FuncaoFuncionario funcao) {
+		super(id, nome, cpf);
+		this.dataAdmissao = dataAdmissao;
+		this.carteiraTrabalho = carteiraTrabalho;
+		this.funcao = funcao;
+	}
 
 }
