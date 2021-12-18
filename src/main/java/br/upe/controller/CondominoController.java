@@ -29,4 +29,12 @@ public class CondominoController {
 		return dao.listar();
 	}
 	
+	public Condomino atualizar(Condomino condomino) throws Exception{
+		return dao.atualizar(condomino);
+	}
+	
+	public void remover(Condomino condomino) throws Exception{
+		dao.remover(condomino.getId());
+	}
+	
 }

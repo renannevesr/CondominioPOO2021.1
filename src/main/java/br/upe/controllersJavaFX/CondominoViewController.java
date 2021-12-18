@@ -45,7 +45,25 @@ public class CondominoViewController {
 		try {
 			condominoController.listar();
 		}catch(Exception e) {
-			e.printStackTrace();
+			e.getMessage();
+		}
+	}
+	
+	@FXML
+	private void atualizar(Condomino condomino) {
+		try {
+			condominoController.atualizar(condomino);
+		}catch (Exception e) {
+			Alerts.alertError("Erro ao tentar atualizar esse condomino!");
+		}
+	}
+	
+	@FXML
+	private void excluir(Condomino condomino) {
+		try {
+			condominoController.remover(condomino);
+		}catch(Exception e) {
+			Alerts.alertError("Não foi possível excluir esse condomino!");
 		}
 	}
 
