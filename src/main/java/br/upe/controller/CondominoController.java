@@ -1,5 +1,7 @@
 package br.upe.controller;
 
+import java.util.List;
+
 import br.upe.model.dao.CondominoDAO.JPACondominoDAO;
 import br.upe.model.entity.Condomino;
 import br.upe.validator.ValidatorController;
@@ -21,6 +23,10 @@ public class CondominoController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public List<Condomino> listar() throws Exception {
+		return dao.listar();
 	}
 	
 }

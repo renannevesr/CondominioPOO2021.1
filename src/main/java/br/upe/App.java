@@ -22,6 +22,7 @@ public class App extends Application {
     	music();
     	scene = new Scene(loadFXML("login"), 700, 500);
     	stage.setScene(scene);
+    	stage.setResizable(false);
     	stage.show();
     	
     }

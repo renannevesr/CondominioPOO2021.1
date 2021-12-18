@@ -33,19 +33,20 @@ public class Login {
 		String password = this.password.getText();
 		try {
 			if(login.isEmpty() || password.isEmpty()) {
-				Alerts.showAlert("Login", "", "Preencha todos os campos sua besta!", AlertType.ERROR);
+				Alerts.alertError("Não pode deixar campo em branco seu burro!");
 			}else {
 				FuncionarioController funcController = new FuncionarioController();
 				Funcionario f = funcController.buscaCPF(login);
 				if(f.getSenha().equals(password)) {
+					Alerts.alertSuccess("Bem vindo, " + f.getNome() + "!");
 					App.setRoot("administrativo");
 				}else{
-					Alerts.showAlert("Login", "Login2", "Login ou senha incorreta burro!", AlertType.ERROR);
+					Alerts.alertError("Login e/ou senha incorreto(a) sua besta!");
 				}
 			}
 			
 		}catch(NoResultException result) {
-			Alerts.showAlert("Login", "Login2", "Login ou senha incorreta burro!", AlertType.ERROR);
+			Alerts.alertError("Login e/ou senha incorreto(a) sua besta!");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
