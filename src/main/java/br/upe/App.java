@@ -12,10 +12,14 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+//import javafx.stage.Stage;
+
 //public class App {
 public class App extends Application {
 
     private static Scene scene;
+//    private static Scene administrativo;
+  
     
     @Override
     public void start(Stage stage) throws IOException {
@@ -24,7 +28,6 @@ public class App extends Application {
     	stage.setScene(scene);
     	stage.setResizable(false);
     	stage.show();
-    	
     }
 
     public static void setRoot(String fxml) throws IOException {
@@ -41,12 +44,9 @@ public class App extends Application {
 		String s = "./mp3/login_music.mp3";
 		Media h = new Media(Paths.get(s).toUri().toString());
 		mediaPlayer = new MediaPlayer(h);
-		mediaPlayer.setVolume(0.2);
-		mediaPlayer.play();	
 	}
 	
     public static void main(String[] args) throws Exception {
-    	
     	Migration.init();
     
     	launch();
