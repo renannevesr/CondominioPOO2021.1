@@ -4,20 +4,44 @@ import java.io.IOException;
 
 import br.upe.controller.CondominoController;
 import br.upe.model.entity.Condomino;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 public class CondominoViewController {
 	
-	@FXML
-	private TextField nome;
-	
-	@FXML
-	private TextField cpf;
-	
-	@FXML
-	private TextField contato;
+    @FXML
+    private ComboBox<?> bloco_AP;
+
+    @FXML
+    private ComboBox<?> button_funcionario;
+
+    @FXML
+    private ComboBox<?> button_reserva;
+
+    @FXML
+    private ComboBox<?> button_servico;
+
+    @FXML
+    private ComboBox<?> button_unidade;
+
+    @FXML
+    private TextField contato;
+
+    @FXML
+    private TextField cpf;
+
+    @FXML
+    private TextField nome;
+
+    @FXML
+    private ComboBox<?> num_AP;
+
+    @FXML
+    void Select(ActionEvent event) {
+
+    }
 
 	CondominoController condominoController = new CondominoController();
 	
