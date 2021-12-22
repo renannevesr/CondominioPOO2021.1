@@ -12,15 +12,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-//import javafx.stage.Stage;
-
 //public class App {
 public class App extends Application {
 
     private static Scene scene;
-//    private static Scene administrativo;
   
-    
     @Override
     public void start(Stage stage) throws IOException {
     	music();
@@ -44,6 +40,8 @@ public class App extends Application {
 		String s = "./mp3/login_music.mp3";
 		Media h = new Media(Paths.get(s).toUri().toString());
 		mediaPlayer = new MediaPlayer(h);
+		mediaPlayer.setVolume(0.1);
+		mediaPlayer.play();
 	}
 	
     public static void main(String[] args) throws Exception {
