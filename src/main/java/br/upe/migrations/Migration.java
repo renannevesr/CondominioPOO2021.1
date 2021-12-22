@@ -5,11 +5,8 @@ import java.util.Date;
 import br.upe.controller.ContaController;
 import br.upe.controller.FuncionarioController;
 import br.upe.model.dao.ContaDAO.JPAContaDAO;
-import br.upe.model.dao.EspacoDAO.JPAEspacoDAO;
 import br.upe.model.dao.FuncionarioDAO.JPAFuncionarioDAO;
 import br.upe.model.entity.Conta;
-import br.upe.model.entity.Espaco;
-import br.upe.model.entity.Espacos;
 import br.upe.model.entity.Funcionario;
 
 public class Migration {

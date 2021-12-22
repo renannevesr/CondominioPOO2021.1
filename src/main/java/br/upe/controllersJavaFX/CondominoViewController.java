@@ -1,18 +1,25 @@
 package br.upe.controllersJavaFX;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import br.upe.controller.CondominoController;
+import br.upe.model.entity.Apartamento;
+import br.upe.model.entity.Blocos;
 import br.upe.model.entity.Condomino;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-public class CondominoViewController {
+public class CondominoViewController implements Initializable{
 	
     @FXML
-    private ComboBox<?> bloco_AP;
+    private ComboBox<Blocos> bloco_AP;
 
     @FXML
     private ComboBox<?> button_funcionario;
@@ -36,7 +43,7 @@ public class CondominoViewController {
     private TextField nome;
 
     @FXML
-    private ComboBox<?> num_AP;
+    private ComboBox<Integer> num_AP;
 
     @FXML
     void Select(ActionEvent event) {
@@ -50,13 +57,19 @@ public class CondominoViewController {
 		String nome = this.nome.getText();
 		String cpf = this.cpf.getText();
 		String contato = this.contato.getText();
+		int numero = (int) this.num_AP.getSelectionModel().getSelectedItem();
+		Blocos bloco = (Blocos) this.bloco_AP.getSelectionModel().getSelectedItem();
+		
+		Apartamento ap = new Apartamento();
+		ap.setBloco(bloco);
+		ap.setNumero(numero);
 		
 		try {
 			Condomino condomino = new Condomino();
 			condomino.setNome(nome);
 			condomino.setCpf(cpf);
 			condomino.setContato(contato);
-			condominoController.cadastrar(condomino);
+			condominoController.cadastrar(condomino, ap);
 			Alerts.alertSuccess("Condomino cadastrado com sucesso!");
 			
 		}catch(Exception e) {
@@ -89,6 +102,16 @@ public class CondominoViewController {
 		}catch(Exception e) {
 			Alerts.alertError("Não foi possível excluir esse condomino!");
 		}
+	}
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		ObservableList<Integer> list1 = FXCollections.observableArrayList(1, 2);
+		ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values() );
+		
+		num_AP.setItems(list1);
+		bloco_AP.setItems(list2);
+	
 	}
 
 }
