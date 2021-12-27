@@ -35,7 +35,6 @@ public class Administrativo implements Initializable {
     	String opcaoUnidade = button_unidade.getSelectionModel().getSelectedItem().toString();
     	switch (opcaoUnidade) {
     		case "Condômino":
-    			// trocar tela da direita
     			switchScreen("administrativo_condomino");
     			break;
     		case "Morador":
