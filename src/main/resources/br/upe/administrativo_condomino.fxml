@@ -12,6 +12,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -59,38 +60,38 @@
                   <Font size="28.0" />
                </font>
             </Text>
-            <ComboBox fx:id="button_unidade" layoutX="29.0" layoutY="208.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+            <ComboBox fx:id="button_unidade" layoutX="31.0" layoutY="208.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ComboBox>
-            <ComboBox fx:id="button_reserva" layoutX="26.0" layoutY="324.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+            <ComboBox fx:id="button_reserva" layoutX="31.0" layoutY="322.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ComboBox>
-            <ComboBox fx:id="button_servico" layoutX="25.0" layoutY="440.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+            <ComboBox fx:id="button_servico" layoutX="31.0" layoutY="441.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ComboBox>
-            <ComboBox fx:id="button_funcionario" layoutX="26.0" layoutY="544.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+            <ComboBox fx:id="button_funcionario" layoutX="31.0" layoutY="545.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ComboBox>
-            <Text fill="#838181" layoutX="92.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidades">
+            <Text fill="#838181" layoutX="83.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidades">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Text fill="#838181" layoutX="92.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserva">
+            <Text fill="#838181" layoutX="93.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserva">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Text fill="#838181" layoutX="96.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviço">
+            <Text fill="#838181" layoutX="97.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviço">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Text fill="#838181" layoutX="71.0" layoutY="528.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionário">
+            <Text fill="#838181" layoutX="72.0" layoutY="528.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionário">
                <font>
                   <Font size="24.0" />
                </font>
@@ -117,21 +118,21 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <ComboBox fx:id="bloco_AP" layoutX="41.0" layoutY="149.0" onAction="#Select" prefHeight="32.0" prefWidth="160.0" promptText="Bloco">
+            <ComboBox fx:id="bloco_AP" layoutX="41.0" layoutY="149.0" onAction="#Select" prefHeight="32.0" prefWidth="100.0" promptText="Bloco">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ComboBox>
-            <ComboBox fx:id="num_AP" layoutX="226.0" layoutY="149.0" onAction="#Select" prefHeight="32.0" prefWidth="260.0" promptText="Número">
+            <ComboBox fx:id="num_AP" layoutX="155.0" layoutY="149.0" onAction="#Select" prefHeight="32.0" prefWidth="100.0" promptText="Número">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ComboBox>
-            <Label layoutX="41.0" layoutY="205.0" text="Nome" textFill="#807e7e" />
-            <TextField fx:id="nome" layoutX="41.0" layoutY="227.0" prefHeight="30.0" prefWidth="640.0" />
-            <Label layoutX="41.0" layoutY="275.0" text="CPF" textFill="#807e7e" />
-            <TextField fx:id="cpf" layoutX="41.0" layoutY="294.0" prefHeight="30.0" prefWidth="300.0" />
-            <TextField fx:id="contato" layoutX="382.0" layoutY="294.0" prefHeight="30.0" prefWidth="300.0" />
-            <Label layoutX="382.0" layoutY="275.0" text="Contato" textFill="#807e7e" />
-            <Button alignment="CENTER_RIGHT" layoutX="41.0" layoutY="342.0" mnemonicParsing="false" onAction="#cadastrarCondomino" style="-fx-background-color: #4EADEE;" text="Adicionar" textFill="WHITE">
+            <Label layoutX="43.0" layoutY="445.0" text="Nome" textFill="#807e7e" />
+            <TextField fx:id="nome" layoutX="43.0" layoutY="467.0" prefHeight="30.0" prefWidth="640.0" />
+            <Label layoutX="43.0" layoutY="515.0" text="CPF" textFill="#807e7e" />
+            <TextField fx:id="cpf" layoutX="43.0" layoutY="534.0" prefHeight="30.0" prefWidth="210.0" />
+            <TextField fx:id="contato" layoutX="271.0" layoutY="534.0" prefHeight="30.0" prefWidth="180.0" />
+            <Label layoutX="272.0" layoutY="515.0" text="Contato" textFill="#807e7e" />
+            <Button alignment="CENTER" layoutX="43.0" layoutY="582.0" mnemonicParsing="false" onMouseClicked="#salvarCondomino" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Salvar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -139,15 +140,16 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <TableView fx:id="condominoTable" layoutX="40.0" layoutY="408.0" prefHeight="200.0" prefWidth="646.0">
+            <TableView fx:id="condominoTable" layoutX="41.0" layoutY="212.0" prefHeight="200.0" prefWidth="646.0">
               <columns>
-                <TableColumn fx:id="tableNome" prefWidth="209.0" text="Nome" />
-                <TableColumn fx:id="tableCPF" minWidth="0.0" prefWidth="148.0" text="CPF" />
-                  <TableColumn fx:id="tableContato" prefWidth="153.0" text="Contato" />
-                  <TableColumn fx:id="tableAcoes" prefWidth="135.0" text="Açoes" />
+                <TableColumn fx:id="tableNome" prefWidth="245.0" text="Nome" />
+                <TableColumn fx:id="tableCPF" minWidth="0.0" prefWidth="123.0" text="CPF" />
+                  <TableColumn fx:id="tableContato" prefWidth="143.0" text="Contato" />
+                  <TableColumn fx:id="tableAcoes" prefWidth="59.0" text="Bloco" />
+                  <TableColumn fx:id="tableAcoes1" prefWidth="75.0" text="Unidade" />
               </columns>
             </TableView>
-            <Button fx:id="btn_excluir" alignment="CENTER_RIGHT" layoutX="608.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#ExcluirCondomino" style="-fx-background-color: #4EADEE;" text="Excluir" textFill="WHITE">
+            <Button fx:id="btn_excluir" alignment="CENTER" layoutX="603.0" layoutY="582.0" mnemonicParsing="false" onMouseClicked="#ExcluirCondomino" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Excluir" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -155,6 +157,27 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
+            <Button alignment="CENTER" layoutX="140.0" layoutY="582.0" mnemonicParsing="false" onMouseClicked="#EditarCondomino" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Editar" textAlignment="CENTER" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER_RIGHT" layoutX="592.0" layoutY="148.0" mnemonicParsing="false" style="-fx-background-color: #4EADEE;" text="Pesquisar" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Line endX="543.0" layoutX="143.0" layoutY="430.0" startX="-100.0" stroke="#4eadee" />
+            <Label layoutX="467.0" layoutY="515.0" text="Bloco" textFill="#807e7e" />
+            <TextField fx:id="bloco" layoutX="467.0" layoutY="534.0" prefHeight="30.0" prefWidth="100.0" />
+            <TextField fx:id="unidade" layoutX="583.0" layoutY="534.0" prefHeight="30.0" prefWidth="100.0" />
+            <Label layoutX="583.0" layoutY="515.0" text="Unidade" textFill="#807e7e" />
          </children></AnchorPane>
    </right>
 </BorderPane>

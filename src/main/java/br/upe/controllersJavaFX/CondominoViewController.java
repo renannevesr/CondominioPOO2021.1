@@ -79,14 +79,30 @@ public class CondominoViewController implements Initializable{
     
     @FXML
     private Button btn_excluir;
+    
+    @FXML
+    private TextField unidade;
+    
+    @FXML
+    private TextField bloco;
 
     @FXML
     void Select(ActionEvent event) {}
    
 	CondominoController condominoController = new CondominoController();
 	
-	@FXML
-	private void cadastrarCondomino() throws IOException {
+	@FXML 
+	void salvarCondomino(MouseEvent event) throws IOException {
+		if(this.select == null) {
+			cadastrarCondomino(null);
+		}else {
+
+			cadastrarCondomino((Long) this.select.get(0).getId());
+		}
+	}
+	
+	
+	private void cadastrarCondomino(Long id) throws IOException {
 		String nome = this.nome.getText();
 		String cpf = this.cpf.getText();
 		String contato = this.contato.getText();
@@ -115,16 +131,25 @@ public class CondominoViewController implements Initializable{
 				condomino.setNome(nome);
 				condomino.setCpf(cpf);
 				condomino.setContato(contato);
-				condominoController.cadastrar(condomino, ap);
 				
-				Alerts.alertSuccess("Condomino cadastrado com sucesso!");
-				
-				atualizaTabela();
+				if (id == null) {
+					condominoController.cadastrar(condomino, ap);
+					
+					Alerts.alertSuccess("Condomino cadastrado com sucesso!");
+					
+				}else {
+					condomino.setId(id);
+					condominoController.atualizar(condomino);
+					Alerts.alertSuccess("Condomino atualizado com sucesso!");
+				}
 			}
 		}
 		catch(Exception e) {
 			Alerts.alertError("Erro ao tentar cadastrar esse Condomino!");
 		}
+		
+		limpaTela();
+		atualizaTabela();
 	}
 
 	@FXML
@@ -136,29 +161,38 @@ public class CondominoViewController implements Initializable{
 		}
 	}
 	
-	@FXML
-	private void atualizarCondomino(Condomino condomino) {
-		try {
-			condominoController.atualizar(condomino);
-		}catch (Exception e) {
-			Alerts.alertError("Erro ao tentar atualizar esse condomino!");
-		}
-	}
 	
+	
+	@FXML
+	void EditarCondomino(MouseEvent event) {
+		this.select = condominoTable.getSelectionModel().getSelectedItems();
+		this.cpf.setText(select.get(0).getCpf());
+		this.nome.setText(select.get(0).getNome());
+		this.contato.setText(select.get(0).getContato());
+		this.bloco_AP.setValue(select.get(0).getApartamentos().get(0).getBloco());
+		this.num_AP.setValue(select.get(0).getApartamentos().get(0).getNumero());
+		this.bloco.setText(String.valueOf(select.get(0).getApartamentos().get(0).getBloco()));
+		this.unidade.setText(String.valueOf(select.get(0).getApartamentos().get(0).getNumero()));
+	}
 	
 	@FXML
 	void ExcluirCondomino(MouseEvent event) {
 		this.select = condominoTable.getSelectionModel().getSelectedItems();
 		excluirCondomino();
+		limpaTela();
 		atualizaTabela();
+	}
+	
+	private void limpaTela() {
+		this.nome.setText(null);
+		this.cpf.setText(null);
+		this.contato.setText(null);
 	}
 	
 	private void excluirCondomino() {
 		try {
-			System.out.println("Objeto: " + this.select.get(0));
 			condominoController.remover(this.select.get(0));
 			Alerts.alertSuccess("Condomino deletado com sucesso!");
-			atualizaTabela();
 		}catch(Exception e) {
 			Alerts.alertError("Não foi possível excluir esse condomino!");
 		}
@@ -174,6 +208,7 @@ public class CondominoViewController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		limpaTela();
 		ObservableList<Integer> list1 = FXCollections.observableArrayList(1, 2);
 		ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values() );
 		

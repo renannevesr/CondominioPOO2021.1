@@ -53,6 +53,7 @@ public class GenericDAO<Generic, Id extends Serializable>{
 			try {
 				conexao.em.getTransaction().begin();
 				conexao.em.merge(g);
+				conexao.em.flush();
 				conexao.em.getTransaction().commit();
 			}catch(Exception e){
 				System.out.println(e.getMessage());
