@@ -92,9 +92,11 @@ public class GenericDAO<Generic, Id extends Serializable>{
 			Generic entity = buscarPorId(id);
 			try {
 				conexao.em.getTransaction().begin();
+				System.out.println("O objeto chegou: " + entity);
 				conexao.em.remove(entity);
 				conexao.em.getTransaction().commit();
 			}catch(Exception e) {
+				System.out.println("Entrou no exception");
 				System.out.print(e.getMessage());
 				conexao.em.getTransaction().rollback();
 			}

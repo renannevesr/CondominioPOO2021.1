@@ -23,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
 
@@ -32,7 +33,7 @@ public class CondominoViewController implements Initializable{
 	
 //	@FXML 
 //	private TableColumn<Condomino, Condomino> columnDelete;
-	//private ObservableList<Condomino> select;
+	private ObservableList<Condomino> select;
 	
     @FXML
     private ComboBox<Blocos> bloco_AP;
@@ -75,6 +76,9 @@ public class CondominoViewController implements Initializable{
     
     @FXML
     private TableColumn<Condomino, Condomino> tableAcoes;
+    
+    @FXML
+    private Button btn_excluir;
 
     @FXML
     void Select(ActionEvent event) {}
@@ -141,10 +145,18 @@ public class CondominoViewController implements Initializable{
 		}
 	}
 	
+	
 	@FXML
+	void ExcluirCondomino(MouseEvent event) {
+		this.select = condominoTable.getSelectionModel().getSelectedItems();
+		excluirCondomino();
+		atualizaTabela();
+	}
+	
 	private void excluirCondomino() {
 		try {
-			//condominoController.remover();
+			System.out.println("Objeto: " + this.select.get(0));
+			condominoController.remover(this.select.get(0));
 			atualizaTabela();
 		}catch(Exception e) {
 			Alerts.alertError("Não foi possível excluir esse condomino!");
@@ -179,7 +191,7 @@ public class CondominoViewController implements Initializable{
 			
 			// BOTÕES COM ÍCONES EM SVG
 			  // configura a coluna para editar e deleter uma pessoa
-				Utils.initButtons(tableAcoes, 15, DELETE, (Condomino condomino, ActionEvent event) -> {
+				initButtons(tableAcoes, 15, DELETE, (Condomino condomino, ActionEvent event) -> {
 				  //excluirCondomino();
 			    // Aqui vai toda a lógica para editar a pessoa
 			  });
@@ -190,5 +202,78 @@ public class CondominoViewController implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	
+	 public static <Condomino> void initButtons(TableColumn<Condomino, Condomino> tableColumn, int size, String svgIcon, BiConsumer<Condomino, ActionEvent> buttonAction) {
+		    final int COLUMN_ICON_SPACE = 20; // espaço extra que terá dentro da célula da tabela
+		    tableColumn.setMinWidth(size + COLUMN_ICON_SPACE);
+		    tableColumn.setMaxWidth(size + COLUMN_ICON_SPACE);
+		    tableColumn.setStyle("-fx-alignment: CENTER"); // centraliza os botões
+
+		    Callback<TableColumn<Condomino, Condomino>, TableCell<Condomino, Condomino>> cellFactory = new Callback<TableColumn<Condomino, Condomino>, TableCell<Condomino, Condomino>>() {
+		      @Override
+		      public TableCell<Condomino, Condomino> call(final TableColumn<Condomino, Condomino> param) {
+		        final TableCell<Condomino, Condomino> cell = new TableCell<Condomino, Condomino>() {
+		          // chama o método auxiliar para criar um botão com o ícone svg dentro
+		          private final Button btn = createIconButton(svgIcon, size);
+
+		          // inseri o botão dentro da célula
+		          @Override
+		          public void updateItem(Condomino item, boolean empty) {
+		            super.updateItem(item, empty);
+		            if (empty) {
+		              setGraphic(null);
+		            } else {
+		              setGraphic(btn);
+		            }
+		          }
+
+		        {
+		          // define o que irá acontecer quando o botão for clicado
+		          btn.setOnAction((ActionEvent event) -> {
+		        
+		            Condomino data = getTableView().getItems().get(getIndex());
+		            CondominoController cCondominoController = new CondominoController();
+		            System.out.println("\nDados selecionados pelo icone: " + data);
+		            try {
+		            	  cCondominoController.remover((br.upe.model.entity.Condomino) data);
+		            }catch(Exception e) {
+		            	
+		            }
+		          });
+		        }
+		      };
+		      return cell;
+		      }
+		    };
+		    tableColumn.setCellFactory(cellFactory);
+		  }
+		  
+
+		  // Cria um botão com o ícone svg dentro
+		  public static Button createIconButton(String svgAbsolutePath, int size) {
+		    SVGPath path = new SVGPath();
+		    path.setContent(svgAbsolutePath);
+		    Bounds bounds = path.getBoundsInLocal();
+
+		    // scale to size size x size (max)
+		    double scaleFactor = size / Math.max(bounds.getWidth(), bounds.getHeight());
+		    path.setScaleX(scaleFactor);
+		    path.setScaleY(scaleFactor);
+
+		    Button button = new Button();
+		    button.setPickOnBounds(true); // Garente que o botão terá o fundo transparente
+		    button.setGraphic(path); // inseri o ícone gerado pelo svg no botão
+		    button.setAlignment(Pos.CENTER);
+		    button.getStyleClass().add("icon-button"); // classe criada para não ter o fundo cinza
+		    // necessários para o ícone ficar contido dentro do botão
+		    button.setMaxWidth(size);
+		    button.setMaxHeight(size);
+		    button.setMinWidth(size);
+		    button.setMinHeight(size);
+		    button.setPrefWidth(size);
+		    button.setPrefHeight(size);
+		    return button;
+		  }
+		  
 	
 }

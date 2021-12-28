@@ -147,6 +147,14 @@
                   <TableColumn fx:id="tableAcoes" prefWidth="135.0" text="Açoes" />
               </columns>
             </TableView>
+            <Button fx:id="btn_excluir" alignment="CENTER_RIGHT" layoutX="608.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#ExcluirCondomino" style="-fx-background-color: #4EADEE;" text="Excluir" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
          </children></AnchorPane>
    </right>
 </BorderPane>
