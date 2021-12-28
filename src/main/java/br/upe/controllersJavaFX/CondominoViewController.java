@@ -3,6 +3,7 @@ package br.upe.controllersJavaFX;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.BiConsumer;
 
 import br.upe.controller.CondominoController;
 import br.upe.model.entity.Apartamento;
@@ -13,14 +14,25 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart.Data;
+import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.shape.SVGPath;
+import javafx.util.Callback;
 
 public class CondominoViewController implements Initializable{
+	
+	public final String DELETE = "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z";
+	
+//	@FXML 
+//	private TableColumn<Condomino, Condomino> columnDelete;
+	//private ObservableList<Condomino> select;
 	
     @FXML
     private ComboBox<Blocos> bloco_AP;
@@ -62,7 +74,7 @@ public class CondominoViewController implements Initializable{
     private TableColumn<Condomino, String> tableNome;
     
     @FXML
-    private TableColumn<Data, Void> tableAcoes;
+    private TableColumn<Condomino, Condomino> tableAcoes;
 
     @FXML
     void Select(ActionEvent event) {}
@@ -130,9 +142,9 @@ public class CondominoViewController implements Initializable{
 	}
 	
 	@FXML
-	private void excluirCondomino(Condomino condomino) {
+	private void excluirCondomino() {
 		try {
-			condominoController.remover(condomino);
+			//condominoController.remover();
 			atualizaTabela();
 		}catch(Exception e) {
 			Alerts.alertError("Não foi possível excluir esse condomino!");
@@ -164,8 +176,19 @@ public class CondominoViewController implements Initializable{
 			tableContato.setCellValueFactory(new PropertyValueFactory<>("contato"));
 			
 			condominoTable.setItems(list3);
+			
+			// BOTÕES COM ÍCONES EM SVG
+			  // configura a coluna para editar e deleter uma pessoa
+				Utils.initButtons(tableAcoes, 15, DELETE, (Condomino condomino, ActionEvent event) -> {
+				  //excluirCondomino();
+			    // Aqui vai toda a lógica para editar a pessoa
+			  });
+			  
+			  
+			  
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 }
