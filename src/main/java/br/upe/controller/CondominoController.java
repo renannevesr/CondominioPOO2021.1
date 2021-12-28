@@ -41,9 +41,14 @@ public class CondominoController {
 	}
 	
 	public void remover(Condomino condomino) throws Exception{
-		System.out.println(condomino);
-		System.out.println(condomino.getId());
-	dao.remover(condomino.getId());
+		
+		for(Apartamento apartamento: condomino.getApartamentos() ) {
+			apartamento.setCondomino(null);
+			daoAp.atualizar(apartamento);
+		}
+	
+
+		dao.remover(condomino.getId());
 	}
 	
 }

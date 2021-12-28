@@ -1,17 +1,25 @@
 package br.upe.model.entity;
 
-import javax.persistence.Entity;
+import java.util.List;
 
-import lombok.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Condomino extends Pessoa{
 	
+	@OneToMany(mappedBy = "condomino", cascade={CascadeType.PERSIST})
+	private List<Apartamento> apartamentos;
 	private String contato;
 
 }

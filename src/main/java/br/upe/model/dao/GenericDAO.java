@@ -82,7 +82,11 @@ public class GenericDAO<Generic, Id extends Serializable>{
 		
 		public Generic buscarPorId(Id id) {
 			  ConnectionDB conexao = new ConnectionDB();
-		       return conexao.em.find(persistedClass, id);
+			  
+			  Generic result = conexao.em.find(persistedClass, id);
+			  conexao.em.close();
+			
+		      return result;
 		 }
 		
 		public void remover(Id id) {
@@ -92,8 +96,7 @@ public class GenericDAO<Generic, Id extends Serializable>{
 			Generic entity = buscarPorId(id);
 			try {
 				conexao.em.getTransaction().begin();
-				System.out.println("O objeto chegou: " + entity);
-				conexao.em.remove(entity);
+				conexao.em.remove(conexao.em.contains(entity) ? entity : conexao.em.merge(entity));
 				conexao.em.getTransaction().commit();
 			}catch(Exception e) {
 				System.out.println("Entrou no exception");

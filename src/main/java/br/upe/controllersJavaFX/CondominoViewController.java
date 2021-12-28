@@ -157,6 +157,7 @@ public class CondominoViewController implements Initializable{
 		try {
 			System.out.println("Objeto: " + this.select.get(0));
 			condominoController.remover(this.select.get(0));
+			Alerts.alertSuccess("Condomino deletado com sucesso!");
 			atualizaTabela();
 		}catch(Exception e) {
 			Alerts.alertError("Não foi possível excluir esse condomino!");
@@ -191,11 +192,12 @@ public class CondominoViewController implements Initializable{
 			
 			// BOTÕES COM ÍCONES EM SVG
 			  // configura a coluna para editar e deleter uma pessoa
-				initButtons(tableAcoes, 15, DELETE, (Condomino condomino, ActionEvent event) -> {
+//				initButtons(tableAcoes, 15, DELETE, (Condomino condomino, ActionEvent event) -> {
 				  //excluirCondomino();
+					
 			    // Aqui vai toda a lógica para editar a pessoa
-			  });
-			  
+			 // }
+				//);
 			  
 			  
 		} catch (Exception e) {
@@ -203,7 +205,7 @@ public class CondominoViewController implements Initializable{
 		}
 	}
 	
-	 public static <Condomino> void initButtons(TableColumn<Condomino, Condomino> tableColumn, int size, String svgIcon, BiConsumer<Condomino, ActionEvent> buttonAction) {
+	 /*public static <Condomino> void initButtons(TableColumn<Condomino, Condomino> tableColumn, int size, String svgIcon, BiConsumer<Condomino, ActionEvent> buttonAction) {
 		    final int COLUMN_ICON_SPACE = 20; // espaço extra que terá dentro da célula da tabela
 		    tableColumn.setMinWidth(size + COLUMN_ICON_SPACE);
 		    tableColumn.setMaxWidth(size + COLUMN_ICON_SPACE);
@@ -273,7 +275,7 @@ public class CondominoViewController implements Initializable{
 		    button.setPrefWidth(size);
 		    button.setPrefHeight(size);
 		    return button;
-		  }
+		  }*/
 		  
 	
 }
