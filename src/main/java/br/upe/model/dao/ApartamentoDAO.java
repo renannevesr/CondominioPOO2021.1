@@ -19,8 +19,10 @@ public interface ApartamentoDAO {
 			
 			String query = "Select a from Apartamento a where a.bloco =:bloco and a.numero=:numero";
 			
-
-			return (Apartamento) conexao.em.createQuery(query).setParameter("bloco", bloco).setParameter("numero", numero).getSingleResult();
+			Apartamento result = (Apartamento) conexao.em.createQuery(query).setParameter("bloco", bloco).setParameter("numero", numero).getSingleResult();
+			System.out.println(result);
+			
+			return result;
 		}
 	}
 }

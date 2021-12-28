@@ -5,6 +5,7 @@ import java.util.List;
 import br.upe.model.dao.ApartamentoDAO.JPAApartamentoDAO;
 import br.upe.model.dao.CondominoDAO.JPACondominoDAO;
 import br.upe.model.entity.Apartamento;
+import br.upe.model.entity.Blocos;
 import br.upe.model.entity.Condomino;
 import br.upe.validator.ValidatorController;
 
@@ -49,6 +50,11 @@ public class CondominoController {
 	
 
 		dao.remover(condomino.getId());
+	}
+	
+	public Apartamento buscarApartamento(Blocos bloco, int numero) throws Exception{
+		
+		return daoAp.buscarAp(bloco, numero);
 	}
 	
 }
