@@ -143,9 +143,14 @@ public class CondominoViewController implements Initializable {
 						}
 					}
 				} else {
-					condomino.setId(id);
-					condominoController.atualizar(condomino);
-					Alerts.alertSuccess("Condomino atualizado com sucesso!");
+					if(isExistent(bloco, numero)) {						
+						Alerts.alertError("Já há um condomino cadastrado neste apartamento!"
+								+ "\nSe deseja alterar alguma coisa exclua e salve de novo!");
+					}else {
+						condomino.setId(id);
+						condominoController.atualizar(condomino);
+						Alerts.alertSuccess("Condomino atualizado com sucesso!");						
+					}
 				}
 				limpaTela();
 				atualizaTabela();
@@ -291,7 +296,7 @@ public class CondominoViewController implements Initializable {
 	}
 
 	public void carregarTableView() {
-		ObservableList<Integer> list1 = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		ObservableList<Integer> list1 = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values());
 
 		num_AP.setItems(list1);
