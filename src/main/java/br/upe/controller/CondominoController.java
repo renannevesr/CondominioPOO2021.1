@@ -17,7 +17,7 @@ public class CondominoController {
 	
 	public void cadastrar(Condomino condomino, Apartamento ap) throws Exception {
 		
-		ap = daoAp.buscarAp(ap.getBloco(), ap.getNumero());
+		ap = daoAp.buscarAp(ap.getBloco(), ap.getNumero()).get(0);
 		ap.setCondomino(condomino);
 		
 		try {
@@ -53,7 +53,7 @@ public class CondominoController {
 		dao.remover(condomino.getId());
 	}
 	
-	public Apartamento buscarApartamento(Blocos bloco, int numero) throws Exception{
+	public List<Apartamento> buscarApartamento(Blocos bloco, int numero) throws Exception{
 		
 		return daoAp.buscarAp(bloco, numero);
 	}

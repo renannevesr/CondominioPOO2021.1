@@ -2,6 +2,8 @@ package br.upe.controllersJavaFX;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import br.upe.controller.ApartamentoController;
@@ -60,8 +62,8 @@ public class CondominoViewController implements Initializable{
     @FXML
     private TableView<Condomino> condominoTable;
     
-    @FXML
-    private TableView<Apartamento> apartamentoTable;
+//    @FXML
+//    private TableView<Apartamento> apartamentoTable;
 
     @FXML
     private TableColumn<Condomino, String> tableCPF;
@@ -208,46 +210,35 @@ public class CondominoViewController implements Initializable{
         }
     }
 	
-	private void tabelaPesquisa() {
-		
-	}
-	
 	@FXML 
 	void PesquisaAp(MouseEvent event) {
-		int numero = (int) this.num_AP.getSelectionModel().getSelectedItem(); 
+		int numero = 0;
+		if(this.num_AP.getSelectionModel().getSelectedItem() != null)
+			numero = (int) this.num_AP.getSelectionModel().getSelectedItem(); 
+		
 		Blocos bloco = (Blocos) this.bloco_AP.getSelectionModel().getSelectedItem();
 		buscarAp(numero, bloco);
 	}
+	List<Apartamento> ap = new ArrayList<Apartamento>();
 	
-	private void buscarAp(int numero, Blocos bloco) {
+	private List<Apartamento> buscarAp(int numero, Blocos bloco) {
+	
 		
 		try {
-			condominoController.buscarApartamento(bloco, numero);
+			
+			System.out.println(condominoController.buscarApartamento(bloco, numero));
+			ap = condominoController.buscarApartamento(bloco, numero);
+			carregarTableView();
+			return ap;
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 		
 	}
 	
-//	condominoTable.setRowFactory(new Callback<TableView<Condomino>, TableRow<Condomino>>() {  
-//        @Override  
-//        public TableRow<Condomino> call(TableView<Condomino> tableView2) {  
-//            final TableRow<Condomino> row = new TableRow<>();  
-//            row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {  
-//                @Override  
-//                public void handle(MouseEvent event) {  
-//                    final int index = row.getIndex();  
-//                    if (index >= 0 && index < tableView.getItems().size() && tableView.getSelectionModel().isSelected(index)  ) {
-//                        tableView.getSelectionModel().clearSelection();
-//                        event.consume();  
-//                    }  
-//                }  
-//            });  
-//            return row;  
-//        }  
-//    });  
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		limpaTela();
@@ -267,15 +258,18 @@ public class CondominoViewController implements Initializable{
 		
 		// Tabela
 		try {
-			ApartamentoController apartamentoController = new ApartamentoController();
-			ObservableList<Condomino> list3 = FXCollections.observableArrayList(condominoController.listar());
+			List<Condomino> c = new ArrayList<Condomino>();
+			
+			for(Apartamento i: ap) {
+				c.add(i.getCondomino());
+			}
+			ObservableList<Condomino> list3 = FXCollections.observableArrayList(c);
 			//ObservableList<Apartamento> list4 = FXCollections.observableArrayList(apartamentoController.listar());
 			
 			tableNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 			tableCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 			tableContato.setCellValueFactory(new PropertyValueFactory<>("contato"));
-			
-			//tableAcoes.setCellValueFactory(new PropertyValueFactory<>("bloco"));
+//			tableAcoes.setCellValueFactory(new PropertyValueFactory<Apartamento, Blocos>("bloco"));
 			//System.out.println("Bloco: " + new PropertyValueFactory<>("bloco"));
 			
 			
