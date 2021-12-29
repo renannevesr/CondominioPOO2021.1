@@ -94,10 +94,9 @@ public class CondominoViewController implements Initializable{
 	
 	@FXML 
 	void salvarCondomino(MouseEvent event) throws IOException {
-		System.out.println("Teste #01: "+condominoTable.getSelectionModel().getSelectedItem());
-		System.out.println("Teste #02: "+this.select);
 		
 		if(this.select == null || this.select.isEmpty()) {
+			condominoTable.getSelectionModel().clearSelection();
 			cadastrarCondomino(null);
 		}else {
 			//cadastrarCondomino((Long) this.select.get(0).getId());
@@ -168,13 +167,15 @@ public class CondominoViewController implements Initializable{
 	@FXML
 	void EditarCondomino(MouseEvent event) {
 		this.select = condominoTable.getSelectionModel().getSelectedItems();
-		this.cpf.setText(select.get(0).getCpf());
-		this.nome.setText(select.get(0).getNome());
-		this.contato.setText(select.get(0).getContato());
-		this.bloco_AP.setValue(select.get(0).getApartamentos().get(0).getBloco());
-		this.num_AP.setValue(select.get(0).getApartamentos().get(0).getNumero());
-		this.bloco.setText(String.valueOf(select.get(0).getApartamentos().get(0).getBloco()));
-		this.unidade.setText(String.valueOf(select.get(0).getApartamentos().get(0).getNumero()));
+		Condomino c = condominoTable.getSelectionModel().getSelectedItem();
+		this.cpf.setText(c.getCpf());
+		this.nome.setText(c.getNome());
+		this.contato.setText(c.getContato());
+		this.bloco_AP.setValue(c.getApartamentos().get(0).getBloco());
+		this.num_AP.setValue(c.getApartamentos().get(0).getNumero());
+		this.bloco.setText(String.valueOf(c.getApartamentos().get(0).getBloco()));
+		this.unidade.setText(String.valueOf(c.getApartamentos().get(0).getNumero()));
+		condominoTable.getSelectionModel().clearSelection();
 	}
 	
 	@FXML
