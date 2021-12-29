@@ -94,11 +94,14 @@ public class CondominoViewController implements Initializable{
 	
 	@FXML 
 	void salvarCondomino(MouseEvent event) throws IOException {
-		if(this.select == null) {
+		System.out.println("Teste #01: "+condominoTable.getSelectionModel().getSelectedItem());
+		System.out.println("Teste #02: "+this.select);
+		
+		if(this.select == null || this.select.isEmpty()) {
 			cadastrarCondomino(null);
 		}else {
-
-			cadastrarCondomino((Long) this.select.get(0).getId());
+			//cadastrarCondomino((Long) this.select.get(0).getId());
+			cadastrarCondomino(condominoTable.getSelectionModel().getSelectedItem().getId());
 		}
 	}
 	
@@ -161,8 +164,6 @@ public class CondominoViewController implements Initializable{
 			e.getMessage();
 		}
 	}
-	
-	
 	
 	@FXML
 	void EditarCondomino(MouseEvent event) {
@@ -250,9 +251,17 @@ public class CondominoViewController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		limpaTela();
-		ObservableList<Integer> list1 = FXCollections.observableArrayList(1, 2);
-		ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values() );
+		carregarTableView();
 		
+		condominoTable.getSelectionModel().selectedItemProperty().addListener(
+				(observable, oldValue, newValue) -> selecionarItemTableViewCondomino(newValue));
+		
+	}
+	
+	public void carregarTableView() {
+		ObservableList<Integer> list1 = FXCollections.observableArrayList(1, 2, 3);
+		ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values() );
+			
 		num_AP.setItems(list1);
 		bloco_AP.setItems(list2);
 		
@@ -277,6 +286,10 @@ public class CondominoViewController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-			  
+	
+	private void selecionarItemTableViewCondomino(Condomino condomino) {
+		System.out.println("Cliente selecionado no TableView: " + condomino.getNome());
+	}
+	
 	
 }
