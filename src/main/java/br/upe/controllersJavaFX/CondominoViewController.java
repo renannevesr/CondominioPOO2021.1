@@ -11,6 +11,7 @@ import br.upe.controller.CondominoController;
 import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Blocos;
 import br.upe.model.entity.Condomino;
+import br.upe.model.entity.TableCondominoAp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,11 +27,7 @@ import javafx.scene.input.MouseEvent;
 
 public class CondominoViewController implements Initializable{
 	
-	public final String DELETE = "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z";
-	
-//	@FXML 
-//	private TableColumn<Condomino, Condomino> columnDelete;
-	private ObservableList<Condomino> select;
+	private ObservableList<TableCondominoAp> select;
 	
     @FXML
     private ComboBox<Blocos> bloco_AP;
@@ -60,11 +57,8 @@ public class CondominoViewController implements Initializable{
     private TextField nome;
 
     @FXML
-    private TableView<Condomino> condominoTable;
+    private TableView<TableCondominoAp> condominoTable;
     
-//    @FXML
-//    private TableView<Apartamento> apartamentoTable;
-
     @FXML
     private TableColumn<Condomino, String> tableCPF;
 
@@ -77,8 +71,8 @@ public class CondominoViewController implements Initializable{
     @FXML
     private TableColumn<Apartamento, Blocos> tableAcoes;
     
-//    @FXML
-//    private TableColumn<Condomino, String> tableAcoes1;
+    @FXML
+    private TableColumn<Condomino, String> tableAcoes1;
     
     @FXML
     private Button btn_excluir;
@@ -93,6 +87,7 @@ public class CondominoViewController implements Initializable{
     void Select(ActionEvent event) {}
    
 	CondominoController condominoController = new CondominoController();
+	ApartamentoController apartamentoController = new ApartamentoController();
 	
 	@FXML 
 	void salvarCondomino(MouseEvent event) throws IOException {
@@ -101,8 +96,7 @@ public class CondominoViewController implements Initializable{
 			condominoTable.getSelectionModel().clearSelection();
 			cadastrarCondomino(null);
 		}else {
-			//cadastrarCondomino((Long) this.select.get(0).getId());
-			cadastrarCondomino(condominoTable.getSelectionModel().getSelectedItem().getId());
+			cadastrarCondomino(condominoTable.getSelectionModel().getSelectedItem().getIdCond());
 		}
 	}
 	
@@ -138,8 +132,13 @@ public class CondominoViewController implements Initializable{
 				condomino.setContato(contato);
 				
 				if (id == null) {
-					condominoController.cadastrar(condomino, ap);					
-					Alerts.alertSuccess("Condomino cadastrado com sucesso!");
+					System.out.println("Aqui burro");
+					if(isExistent(bloco, numero)) {
+						Alerts.alertError("Condomino referente ao apartamento ja existente!");
+					}else {
+						condominoController.cadastrar(condomino, ap);					
+						Alerts.alertSuccess("Condomino cadastrado com sucesso!");
+					}
 				}else {
 					condomino.setId(id);
 					condominoController.atualizar(condomino);
@@ -155,6 +154,22 @@ public class CondominoViewController implements Initializable{
 		}
 		
 	}
+	
+	private boolean isExistent(Blocos b, int n) {
+		List<Apartamento> aux = null;
+		try {
+			aux = apartamentoController.listar();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i = 0; i < aux.size(); i++) {
+			if(aux.get(i).getBloco() == b && aux.get(i).getNumero() == n && aux.get(i).getCondomino()!=null) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@FXML
 	private void listarCondominos(){
@@ -168,7 +183,7 @@ public class CondominoViewController implements Initializable{
 	@FXML
 	void EditarCondomino(MouseEvent event) {
 		this.select = condominoTable.getSelectionModel().getSelectedItems();
-		Condomino c = condominoTable.getSelectionModel().getSelectedItem();
+		Condomino c = TableCondominoAp.toCondomino(condominoTable.getSelectionModel().getSelectedItem());
 		this.cpf.setText(c.getCpf());
 		this.nome.setText(c.getNome());
 		this.contato.setText(c.getContato());
@@ -195,16 +210,28 @@ public class CondominoViewController implements Initializable{
 	
 	private void excluirCondomino() {
 		try {
-			condominoController.remover(this.select.get(0));
+			condominoController.remover(TableCondominoAp.toCondomino(this.select.get(0)));
 			Alerts.alertSuccess("Condomino deletado com sucesso!");
 		}catch(Exception e) {
 			Alerts.alertError("Não foi possível excluir esse condomino!");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
 	private void atualizaTabela() {
         try {
-            condominoTable.setItems(FXCollections.observableArrayList(condominoController.listar()));
+        	List<TableCondominoAp> cap = new ArrayList<TableCondominoAp>();
+        	List<Condomino> c = new ArrayList<Condomino>();
+        	this.ap = apartamentoController.listar(); 
+			for(Apartamento i: ap) {
+				if(i.getCondomino() != null) {					
+					c.add(i.getCondomino());
+					cap.add(new TableCondominoAp(i.getCondomino(), i));
+				}
+			}
+        	
+            condominoTable.setItems(FXCollections.observableArrayList(cap));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -219,23 +246,22 @@ public class CondominoViewController implements Initializable{
 		Blocos bloco = (Blocos) this.bloco_AP.getSelectionModel().getSelectedItem();
 		buscarAp(numero, bloco);
 	}
-	List<Apartamento> ap = new ArrayList<Apartamento>();
 	
-	private List<Apartamento> buscarAp(int numero, Blocos bloco) {
+	public List<Apartamento> ap = new ArrayList<Apartamento>();
+	
+	private void buscarAp(int numero, Blocos bloco) {
 	
 		
 		try {
 			
 			System.out.println(condominoController.buscarApartamento(bloco, numero));
-			ap = condominoController.buscarApartamento(bloco, numero);
+			this.ap = condominoController.buscarApartamento(bloco, numero);
 			carregarTableView();
-			return ap;
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
 		
 	}
 	
@@ -259,30 +285,31 @@ public class CondominoViewController implements Initializable{
 		// Tabela
 		try {
 			List<Condomino> c = new ArrayList<Condomino>();
+			List<TableCondominoAp> cap = new ArrayList<TableCondominoAp>();
 			
 			for(Apartamento i: ap) {
-				c.add(i.getCondomino());
+				if(i.getCondomino()!=null) {					
+					c.add(i.getCondomino());
+					cap.add(new TableCondominoAp(i.getCondomino(), i));
+				}
 			}
-			ObservableList<Condomino> list3 = FXCollections.observableArrayList(c);
-			//ObservableList<Apartamento> list4 = FXCollections.observableArrayList(apartamentoController.listar());
+			ObservableList<TableCondominoAp> list3 = FXCollections.observableArrayList(cap);
 			
 			tableNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 			tableCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 			tableContato.setCellValueFactory(new PropertyValueFactory<>("contato"));
-//			tableAcoes.setCellValueFactory(new PropertyValueFactory<Apartamento, Blocos>("bloco"));
-			//System.out.println("Bloco: " + new PropertyValueFactory<>("bloco"));
-			
-			
+			tableAcoes.setCellValueFactory(new PropertyValueFactory<>("bloco"));
+			tableAcoes1.setCellValueFactory(new PropertyValueFactory<>("numero"));
+						
 			condominoTable.setItems(list3);
-			//apartamentoTable.setItems(list4);		  
 			  
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void selecionarItemTableViewCondomino(Condomino condomino) {
-		System.out.println("Cliente selecionado no TableView: " + condomino.getNome());
+	private void selecionarItemTableViewCondomino(TableCondominoAp newValue) {
+		System.out.println("Cliente selecionado no TableView: " + newValue.getNome());
 	}
 	
 	

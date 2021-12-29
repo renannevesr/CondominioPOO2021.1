@@ -1,5 +1,6 @@
 package br.upe.model.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,7 @@ import lombok.Setter;
 public class Condomino extends Pessoa{
 	
 	@OneToMany(mappedBy = "condomino", cascade={CascadeType.PERSIST})
-	private List<Apartamento> apartamentos;
+	private List<Apartamento> apartamentos = new ArrayList<Apartamento>();
 	private String contato;
 
 }
