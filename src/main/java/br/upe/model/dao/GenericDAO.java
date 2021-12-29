@@ -61,6 +61,7 @@ public class GenericDAO<Generic, Id extends Serializable>{
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 				conexao.em.getTransaction().rollback();
+				throw e;
 			}
 			finally {
 				conexao.em.close();
