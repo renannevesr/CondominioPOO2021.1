@@ -115,12 +115,12 @@ public class CondominoViewController implements Initializable{
 			numero = (int) this.num_AP.getSelectionModel().getSelectedItem(); 
 		
 		Blocos bloco = (Blocos) this.bloco_AP.getSelectionModel().getSelectedItem();
-		
+
 		try {
 			if(nome.equals("") || 
 			   cpf.equals("") || 
 			   contato.equals("") || 
-			   bloco.equals("") ||
+			   bloco == null ||
 			   numero == 0 ) 
 			{
 				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
@@ -136,23 +136,22 @@ public class CondominoViewController implements Initializable{
 				condomino.setContato(contato);
 				
 				if (id == null) {
-					condominoController.cadastrar(condomino, ap);
-					
+					condominoController.cadastrar(condomino, ap);					
 					Alerts.alertSuccess("Condomino cadastrado com sucesso!");
-					
 				}else {
 					condomino.setId(id);
 					condominoController.atualizar(condomino);
 					Alerts.alertSuccess("Condomino atualizado com sucesso!");
 				}
+				limpaTela();
+				atualizaTabela();
 			}
 		}
+		
 		catch(Exception e) {
-			Alerts.alertError("Erro ao tentar cadastrar esse Condomino!");
+			Alerts.alertError("Erro ao tentar cadastrar esse Condomino!\n" + (e.getMessage().compareTo("org.hibernate.exception.ConstraintViolationException: could not execute statement") ==0 ? "CPF já cadastrado" : e.getMessage()));
 		}
 		
-		limpaTela();
-		atualizaTabela();
 	}
 
 	@FXML

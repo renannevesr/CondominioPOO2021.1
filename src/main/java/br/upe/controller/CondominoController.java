@@ -15,7 +15,7 @@ public class CondominoController {
 	private JPACondominoDAO dao = new JPACondominoDAO();
 	private JPAApartamentoDAO daoAp = new JPAApartamentoDAO();
 	
-	public void cadastrar(Condomino condomino, Apartamento ap) {
+	public void cadastrar(Condomino condomino, Apartamento ap) throws Exception {
 		
 		ap = daoAp.buscarAp(ap.getBloco(), ap.getNumero());
 		ap.setCondomino(condomino);
@@ -29,6 +29,7 @@ public class CondominoController {
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
 			e.printStackTrace();
+			throw e;
 		}
 		
 	}

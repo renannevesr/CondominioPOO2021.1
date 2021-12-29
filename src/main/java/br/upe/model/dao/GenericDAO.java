@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import org.hibernate.boot.model.relational.Database;
 import org.hibernate.exception.ConstraintViolationException;
 
 import br.upe.connectionDB.ConnectionDB;
@@ -30,14 +31,15 @@ public class GenericDAO<Generic, Id extends Serializable>{
 				conexao.em.getTransaction().begin();
 				conexao.em.persist(g);
 				conexao.em.getTransaction().commit();
+			}catch(ConstraintViolationException e) {
+				System.out.println(e.getMessage());
+				throw new Exception("Dados duplicados!");
 			}
 			catch(Exception e){
-				if(e instanceof SQLException) {
-					throw new Exception ("Dados duplicados!");
-				}
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 				conexao.em.getTransaction().rollback();
+				throw e;
 			}
 			finally {
 				conexao.em.close();
