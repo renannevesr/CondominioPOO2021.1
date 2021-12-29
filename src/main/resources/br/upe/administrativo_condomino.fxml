@@ -165,7 +165,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button alignment="CENTER_RIGHT" layoutX="592.0" layoutY="148.0" mnemonicParsing="false" style="-fx-background-color: #4EADEE;" text="Pesquisar" textFill="WHITE">
+            <Button alignment="CENTER_RIGHT" layoutX="592.0" layoutY="148.0" mnemonicParsing="false" style="-fx-background-color: #4EADEE;" onMouseClicked="#PesquisaAp" text="Pesquisar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
