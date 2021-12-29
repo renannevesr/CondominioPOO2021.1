@@ -4,8 +4,11 @@ import java.util.Date;
 
 import br.upe.controller.ContaController;
 import br.upe.controller.FuncionarioController;
+import br.upe.model.dao.ApartamentoDAO.JPAApartamentoDAO;
 import br.upe.model.dao.ContaDAO.JPAContaDAO;
 import br.upe.model.dao.FuncionarioDAO.JPAFuncionarioDAO;
+import br.upe.model.entity.Apartamento;
+import br.upe.model.entity.Blocos;
 import br.upe.model.entity.Conta;
 import br.upe.model.entity.Funcionario;
 
@@ -54,6 +57,22 @@ public class Migration {
 			conta.cadastrar(c2);
 			conta.cadastrar(c3);
 		}
+		 
+		JPAApartamentoDAO daoAp = new JPAApartamentoDAO();
+		if(daoAp.listar().isEmpty()) {
+			for(int i = 1; i<=10; i++) {
+				for (int j = 0; j<3; j++) {
+					Apartamento ap = new Apartamento (null, i, null, 2000.00, Blocos.values()[j]);
+					try {
+						daoAp.salvar(ap);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	
 		
 		
 		

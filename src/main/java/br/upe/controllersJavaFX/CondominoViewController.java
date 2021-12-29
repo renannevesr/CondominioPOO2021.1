@@ -77,11 +77,18 @@ public class CondominoViewController implements Initializable{
     @FXML
     private Button btn_excluir;
     
-    @FXML
-    private TextField unidade;
+//    @FXML
+//    private TextField unidade;
+//    
+//    @FXML
+//    private TextField bloco;
     
     @FXML
-    private TextField bloco;
+    private ComboBox<Blocos> bloco_set;
+    
+    @FXML
+    private ComboBox<Integer> unidade_set;
+    
 
     @FXML
     void Select(ActionEvent event) {}
@@ -107,10 +114,10 @@ public class CondominoViewController implements Initializable{
 		String contato = this.contato.getText();
 		
 		int numero = 0;
-		if(this.num_AP.getSelectionModel().getSelectedItem() != null)
-			numero = (int) this.num_AP.getSelectionModel().getSelectedItem(); 
+		if(this.unidade_set.getSelectionModel().getSelectedItem() != null)
+			numero = (int) this.unidade_set.getSelectionModel().getSelectedItem(); 
 		
-		Blocos bloco = (Blocos) this.bloco_AP.getSelectionModel().getSelectedItem();
+		Blocos bloco = (Blocos) this.bloco_set.getSelectionModel().getSelectedItem();
 
 		try {
 			if(nome.equals("") || 
@@ -187,10 +194,12 @@ public class CondominoViewController implements Initializable{
 		this.cpf.setText(c.getCpf());
 		this.nome.setText(c.getNome());
 		this.contato.setText(c.getContato());
-		this.bloco_AP.setValue(c.getApartamentos().get(0).getBloco());
-		this.num_AP.setValue(c.getApartamentos().get(0).getNumero());
-		this.bloco.setText(String.valueOf(c.getApartamentos().get(0).getBloco()));
-		this.unidade.setText(String.valueOf(c.getApartamentos().get(0).getNumero()));
+//		this.bloco_AP.setValue(c.getApartamentos().get(0).getBloco());
+//		this.num_AP.setValue(c.getApartamentos().get(0).getNumero());
+		this.bloco_set.setValue(c.getApartamentos().get(0).getBloco());
+		this.unidade_set.setValue(c.getApartamentos().get(0).getNumero());
+//		this.bloco.setText(String.valueOf(c.getApartamentos().get(0).getBloco()));
+//		this.unidade.setText(String.valueOf(c.getApartamentos().get(0).getNumero()));
 		condominoTable.getSelectionModel().clearSelection();
 	}
 	
@@ -276,11 +285,13 @@ public class CondominoViewController implements Initializable{
 	}
 	
 	public void carregarTableView() {
-		ObservableList<Integer> list1 = FXCollections.observableArrayList(1, 2, 3);
+		ObservableList<Integer> list1 = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values() );
 			
 		num_AP.setItems(list1);
 		bloco_AP.setItems(list2);
+		bloco_set.setItems(list2);
+		unidade_set.setItems(list1);
 		
 		// Tabela
 		try {
