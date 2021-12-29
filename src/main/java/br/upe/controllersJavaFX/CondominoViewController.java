@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.persistence.NoResultException;
+
 import br.upe.controller.ApartamentoController;
 import br.upe.controller.CondominoController;
+import br.upe.model.dao.CondominoDAO.JPACondominoDAO;
+import br.upe.model.dao.PessoaDAO.JPAPessoaDAO;
 import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Blocos;
 import br.upe.model.entity.Condomino;
@@ -139,12 +143,19 @@ public class CondominoViewController implements Initializable{
 				condomino.setContato(contato);
 				
 				if (id == null) {
-					System.out.println("Aqui burro");
 					if(isExistent(bloco, numero)) {
-						Alerts.alertError("Condomino referente ao apartamento ja existente!");
+						Alerts.alertError("Já há um condomino cadastrado neste apartamento!\nSe deseja alterar alguma coisa exclua e salve de novo!");
 					}else {
-						condominoController.cadastrar(condomino, ap);					
-						Alerts.alertSuccess("Condomino cadastrado com sucesso!");
+						if(isCadastrado(condomino.getCpf())) {
+							condomino = buscarPorCpf(cpf);
+							ap = condominoController.buscarApartamento(bloco, numero).get(0);
+							ap.setCondomino(condomino);
+							System.out.println("Apartamento: " + ap);
+							apartamentoController.atualizar(ap);
+						}else {							
+							condominoController.cadastrar(condomino, ap);					
+							Alerts.alertSuccess("Condomino cadastrado com sucesso!");
+						}
 					}
 				}else {
 					condomino.setId(id);
@@ -160,6 +171,28 @@ public class CondominoViewController implements Initializable{
 			Alerts.alertError("Erro ao tentar cadastrar esse Condomino!\n" + (e.getMessage().compareTo("org.hibernate.exception.ConstraintViolationException: could not execute statement") ==0 ? "CPF já cadastrado" : e.getMessage()));
 		}
 		
+	}
+	
+	
+	
+	private Condomino buscarPorCpf(String cpf) {
+		JPAPessoaDAO dao = new JPAPessoaDAO();
+		return (Condomino)dao.buscarCPF(new Condomino(), cpf);
+	}
+	
+	private boolean isCadastrado(String cpf) {
+		JPAPessoaDAO dao = new JPAPessoaDAO();
+		Condomino c = new Condomino();
+		try {
+			c = (Condomino)dao.buscarCPF(c, cpf);
+			return true;
+		}catch (Exception e) {
+			// TODO: handle exception
+			if(e instanceof NoResultException) {
+				//System.out.println("Funcionou!");
+			}
+		}
+		return false;
 	}
 	
 	private boolean isExistent(Blocos b, int n) {
@@ -260,7 +293,6 @@ public class CondominoViewController implements Initializable{
 	
 	private void buscarAp(int numero, Blocos bloco) {
 	
-		
 		try {
 			
 			System.out.println(condominoController.buscarApartamento(bloco, numero));
