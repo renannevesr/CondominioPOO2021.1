@@ -115,14 +115,12 @@ public class CondominoViewController implements Initializable {
 			numero = (int) this.unidade_set.getSelectionModel().getSelectedItem();
 
 		Blocos bloco = (Blocos) this.bloco_set.getSelectionModel().getSelectedItem();
-
+		
 		try {
-			if (nome.equals("") || cpf.equals("") || contato.equals("") || bloco == null || numero == 0) {
+			if (nome == null || cpf == null || contato == null || bloco == null || numero == 0) {
 				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
 			} else {
 				Apartamento ap = new Apartamento();
-				ap.setBloco(bloco);
-				ap.setNumero(numero);
 
 				Condomino condomino = new Condomino();
 				condomino.setNome(nome);
@@ -136,10 +134,23 @@ public class CondominoViewController implements Initializable {
 					} else {
 						// se nao existir, verifica se o cpf já está cadastrado
 						if (isCadastrado(condomino.getCpf())) {
-							// caso exista o cpf, significa atualizar o Ap com esse condomino existente
-							ap = condominoController.buscarApartamento(bloco, numero).get(0);
-							ap.setCondomino(condomino);
-							apartamentoController.atualizar(ap);
+							Condomino c = (Condomino) dao.buscarCPF(condomino, condomino.getCpf());
+							//se o cpf ja esta cadastrado, lança um alert de  confirmação
+							if(Alerts.alertConfirmation("Já existe um Condomino cadastrado nesse CPF. Utilizar informações existentes?", null)) {
+								//se apertar sim, mantém as informações e apenas coloca aquele condomino em outro Ap
+								ap = condominoController.buscarApartamento(bloco, numero).get(0);
+								ap.setCondomino(c);
+								apartamentoController.atualizar(ap);
+							}else {
+								//se não, atualiza os dados do condomino e coloca em outro Ap
+								c.setContato(contato);
+								c.setNome(nome);
+								condominoController.atualizar(c);
+								Alerts.alertSuccess("Condomino atualizado com sucesso!");
+								ap = condominoController.buscarApartamento(bloco, numero).get(0);
+								ap.setCondomino(c);
+								apartamentoController.atualizar(ap);
+							}
 						} else {
 							// se nao existir o cpf, apenas cadastra um novo condomino
 							condominoController.cadastrar(condomino, ap);
@@ -153,14 +164,18 @@ public class CondominoViewController implements Initializable {
 
 					Condomino c = TableCondominoAp.toCondomino(condominoTable.getSelectionModel().getSelectedItem());
 
+					//verifica se o bloco que tentou cadastrar é diferente do que chegou ao editar
 					if (bloco != c.getApartamentos().get(0).getBloco() || numero != c.getApartamentos().get(0).getNumero()) {
+						//se for diferente, vai verificar se existe alguem cadastrado
 						if (!isExistent(bloco, numero)) {
+							//se nao existir, vai jogar aquele condomino num ap novo
 							ap = condominoController.buscarApartamento(bloco, numero).get(0);
 							ap.setCondomino(c);
 							apartamentoController.atualizar(ap);
 							Alerts.alertSuccess("Cadastrado com sucesso!");
 						}
-					} else {						
+					} else {				
+						//se o bloco e o numero continua o mesmo, apenas atualiza o condomino
 						condomino.setId(id);
 						condominoController.atualizar(condomino);
 						Alerts.alertSuccess("Condomino atualizado com sucesso!");
@@ -232,7 +247,9 @@ public class CondominoViewController implements Initializable {
 	@FXML
 	void ExcluirCondomino(MouseEvent event) {
 		this.select = condominoTable.getSelectionModel().getSelectedItems();
-		excluirCondomino();
+		if(Alerts.alertConfirmation("Excluir", "Deseja prosseguir com a operação?")) {
+			excluirCondomino();
+		}
 		limpaTela();
 		atualizaTabela();
 	}
@@ -311,11 +328,13 @@ public class CondominoViewController implements Initializable {
 	public void carregarTableView() {
 		ObservableList<Integer> list1 = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values());
+		ObservableList<Integer> list5 = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		ObservableList<Blocos> list6 = FXCollections.observableArrayList(Blocos.A, Blocos.B, Blocos.C);
 
 		num_AP.setItems(list1);
 		bloco_AP.setItems(list2);
-		bloco_set.setItems(list2);
-		unidade_set.setItems(list1);
+		bloco_set.setItems(list6);
+		unidade_set.setItems(list5);
 
 		// Tabela
 		try {
