@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,6 +17,9 @@
                <image>
                   <Image url="@../../assets/icons/admin/Vector@4x.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
                <image>
@@ -26,11 +30,17 @@
                <image>
                   <Image url="@../../assets/icons/dolar/Vector@5x.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-15.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
                <image>
                   <Image url="@../../assets/icons/estoque/Vector@5x.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
       </AnchorPane>
@@ -43,26 +53,38 @@
                   <Font size="28.0" />
                </font>
             </Text>
-            <ComboBox fx:id="button_unidade" layoutX="29.0" layoutY="208.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0" />
-            <ComboBox fx:id="button_reserva" layoutX="26.0" layoutY="324.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0" />
-            <ComboBox fx:id="button_servico" layoutX="25.0" layoutY="440.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0" />
-            <ComboBox fx:id="button_funcionario" layoutX="26.0" layoutY="544.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0" />
-            <Text fill="#838181" layoutX="92.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidades">
+            <ComboBox fx:id="button_unidade" layoutX="31.0" layoutY="208.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
+            <ComboBox fx:id="button_reserva" layoutX="31.0" layoutY="322.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
+            <ComboBox fx:id="button_servico" layoutX="31.0" layoutY="441.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
+            <ComboBox fx:id="button_funcionario" layoutX="31.0" layoutY="545.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
+            <Text fill="#838181" layoutX="83.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidades">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Text fill="#838181" layoutX="92.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserva">
+            <Text fill="#838181" layoutX="93.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserva">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Text fill="#838181" layoutX="96.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviço">
+            <Text fill="#838181" layoutX="97.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviço">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Text fill="#838181" layoutX="71.0" layoutY="528.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionário">
+            <Text fill="#838181" layoutX="72.0" layoutY="528.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionário">
                <font>
                   <Font size="24.0" />
                </font>
@@ -70,6 +92,8 @@
          </children></AnchorPane>
    </center>
    <right>
-      <AnchorPane prefHeight="860.0" prefWidth="820.0" style="-fx-background-color: #F2F7F9;" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="860.0" prefWidth="820.0" style="-fx-background-color: #F2F7F9;" BorderPane.alignment="CENTER">
+         <children>
+         </children></AnchorPane>
    </right>
 </BorderPane>
