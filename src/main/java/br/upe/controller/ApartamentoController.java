@@ -20,6 +20,10 @@ public class ApartamentoController {
 		}
 	}
 	
+	public void atualizar(Apartamento apartamento) throws Exception {
+		dao.atualizar(apartamento);
+	}
+	
 	public List<Apartamento> listar() throws Exception {
 		return dao.listar();
 	}

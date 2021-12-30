@@ -20,6 +20,10 @@ public interface ApartamentoDAO {
 			String query = "Select a from Apartamento a";
 
 			List<Apartamento> result = null;
+			
+			if(bloco == Blocos.Todos) {
+				bloco = null;
+			}
 
 			if(bloco != null && numero != 0 ){
 				String filter = " where a.bloco =:bloco and a.numero=:numero";

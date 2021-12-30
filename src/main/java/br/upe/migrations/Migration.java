@@ -61,7 +61,7 @@ public class Migration {
 		JPAApartamentoDAO daoAp = new JPAApartamentoDAO();
 		if(daoAp.listar().isEmpty()) {
 			for(int i = 1; i<=10; i++) {
-				for (int j = 0; j<3; j++) {
+				for (int j = 1; j<=3; j++) {
 					Apartamento ap = new Apartamento (null, i, null, 2000.00, Blocos.values()[j]);
 					try {
 						daoAp.salvar(ap);
