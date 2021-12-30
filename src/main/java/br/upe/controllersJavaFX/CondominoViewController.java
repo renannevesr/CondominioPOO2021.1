@@ -91,6 +91,7 @@ public class CondominoViewController implements Initializable {
 
 	CondominoController condominoController = new CondominoController();
 	ApartamentoController apartamentoController = new ApartamentoController();
+	JPAPessoaDAO dao = new JPAPessoaDAO();
 
 	@FXML
 	void salvarCondomino(MouseEvent event) throws IOException {
@@ -128,29 +129,38 @@ public class CondominoViewController implements Initializable {
 				condomino.setCpf(cpf);
 				condomino.setContato(contato);
 
+				// cadastrar
 				if (id == null) {
+					// verifica se ja existe um condomino naquele apartamento
 					if (isExistent(bloco, numero)) {
-						Alerts.alertError("Já há um condomino cadastrado neste apartamento!"
-								+ "\nSe deseja alterar alguma coisa exclua e salve de novo!");
 					} else {
+						// se nao existir, verifica se o cpf já está cadastrado
 						if (isCadastrado(condomino.getCpf())) {
+							// caso exista o cpf, significa atualizar o Ap com esse condomino existente
 							ap = condominoController.buscarApartamento(bloco, numero).get(0);
 							ap.setCondomino(condomino);
 							apartamentoController.atualizar(ap);
 						} else {
+							// se nao existir o cpf, apenas cadastra um novo condomino
 							condominoController.cadastrar(condomino, ap);
 							Alerts.alertSuccess("Condomino cadastrado com sucesso!");
 						}
 					}
-				} else {
-					if(isExistent(bloco, numero)) {						
-						Alerts.alertError("Já há um condomino cadastrado neste apartamento!"
-								+ "\nSe deseja alterar alguma coisa exclua e salve de novo!");
-					}else {
-						condomino.setId(id);
-						condominoController.atualizar(condomino);
-						Alerts.alertSuccess("Condomino atualizado com sucesso!");						
+				}
+
+				// atualizar
+				else {
+
+					Condomino c = TableCondominoAp.toCondomino(condominoTable.getSelectionModel().getSelectedItem());
+
+					if (bloco != c.getApartamentos().get(0).getBloco()
+							&& numero != c.getApartamentos().get(0).getNumero()) {
+						if (isExistent(bloco, numero)) {
+						}
 					}
+					condomino.setId(id);
+					condominoController.atualizar(condomino);
+					Alerts.alertSuccess("Condomino atualizado com sucesso!");
 				}
 				limpaTela();
 				atualizaTabela();
@@ -167,7 +177,6 @@ public class CondominoViewController implements Initializable {
 	}
 
 	private boolean isCadastrado(String cpf) {
-		JPAPessoaDAO dao = new JPAPessoaDAO();
 		Condomino c = new Condomino();
 		try {
 			c = (Condomino) dao.buscarCPF(c, cpf);
@@ -188,6 +197,8 @@ public class CondominoViewController implements Initializable {
 		}
 		for (int i = 0; i < aux.size(); i++) {
 			if (aux.get(i).getBloco() == b && aux.get(i).getNumero() == n && aux.get(i).getCondomino() != null) {
+				Alerts.alertError("Já há um condomino cadastrado neste apartamento!"
+						+ "\nSe deseja alterar alguma coisa exclua e salve de novo!");
 				return true;
 			}
 		}
