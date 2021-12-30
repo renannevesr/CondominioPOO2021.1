@@ -153,18 +153,14 @@ public class CondominoViewController implements Initializable {
 
 					Condomino c = TableCondominoAp.toCondomino(condominoTable.getSelectionModel().getSelectedItem());
 
-					if (bloco != c.getApartamentos().get(0).getBloco() && numero != c.getApartamentos().get(0).getNumero()) {
-						System.out.println("Primeiro if");
-						if (isExistent(bloco, numero)) {
-							System.out.println("Dentro do is");
-						} else {
-							System.out.println("Fora");
+					if (bloco != c.getApartamentos().get(0).getBloco() || numero != c.getApartamentos().get(0).getNumero()) {
+						if (!isExistent(bloco, numero)) {
 							ap = condominoController.buscarApartamento(bloco, numero).get(0);
 							ap.setCondomino(c);
 							apartamentoController.atualizar(ap);
 							Alerts.alertSuccess("Cadastrado com sucesso!");
 						}
-					}else {						
+					} else {						
 						condomino.setId(id);
 						condominoController.atualizar(condomino);
 						Alerts.alertSuccess("Condomino atualizado com sucesso!");
@@ -255,7 +251,6 @@ public class CondominoViewController implements Initializable {
 			Alerts.alertSuccess("Condomino deletado com sucesso!");
 		} catch (Exception e) {
 			Alerts.alertError("Não foi possível excluir esse condomino!");
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -294,7 +289,6 @@ public class CondominoViewController implements Initializable {
 
 		try {
 
-			System.out.println(condominoController.buscarApartamento(bloco, numero));
 			this.ap = condominoController.buscarApartamento(bloco, numero);
 			carregarTableView();
 
