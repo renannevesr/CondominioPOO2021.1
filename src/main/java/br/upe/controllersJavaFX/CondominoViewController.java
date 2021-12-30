@@ -153,14 +153,22 @@ public class CondominoViewController implements Initializable {
 
 					Condomino c = TableCondominoAp.toCondomino(condominoTable.getSelectionModel().getSelectedItem());
 
-					if (bloco != c.getApartamentos().get(0).getBloco()
-							&& numero != c.getApartamentos().get(0).getNumero()) {
+					if (bloco != c.getApartamentos().get(0).getBloco() && numero != c.getApartamentos().get(0).getNumero()) {
+						System.out.println("Primeiro if");
 						if (isExistent(bloco, numero)) {
+							System.out.println("Dentro do is");
+						} else {
+							System.out.println("Fora");
+							ap = condominoController.buscarApartamento(bloco, numero).get(0);
+							ap.setCondomino(c);
+							apartamentoController.atualizar(ap);
+							Alerts.alertSuccess("Cadastrado com sucesso!");
 						}
+					}else {						
+						condomino.setId(id);
+						condominoController.atualizar(condomino);
+						Alerts.alertSuccess("Condomino atualizado com sucesso!");
 					}
-					condomino.setId(id);
-					condominoController.atualizar(condomino);
-					Alerts.alertSuccess("Condomino atualizado com sucesso!");
 				}
 				limpaTela();
 				atualizaTabela();
