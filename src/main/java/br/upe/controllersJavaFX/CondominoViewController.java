@@ -121,6 +121,8 @@ public class CondominoViewController implements Initializable {
 				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
 			} else {
 				Apartamento ap = new Apartamento();
+				ap.setBloco(bloco);
+				ap.setNumero(numero);
 
 				Condomino condomino = new Condomino();
 				condomino.setNome(nome);
