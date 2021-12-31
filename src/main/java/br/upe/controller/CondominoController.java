@@ -48,14 +48,7 @@ public class CondominoController {
 			apartamento.setCondomino(null);
 			daoAp.atualizar(apartamento);
 		}
-	
-
 		dao.remover(condomino.getId());
-	}
-	
-	public List<Apartamento> buscarApartamento(Blocos bloco, int numero) throws Exception{
-		
-		return daoAp.buscarAp(bloco, numero);
 	}
 	
 }

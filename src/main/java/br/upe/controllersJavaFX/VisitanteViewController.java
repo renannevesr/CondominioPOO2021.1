@@ -145,15 +145,15 @@ public class VisitanteViewController {
 								null)) {
 							// se apertar sim, mantém as informações e apenas coloca aquele condomino em
 							// outro Ap
-							ap = condominoController.buscarApartamento(bloco, numero).get(0);
+							ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 							v.setApartamento(ap);
 							apartamentoController.atualizar(ap);
 						} else {
 							// se não, atualiza os dados do condomino e coloca em outro Ap
 							v.setNome(nome);
-							visitanteController.atualizar(v);
+							//visitanteController.atualizar(v);
 							Alerts.alertSuccess("Condomino atualizado com sucesso!");
-							ap = condominoController.buscarApartamento(bloco, numero).get(0);
+							ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 							v.setApartamento(ap);
 							apartamentoController.atualizar(ap);
 						}

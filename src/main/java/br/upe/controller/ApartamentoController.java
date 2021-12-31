@@ -4,8 +4,7 @@ import java.util.List;
 
 import br.upe.model.dao.ApartamentoDAO.JPAApartamentoDAO;
 import br.upe.model.entity.Apartamento;
-import br.upe.model.entity.Condomino;
-import br.upe.validator.ValidatorController;
+import br.upe.model.entity.Blocos;
 
 public class ApartamentoController {
 
@@ -26,6 +25,11 @@ public class ApartamentoController {
 	
 	public List<Apartamento> listar() throws Exception {
 		return dao.listar();
+	}
+	
+	public List<Apartamento> buscarApartamento(Blocos bloco, int numero) throws Exception{
+		
+		return dao.buscarAp(bloco, numero);
 	}
 	
 }

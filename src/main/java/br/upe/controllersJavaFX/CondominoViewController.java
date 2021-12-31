@@ -88,14 +88,41 @@ public class CondominoViewController implements Initializable {
 	@FXML
 	void Select(ActionEvent event) {
 	}
-
-	CondominoController condominoController = new CondominoController();
-	ApartamentoController apartamentoController = new ApartamentoController();
-	JPAPessoaDAO dao = new JPAPessoaDAO();
+	
+	@FXML
+	void EditarCondomino(MouseEvent event) {
+		this.select = condominoTable.getSelectionModel().getSelectedItems();
+		Condomino c = TableCondominoAp.toCondomino(condominoTable.getSelectionModel().getSelectedItem());
+		this.cpf.setText(c.getCpf());
+		this.nome.setText(c.getNome());
+		this.contato.setText(c.getContato());
+		this.bloco_set.setValue(c.getApartamentos().get(0).getBloco());
+		this.unidade_set.setValue(c.getApartamentos().get(0).getNumero());
+	}
+	
+	@FXML
+	void ExcluirCondomino(MouseEvent event) {
+		this.select = condominoTable.getSelectionModel().getSelectedItems();
+		if(Alerts.alertConfirmation("Excluir", "Deseja prosseguir com a operação?")) {
+			excluirCondomino();
+		}
+		limpaTela();
+		atualizaTabela();
+	}
+	
+	@FXML
+	void PesquisaAp(MouseEvent event) {
+		int numero = 0;
+		if (this.num_AP.getSelectionModel().getSelectedItem() != null)
+			numero = (int) this.num_AP.getSelectionModel().getSelectedItem();
+		
+		Blocos bloco = (Blocos) this.bloco_AP.getSelectionModel().getSelectedItem();
+		buscarAp(numero, bloco);
+	}
 
 	@FXML
 	void salvarCondomino(MouseEvent event) throws IOException {
-
+		
 		if (this.select == null || this.select.isEmpty()) {
 			condominoTable.getSelectionModel().clearSelection();
 			cadastrarCondomino(null);
@@ -104,6 +131,12 @@ public class CondominoViewController implements Initializable {
 		}
 		condominoTable.getSelectionModel().clearSelection();
 	}
+
+
+	CondominoController condominoController = new CondominoController();
+	ApartamentoController apartamentoController = new ApartamentoController();
+	JPAPessoaDAO dao = new JPAPessoaDAO();
+
 
 	private void cadastrarCondomino(Long id) throws IOException {
 		String nome = this.nome.getText();
@@ -140,7 +173,7 @@ public class CondominoViewController implements Initializable {
 							//se o cpf ja esta cadastrado, lança um alert de  confirmação
 							if(Alerts.alertConfirmation("Já existe um Condomino cadastrado nesse CPF. Utilizar informações existentes?", null)) {
 								//se apertar sim, mantém as informações e apenas coloca aquele condomino em outro Ap
-								ap = condominoController.buscarApartamento(bloco, numero).get(0);
+								ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 								ap.setCondomino(c);
 								apartamentoController.atualizar(ap);
 							}else {
@@ -149,7 +182,7 @@ public class CondominoViewController implements Initializable {
 								c.setNome(nome);
 								condominoController.atualizar(c);
 								Alerts.alertSuccess("Condomino atualizado com sucesso!");
-								ap = condominoController.buscarApartamento(bloco, numero).get(0);
+								ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 								ap.setCondomino(c);
 								apartamentoController.atualizar(ap);
 							}
@@ -171,7 +204,7 @@ public class CondominoViewController implements Initializable {
 						//se for diferente, vai verificar se existe alguem cadastrado
 						if (!isExistent(bloco, numero)) {
 							//se nao existir, vai jogar aquele condomino num ap novo
-							ap = condominoController.buscarApartamento(bloco, numero).get(0);
+							ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 							ap.setCondomino(c);
 							apartamentoController.atualizar(ap);
 							Alerts.alertSuccess("Cadastrado com sucesso!");
@@ -226,35 +259,6 @@ public class CondominoViewController implements Initializable {
 		return false;
 	}
 
-	@FXML
-	private void listarCondominos() {
-		try {
-			condominoController.listar();
-		} catch (Exception e) {
-			e.getMessage();
-		}
-	}
-
-	@FXML
-	void EditarCondomino(MouseEvent event) {
-		this.select = condominoTable.getSelectionModel().getSelectedItems();
-		Condomino c = TableCondominoAp.toCondomino(condominoTable.getSelectionModel().getSelectedItem());
-		this.cpf.setText(c.getCpf());
-		this.nome.setText(c.getNome());
-		this.contato.setText(c.getContato());
-		this.bloco_set.setValue(c.getApartamentos().get(0).getBloco());
-		this.unidade_set.setValue(c.getApartamentos().get(0).getNumero());
-	}
-
-	@FXML
-	void ExcluirCondomino(MouseEvent event) {
-		this.select = condominoTable.getSelectionModel().getSelectedItems();
-		if(Alerts.alertConfirmation("Excluir", "Deseja prosseguir com a operação?")) {
-			excluirCondomino();
-		}
-		limpaTela();
-		atualizaTabela();
-	}
 
 	private void limpaTela() {
 		this.nome.setText(null);
@@ -292,23 +296,13 @@ public class CondominoViewController implements Initializable {
 		}
 	}
 
-	@FXML
-	void PesquisaAp(MouseEvent event) {
-		int numero = 0;
-		if (this.num_AP.getSelectionModel().getSelectedItem() != null)
-			numero = (int) this.num_AP.getSelectionModel().getSelectedItem();
-
-		Blocos bloco = (Blocos) this.bloco_AP.getSelectionModel().getSelectedItem();
-		buscarAp(numero, bloco);
-	}
 
 	public List<Apartamento> ap = new ArrayList<Apartamento>();
 
 	private void buscarAp(int numero, Blocos bloco) {
-
 		try {
 
-			this.ap = condominoController.buscarApartamento(bloco, numero);
+			this.ap = apartamentoController.buscarApartamento(bloco, numero);
 			carregarTableView();
 
 		} catch (Exception e) {
@@ -324,7 +318,6 @@ public class CondominoViewController implements Initializable {
 
 		condominoTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> selecionarItemTableViewCondomino(newValue));
-
 	}
 
 	public void carregarTableView() {
