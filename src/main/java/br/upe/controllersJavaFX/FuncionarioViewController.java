@@ -5,44 +5,111 @@ import java.io.IOException;
 import br.upe.controller.FuncionarioController;
 import br.upe.model.entity.FuncaoFuncionario;
 import br.upe.model.entity.Funcionario;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 public class FuncionarioViewController {
 	
-	@FXML
-	private TextField nome;
-	
-	@FXML
-	private TextField cpf;
-	
-	@FXML
-	private TextField CTPS;
-	
-	@FXML
-	private TextField password;
-	
-	@FXML
-	private ChoiceBox<FuncaoFuncionario> funcaoFuncionario;
-	
-	@FXML 
-	private RadioButton checkUser;
-	
-	/*@FXML
-	private DatePicker data;*/
+	 @FXML
+	    private Button btn_excluir;
+
+	    @FXML
+	    private ComboBox<?> button_funcionario;
+
+	    @FXML
+	    private ComboBox<?> button_reserva;
+
+	    @FXML
+	    private ComboBox<?> button_servico;
+
+	    @FXML
+	    private ComboBox<?> button_unidade;
+
+	    @FXML
+	    private CheckBox checkAcesso;
+
+	    @FXML
+	    private TextField cpf;
+
+	    @FXML
+	    private TextField ctps;
+
+	    @FXML
+	    private DatePicker dataAdm;
+
+	    @FXML
+	    private TableView<?> funcionarioTable;
+
+	    @FXML
+	    private TextField nome;
+	    
+	    @FXML
+	    private ComboBox<?> funcaoFuncionario;
+
+	    @FXML
+	    private TextField senha;
+
+	    @FXML
+	    private TextField senhaConfirm;
+
+	    @FXML
+	    private TableColumn<?, ?> tableCPF;
+
+	    @FXML
+	    private TableColumn<?, ?> tableCTPS;
+
+	    @FXML
+	    private TableColumn<?, ?> tableData;
+
+	    @FXML
+	    private TableColumn<?, ?> tableFuncao;
+
+	    @FXML
+	    private TableColumn<?, ?> tableNome;
+
+	    @FXML
+	    void EditarFuncionario(MouseEvent event) {
+
+	    }
+
+	    @FXML
+	    void ExcluirFuncionario(MouseEvent event) {
+
+	    }
+
+	    @FXML
+	    void Pesquisar(MouseEvent event) {
+
+	    }
+
+	    @FXML
+	    void Select(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void salvarFuncionario(MouseEvent event) throws IOException {
+	    	cadastrarFuncionario();
+
+	    }
 
 	FuncionarioController funcionarioController = new FuncionarioController();
 	
-	@FXML
 	private void cadastrarFuncionario() throws IOException {
 		String nome = this.nome.getText();
 		String cpf = this.cpf.getText();
-		String senha = this.password.getText();
-		String carteiraTrabalhoString = this.CTPS.getText();
+		String password = this.senha.getText();
+		String carteiraTrabalhoString = this.ctps.getText();
 		//Date dataAdmissao = this.data.getValue();
-		FuncaoFuncionario funcao = this.funcaoFuncionario.getSelectionModel().getSelectedItem();
+		FuncaoFuncionario funcao = (FuncaoFuncionario) this.funcaoFuncionario.getSelectionModel().getSelectedItem();
 		
 		try {
 			Funcionario funcionario = new Funcionario();
@@ -52,7 +119,7 @@ public class FuncionarioViewController {
 			funcionario.setCarteiraTrabalho(carteiraTrabalhoString);
 			
 			if(isUser()) {
-				funcionario.setSenha(senha);
+				funcionario.setSenha(password);
 			}
 				funcionarioController.cadastrar(funcionario);
 				Alerts.alertSuccess("Funcionario cadastrado com sucesso!");
@@ -62,23 +129,8 @@ public class FuncionarioViewController {
 		}
 	}
 
-	@FXML
-	private void listarFuncionarios(){
-		try {
-			funcionarioController.listar();
-		}catch(Exception e) {
-			e.getMessage();
-		}
-	}
-	
-	@FXML
-	private void atualizar(Funcionario funcionario) {
-		try {
-			funcionarioController.atualizar(funcionario);
-		}catch (Exception e) {
-			Alerts.alertError("Erro ao tentar atualizar esse Funcionario!");
-		}
-	}
+
+
 	
 	@FXML
 	private void excluir(Funcionario Funcionario) {
@@ -91,7 +143,7 @@ public class FuncionarioViewController {
 	
 	@FXML
 	private boolean isUser() {
-		if (checkUser.selectedProperty().getValue() == true) {
+		if (checkAcesso.selectedProperty().getValue() == true) {
 			return true;
 		}else {
 			return false;

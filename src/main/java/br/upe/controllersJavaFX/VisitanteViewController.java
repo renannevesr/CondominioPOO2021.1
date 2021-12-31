@@ -1,37 +1,44 @@
 package br.upe.controllersJavaFX;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.persistence.NoResultException;
 
 import br.upe.controller.ApartamentoController;
-import br.upe.controller.CondominoController;
 import br.upe.controller.VisitanteController;
 import br.upe.model.dao.PessoaDAO.JPAPessoaDAO;
 import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Blocos;
-import br.upe.model.entity.Condomino;
 import br.upe.model.entity.Visitante;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-public class VisitanteViewController {
+public class VisitanteViewController implements Initializable{
+	VisitanteController visitanteController = new VisitanteController();
+	ApartamentoController apartamentoController = new ApartamentoController();
+	JPAPessoaDAO dao = new JPAPessoaDAO();
 
 	private ObservableList<Visitante> select;
 
 	@FXML
-	private ComboBox<?> bloco_AP;
+	private ComboBox<Blocos> bloco_AP;
 
 	@FXML
-	private ComboBox<?> bloco_set;
+	private ComboBox<Blocos> bloco_set;
 
 	@FXML
 	private Button btn_excluir;
@@ -52,13 +59,13 @@ public class VisitanteViewController {
 	private TextField cpf;
 
 	@FXML
-	private TableView<?> visitanteTable;
+	private TableView<Visitante> visitanteTable;
 
 	@FXML
 	private TextField nome;
 
 	@FXML
-	private ComboBox<?> num_AP;
+	private ComboBox<Integer> num_AP;
 
 	@FXML
 	private TableColumn<?, ?> tableAcoes;
@@ -73,7 +80,7 @@ public class VisitanteViewController {
 	private TableColumn<?, ?> tableNome;
 
 	@FXML
-	private ComboBox<?> unidade_set;
+	private ComboBox<Integer> unidade_set;
 
 	@FXML
 	void EditarVisitante(MouseEvent event) {
@@ -107,11 +114,7 @@ public class VisitanteViewController {
 			cadastrarVisitante(v.getId());
 		}
 	}
-
-	CondominoController condominoController = new CondominoController();
-	VisitanteController visitanteController = new VisitanteController();
-	ApartamentoController apartamentoController = new ApartamentoController();
-	JPAPessoaDAO dao = new JPAPessoaDAO();
+	
 
 	private void cadastrarVisitante(Long id) throws IOException {
 		String nome = this.nome.getText();
@@ -127,73 +130,37 @@ public class VisitanteViewController {
 			if (nome == null || cpf == null || bloco == null || numero == 0) {
 				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
 			} else {
-				Apartamento ap = new Apartamento();
-				ap.setBloco(bloco);
-				ap.setNumero(numero);
-
 				Visitante visitante = new Visitante();
+				Apartamento ap = new Apartamento();
+				ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 				visitante.setNome(nome);
 				visitante.setCpf(cpf);
-
+				visitante.setApartamento(ap);
+				
 				// cadastrar
-				if (id == null) {
-					if (isCadastrado(visitante.getCpf())) {
-						Visitante v = (Visitante) dao.buscarCPF(visitante, visitante.getCpf());
-						// se o cpf ja esta cadastrado, lança um alert de confirmação
-						if (Alerts.alertConfirmation(
-								"Já existe um Condomino cadastrado nesse CPF. Utilizar informações existentes?",
-								null)) {
-							// se apertar sim, mantém as informações e apenas coloca aquele condomino em
-							// outro Ap
-							ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
-							v.setApartamento(ap);
-							apartamentoController.atualizar(ap);
-						} else {
-							// se não, atualiza os dados do condomino e coloca em outro Ap
-							v.setNome(nome);
-							//visitanteController.atualizar(v);
-							Alerts.alertSuccess("Condomino atualizado com sucesso!");
-							ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
-							v.setApartamento(ap);
-							apartamentoController.atualizar(ap);
+				if(id == null) {
+					if(isCadastrado(visitante.getCpf())) {
+						if(Alerts.alertConfirmation("Já existe um Visitante cadastrado nesse CPF. Atribuir visita a outro apartamento?", null)) {
+							visitanteController.atualizar(visitante);
+						}else {
+							limpaTela();
 						}
-					} else {
-						// se nao existir o cpf, apenas cadastra um novo visitante
-						visitanteController.cadastrar(visitante);
-						Alerts.alertSuccess("Condomino cadastrado com sucesso!");
+				
 					}
+					visitanteController.cadastrar(visitante);
+					Alerts.alertSuccess("Visitante cadastrado com sucesso!");
+				}else {
+					
+					
 				}
-
-				// atualizar
-//				else {
-//
-//					Visitante v = TableCondominoAp.toVisitante(visitanteTable.getSelectionModel().getSelectedItem());
-//
-//					// verifica se o bloco que tentou cadastrar é diferente do que chegou ao editar
-//					if (bloco != v.getApartamentos().get(0).getBloco()
-//							|| numero != c.getApartamentos().get(0).getNumero()) {
-//						// se for diferente, vai verificar se existe alguem cadastrado
-//						if (!isExistent(bloco, numero)) {
-//							// se nao existir, vai jogar aquele condomino num ap novo
-//							ap = condominoController.buscarApartamento(bloco, numero).get(0);
-//							ap.setCondomino(c);
-//							apartamentoController.atualizar(ap);
-//							Alerts.alertSuccess("Cadastrado com sucesso!");
-//						}
-//					} else {
-//						// se o bloco e o numero continua o mesmo, apenas atualiza o condomino
-//						condomino.setId(id);
-//						condominoController.atualizar(condomino);
-//						Alerts.alertSuccess("Condomino atualizado com sucesso!");
-//					}
-//				}
-//				limpaTela();
-//				atualizaTabela();
+				
+				limpaTela();
+				atualizaTabela();
 			}
 		}
 
 		catch (Exception e) {
-			Alerts.alertError("Erro ao tentar cadastrar esse Condomino!\n" + (e.getMessage()
+			Alerts.alertError("Erro ao tentar cadastrar esse Visitante!\n" + (e.getMessage()
 					.compareTo("org.hibernate.exception.ConstraintViolationException: could not execute statement") == 0
 							? "CPF já cadastrado"
 							: e.getMessage()));
@@ -208,28 +175,25 @@ public class VisitanteViewController {
 		this.unidade_set.setValue(null);
 	}
 
-	private void atualizaTabela() {
-//		try {
-//			List<TableCondominoAp> cap = new ArrayList<TableCondominoAp>();
-//			List<Condomino> c = new ArrayList<Condomino>();
-//			this.ap = apartamentoController.listar();
-//			for (Apartamento i : ap) {
-//				if (i.getCondomino() != null) {
-//					c.add(i.getCondomino());
-//					cap.add(new TableCondominoAp(i.getCondomino(), i));
-//				}
-//			}
-//
-//			visitanteTable.setItems(FXCollections.observableArrayList(cap));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-	}
+	  @Override
+		public void initialize(URL location, ResourceBundle resources) {
+	    	limpaTela();
+			carregarTableView();
+			atualizaTabela();
+		}
+	    
+	    private void atualizaTabela() {
+	    	try {
+				this.visitanteTable.setItems(FXCollections.observableArrayList(visitanteController.listar()));
+			} catch (Exception e) {
+				e.printStackTrace();
+		}
+	    }
 
 	private boolean isCadastrado(String cpf) {
-		Condomino c = new Condomino();
+		Visitante v = new Visitante();
 		try {
-			c = (Condomino) dao.buscarCPF(c, cpf);
+			v = (Visitante) dao.buscarCPF(v, cpf);
 			return true;
 		} catch (Exception e) {
 			if (e instanceof NoResultException) {
@@ -237,22 +201,35 @@ public class VisitanteViewController {
 		}
 		return false;
 	}
+	
+	public void carregarTableView() {
+ 
+    	ObservableList<Integer> list1 = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    	ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values());
+    	ObservableList<Integer> list5 = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    	ObservableList<Blocos> list6 = FXCollections.observableArrayList(Blocos.A, Blocos.B, Blocos.C);
+    	
+    	num_AP.setItems(list1);
+    	bloco_AP.setItems(list2);
+    	bloco_set.setItems(list6);
+    	unidade_set.setItems(list5);
+    	
+    	
+    	try {
+    		List<Visitante> v = new ArrayList<Visitante>();
+			
+			ObservableList<Visitante> list3 = FXCollections.observableArrayList(v);
 
-	private boolean isExistent(Blocos b, int n) {
-		List<Apartamento> aux = null;
-		try {
-			aux = apartamentoController.listar();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		for (int i = 0; i < aux.size(); i++) {
-			if (aux.get(i).getBloco() == b && aux.get(i).getNumero() == n && aux.get(i).getCondomino() != null) {
-				Alerts.alertError("Já há um condomino cadastrado neste apartamento!"
-						+ "\nSe deseja alterar alguma coisa exclua e salve de novo!");
-				return true;
-			}
-		}
-		return false;
-	}
+			tableNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+			tableCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+			/*tableAcoes.setCellValueFactory(new PropertyValueFactory<>("bloco"));
+			tableAcoes1.setCellValueFactory(new PropertyValueFactory<>("numero"));*/
+    		
+    		visitanteTable.setItems(list3);
+    	}catch(Exception e) {
+    		
+    	}
+    }
+
 
 }

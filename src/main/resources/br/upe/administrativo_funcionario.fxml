@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?> 
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="860.0" minWidth="1280.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.controllersJavaFX.FuncionarioViewController">
+   <left>
+      <AnchorPane prefHeight="860.0" prefWidth="128.0" style="-fx-background-color: #2C94DC;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="18.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
+               <image>
+                  <Image url="@../../assets/icons/admin/Vector@4x.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
+               <image>
+                  <Image url="@../../assets/icons/user/Shape_14@5x.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="4.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
+               <image>
+                  <Image url="@../../assets/icons/dolar/Vector@5x.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-15.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
+               <image>
+                  <Image url="@../../assets/icons/estoque/Vector@5x.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to right, #4EADEE, #F2F7F9);" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#838181" layoutX="31.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 700;" text="Administrativo">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <ComboBox fx:id="button_unidade" layoutX="31.0" layoutY="208.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
+            <ComboBox fx:id="button_servico" layoutX="31.0" layoutY="325.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
+            <Text fill="#838181" layoutX="83.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidades">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fill="#838181" layoutX="97.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviço">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Button fx:id="btn_reserva" layoutX="31.0" layoutY="414.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="230.0" text="Reservas" textFill="#838181">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btn_funcionario" layoutX="31.0" layoutY="508.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="230.0" text="Funcionário" textFill="#838181">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+   </center>
+   <right>
+      <AnchorPane prefHeight="860.0" prefWidth="820.0" style="-fx-background-color: #F2F7F9;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#807e7e" layoutX="41.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrativo">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <FontAwesomeIconView fill="#807e7e" glyphName="ANGLE_RIGHT" layoutX="170.0" layoutY="106.0" scaleX="2.0" scaleY="2.0" />
+            <Text fill="#807e7e" layoutX="189.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionario">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <FontAwesomeIconView fill="#807e7e" glyphName="ANGLE_RIGHT" layoutX="278.0" layoutY="106.0" scaleX="2.0" scaleY="2.0" />
+            <Label layoutX="42.0" layoutY="159.0" text="Nome" textFill="#807e7e" />
+            <TextField fx:id="nome" layoutX="42.0" layoutY="181.0" prefHeight="30.0" prefWidth="410.0" />
+            <Label layoutX="478.0" layoutY="161.0" text="CPF" textFill="#807e7e" />
+            <TextField fx:id="cpf" layoutX="478.0" layoutY="180.0" prefHeight="30.0" prefWidth="210.0" />
+            <TextField fx:id="ctps" layoutX="236.0" layoutY="240.0" prefHeight="30.0" prefWidth="180.0" />
+            <Label layoutX="237.0" layoutY="220.0" text="CTPS" textFill="#807e7e" />
+            <Button alignment="CENTER" layoutX="43.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#salvarFuncionario" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Salvar" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <TableView fx:id="condominoTable" layoutX="42.0" layoutY="360.0" prefHeight="247.0" prefWidth="646.0">
+              <columns>
+                <TableColumn fx:id="tableNome" prefWidth="203.0" text="Nome" />
+                <TableColumn fx:id="tableCPF" minWidth="0.0" prefWidth="152.0" text="CPF" />
+                  <TableColumn fx:id="tableFuncao" prefWidth="90.0" text="Função" />
+                  <TableColumn fx:id="tableCTPS" prefWidth="109.0" text="CTPS" />
+                  <TableColumn fx:id="tableData" prefWidth="91.0" text="Data Adm." />
+              </columns>
+            </TableView>
+            <Button fx:id="btn_excluir" alignment="CENTER" layoutX="606.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#ExcluirFuncionario" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Excluir" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" layoutX="140.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#EditarFuncionario" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Editar" textAlignment="CENTER" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER_RIGHT" layoutX="592.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#Pesquisar" style="-fx-background-color: #4EADEE;" text="Pesquisar" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Line endX="543.0" layoutX="143.0" layoutY="341.0" startX="-100.0" stroke="#4eadee" />
+            <ComboBox fx:id="funcaoFuncionario" layoutX="41.0" layoutY="240.0" prefHeight="30.0" prefWidth="180.0" promptText="Função" />
+            <DatePicker fx:id="dataAdm" layoutX="428.0" layoutY="240.0" prefHeight="30.0" prefWidth="150.0" />
+            <Label layoutX="429.0" layoutY="220.0" text="Data de Admissão" textFill="#807e7e" />
+            <CheckBox fx:id="checkAcesso" layoutX="43.0" layoutY="305.0" mnemonicParsing="false" text="Acesso ao Sistema" />
+            <TextField fx:id="senha" layoutX="236.0" layoutY="298.0" prefHeight="30.0" prefWidth="180.0" />
+            <Label layoutX="237.0" layoutY="278.0" text="Senha" textFill="#807e7e" />
+            <TextField fx:id="senhaConfirm" layoutX="429.0" layoutY="297.0" prefHeight="30.0" prefWidth="180.0" />
+            <Label layoutX="430.0" layoutY="277.0" text="Confirmação da Senha" textFill="#807e7e" />
+         </children></AnchorPane>
+   </right>
+</BorderPane>
