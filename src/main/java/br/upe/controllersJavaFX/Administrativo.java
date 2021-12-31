@@ -39,16 +39,15 @@ public class Administrativo implements Initializable {
     			break;
     		case "Morador":
     			// trocar tela da direita
-    			System.out.println(opcaoUnidade);
     			switchScreen("administrativo_morador");
     			break;
     		case "Visitante":
     			// trocar tela da direita
-    			System.out.println(opcaoUnidade);
+    			switchScreen("administrativo_visitante");
     			break;
     		case "Veículo":
     			// trocar tela da direita
-    			System.out.println(opcaoUnidade);
+    			switchScreen("administrativo_veiculo");
     			break;
     	}
     	
