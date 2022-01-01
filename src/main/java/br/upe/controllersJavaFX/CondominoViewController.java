@@ -38,10 +38,10 @@ public class CondominoViewController implements Initializable {
 	private ComboBox<Integer> num_AP;
 
 	@FXML
-	private ComboBox<?> button_funcionario;
+	private Button btn_funcionario;
 
 	@FXML
-	private ComboBox<?> button_reserva;
+	private Button btn_reserva;
 
 	@FXML
 	private ComboBox<?> button_servico;
@@ -84,6 +84,16 @@ public class CondominoViewController implements Initializable {
 
 	@FXML
 	private ComboBox<Integer> unidade_set;
+	
+	@FXML
+    void switchToFuncionario(MouseEvent event) {
+
+    }
+
+    @FXML
+    void switchToReserva(MouseEvent event) {
+
+    }
 
 	@FXML
 	void Select(ActionEvent event) {

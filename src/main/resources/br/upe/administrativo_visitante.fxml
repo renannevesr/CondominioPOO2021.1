@@ -64,38 +64,31 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ComboBox>
-            <ComboBox fx:id="button_reserva" layoutX="31.0" layoutY="322.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></ComboBox>
-            <ComboBox fx:id="button_servico" layoutX="31.0" layoutY="441.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></ComboBox>
-            <ComboBox fx:id="button_funcionario" layoutX="31.0" layoutY="545.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></ComboBox>
             <Text fill="#838181" layoutX="83.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidades">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Text fill="#838181" layoutX="93.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserva">
+            <ComboBox fx:id="button_servico" layoutX="31.0" layoutY="325.0" onAction="#Select" prefHeight="32.0" prefWidth="230.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ComboBox>
+            <Text fill="#838181" layoutX="97.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviço">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Text fill="#838181" layoutX="97.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serviço">
+            <Button fx:id="btn_reserva" layoutX="31.0" layoutY="414.0" mnemonicParsing="false" onMouseClicked="#switchToReserva" prefHeight="32.0" prefWidth="230.0" text="Reservas" textFill="#838181">
                <font>
-                  <Font size="24.0" />
+                  <Font size="18.0" />
                </font>
-            </Text>
-            <Text fill="#838181" layoutX="72.0" layoutY="528.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionário">
+            </Button>
+            <Button fx:id="btn_funcionario" layoutX="31.0" layoutY="508.0" mnemonicParsing="false" onMouseClicked="#switchToFuncionario" prefHeight="32.0" prefWidth="230.0" text="Funcionário" textFill="#838181">
                <font>
-                  <Font size="24.0" />
+                  <Font size="18.0" />
                </font>
-            </Text>
+            </Button>
          </children></AnchorPane>
    </center>
    <right>

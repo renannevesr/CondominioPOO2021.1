@@ -43,10 +43,10 @@ public class MoradorViewController implements Initializable{
     private Button btn_excluir;
 
     @FXML
-    private ComboBox<?> button_funcionario;
+    private Button btn_funcionario;
 
     @FXML
-    private ComboBox<?> button_reserva;
+    private Button btn_reserva;
 
     @FXML
     private ComboBox<?> button_servico;
@@ -80,6 +80,17 @@ public class MoradorViewController implements Initializable{
 
     @FXML
     private ComboBox<Integer> unidade_set;
+
+    @FXML
+    void switchToFuncionario(MouseEvent event) {
+
+    }
+
+    @FXML
+    void switchToReserva(MouseEvent event) {
+
+    }
+    
     @FXML
     void salvarMorador(MouseEvent event) throws IOException {
     	if (this.select == null || this.select.isEmpty()) {

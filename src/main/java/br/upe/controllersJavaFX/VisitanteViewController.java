@@ -44,11 +44,11 @@ public class VisitanteViewController implements Initializable{
 	private Button btn_excluir;
 
 	@FXML
-	private ComboBox<?> button_funcionario;
+    private Button btn_funcionario;
 
-	@FXML
-	private ComboBox<?> button_reserva;
-
+    @FXML
+    private Button btn_reserva;
+    
 	@FXML
 	private ComboBox<?> button_servico;
 
@@ -81,6 +81,16 @@ public class VisitanteViewController implements Initializable{
 
 	@FXML
 	private ComboBox<Integer> unidade_set;
+	
+    @FXML
+    void switchToFuncionario(MouseEvent event) {
+
+    }
+
+    @FXML
+    void switchToReserva(MouseEvent event) {
+
+    }
 
 	@FXML
 	void EditarVisitante(MouseEvent event) {

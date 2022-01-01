@@ -24,10 +24,10 @@ public class VeiculoViewController {
     private Button btn_excluir;
 
     @FXML
-    private ComboBox<?> button_funcionario;
+    private Button btn_funcionario;
 
     @FXML
-    private ComboBox<?> button_reserva;
+    private Button btn_reserva;
 
     @FXML
     private ComboBox<?> button_servico;
@@ -64,6 +64,16 @@ public class VeiculoViewController {
 
     @FXML
     private ComboBox<?> unidade_set;
+    
+    @FXML
+    void switchToFuncionario(MouseEvent event) {
+
+    }
+
+    @FXML
+    void switchToReserva(MouseEvent event) {
+
+    }
 
     @FXML
     void EditarVeiculo(MouseEvent event) {
