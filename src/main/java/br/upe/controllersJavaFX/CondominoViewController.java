@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.upe.App;
 import br.upe.controller.ApartamentoController;
 import br.upe.controller.CondominoController;
 import br.upe.model.dao.PessoaDAO.JPAPessoaDAO;
@@ -18,6 +19,8 @@ import javax.persistence.NoResultException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -25,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class CondominoViewController implements Initializable {
 
@@ -43,10 +47,10 @@ public class CondominoViewController implements Initializable {
 	private Button btn_reserva;
 
 	@FXML
-	private ComboBox<?> button_servico;
+	private ComboBox<String> button_servico;
 
 	@FXML
-	private ComboBox<?> button_unidade;
+	private ComboBox<String> button_unidade;
 
 	@FXML
 	private TextField contato;
@@ -83,21 +87,51 @@ public class CondominoViewController implements Initializable {
 
 	@FXML
 	private ComboBox<Integer> unidade_set;
-	
-	@FXML
-    void switchToFuncionario(MouseEvent event) {
-
-    }
-
-    @FXML
-    void switchToReserva(MouseEvent event) {
-
-    }
 
 	@FXML
-	void Select(ActionEvent event) {
+	void switchToFuncionario(MouseEvent event) throws IOException {
+		switchScreen("administrativo_funcionario");
 	}
-	
+
+	@FXML
+	void Select(ActionEvent event) throws IOException {
+		String opcaoUnidade = button_unidade.getSelectionModel().getSelectedItem().toString();
+		switch (opcaoUnidade) {
+		case "Condômino":
+			switchScreen("administrativo_condomino");
+			break;
+		case "Morador":
+			// trocar tela da direita
+			switchScreen("administrativo_morador");
+			break;
+		case "Visitante":
+			// trocar tela da direita
+			switchScreen("administrativo_visitante");
+			break;
+		case "Veículo":
+			// trocar tela da direita
+			switchScreen("administrativo_veiculo");
+			break;
+		}
+
+	}
+
+	public void switchScreen(String screen) throws IOException {
+		Stage stage;
+		Parent root;
+
+		stage = (Stage) button_unidade.getScene().getWindow();
+		root = App.loadFXML(screen);
+		Scene scene = new Scene(root, 1280, 720);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	@FXML
+	void switchToReserva(MouseEvent event) {
+
+	}
+
 	@FXML
 	void EditarCondomino(MouseEvent event) {
 		this.select = condominoTable.getSelectionModel().getSelectedItems();
@@ -108,30 +142,30 @@ public class CondominoViewController implements Initializable {
 		this.bloco_set.setValue(c.getApartamentos().get(0).getBloco());
 		this.unidade_set.setValue(c.getApartamentos().get(0).getNumero());
 	}
-	
+
 	@FXML
 	void ExcluirCondomino(MouseEvent event) {
 		this.select = condominoTable.getSelectionModel().getSelectedItems();
-		if(Alerts.alertConfirmation("Excluir", "Deseja prosseguir com a operação?")) {
+		if (Alerts.alertConfirmation("Excluir", "Deseja prosseguir com a operação?")) {
 			excluirCondomino();
 		}
 		limpaTela();
 		atualizaTabela();
 	}
-	
+
 	@FXML
 	void PesquisaAp(MouseEvent event) {
 		int numero = 0;
 		if (this.num_AP.getSelectionModel().getSelectedItem() != null)
 			numero = (int) this.num_AP.getSelectionModel().getSelectedItem();
-		
+
 		Blocos bloco = (Blocos) this.bloco_AP.getSelectionModel().getSelectedItem();
 		buscarAp(numero, bloco);
 	}
 
 	@FXML
 	void salvarCondomino(MouseEvent event) throws IOException {
-		
+
 		if (this.select == null || this.select.isEmpty()) {
 			condominoTable.getSelectionModel().clearSelection();
 			cadastrarCondomino(null);
@@ -141,11 +175,9 @@ public class CondominoViewController implements Initializable {
 		condominoTable.getSelectionModel().clearSelection();
 	}
 
-
 	CondominoController condominoController = new CondominoController();
 	ApartamentoController apartamentoController = new ApartamentoController();
 	JPAPessoaDAO dao = new JPAPessoaDAO();
-
 
 	private void cadastrarCondomino(Long id) throws IOException {
 		String nome = this.nome.getText();
@@ -157,7 +189,7 @@ public class CondominoViewController implements Initializable {
 			numero = (int) this.unidade_set.getSelectionModel().getSelectedItem();
 
 		Blocos bloco = (Blocos) this.bloco_set.getSelectionModel().getSelectedItem();
-		
+
 		try {
 			if (nome == null || cpf == null || contato == null || bloco == null || numero == 0) {
 				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
@@ -179,14 +211,17 @@ public class CondominoViewController implements Initializable {
 						// se nao existir, verifica se o cpf já está cadastrado
 						if (isCadastrado(condomino.getCpf())) {
 							Condomino c = (Condomino) dao.buscarCPF(condomino, condomino.getCpf());
-							//se o cpf ja esta cadastrado, lança um alert de  confirmação
-							if(Alerts.alertConfirmation("Já existe um Condomino cadastrado nesse CPF. Utilizar informações existentes?", null)) {
-								//se apertar sim, mantém as informações e apenas coloca aquele condomino em outro Ap
+							// se o cpf ja esta cadastrado, lança um alert de confirmação
+							if (Alerts.alertConfirmation(
+									"Já existe um Condomino cadastrado nesse CPF. Utilizar informações existentes?",
+									null)) {
+								// se apertar sim, mantém as informações e apenas coloca aquele condomino em
+								// outro Ap
 								ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 								ap.setCondomino(c);
 								apartamentoController.atualizar(ap);
-							}else {
-								//se não, atualiza os dados do condomino e coloca em outro Ap
+							} else {
+								// se não, atualiza os dados do condomino e coloca em outro Ap
 								c.setContato(contato);
 								c.setNome(nome);
 								condominoController.atualizar(c);
@@ -208,18 +243,19 @@ public class CondominoViewController implements Initializable {
 
 					Condomino c = TableCondominoAp.toCondomino(condominoTable.getSelectionModel().getSelectedItem());
 
-					//verifica se o bloco que tentou cadastrar é diferente do que chegou ao editar
-					if (bloco != c.getApartamentos().get(0).getBloco() || numero != c.getApartamentos().get(0).getNumero()) {
-						//se for diferente, vai verificar se existe alguem cadastrado
+					// verifica se o bloco que tentou cadastrar é diferente do que chegou ao editar
+					if (bloco != c.getApartamentos().get(0).getBloco()
+							|| numero != c.getApartamentos().get(0).getNumero()) {
+						// se for diferente, vai verificar se existe alguem cadastrado
 						if (!isExistent(bloco, numero)) {
-							//se nao existir, vai jogar aquele condomino num ap novo
+							// se nao existir, vai jogar aquele condomino num ap novo
 							ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 							ap.setCondomino(c);
 							apartamentoController.atualizar(ap);
 							Alerts.alertSuccess("Cadastrado com sucesso!");
 						}
-					} else {				
-						//se o bloco e o numero continua o mesmo, apenas atualiza o condomino
+					} else {
+						// se o bloco e o numero continua o mesmo, apenas atualiza o condomino
 						condomino.setId(id);
 						condominoController.atualizar(condomino);
 						Alerts.alertSuccess("Condomino atualizado com sucesso!");
@@ -268,7 +304,6 @@ public class CondominoViewController implements Initializable {
 		return false;
 	}
 
-
 	private void limpaTela() {
 		this.nome.setText(null);
 		this.cpf.setText(null);
@@ -305,7 +340,6 @@ public class CondominoViewController implements Initializable {
 		}
 	}
 
-
 	public List<Apartamento> ap = new ArrayList<Apartamento>();
 
 	private void buscarAp(int numero, Blocos bloco) {
@@ -330,6 +364,13 @@ public class CondominoViewController implements Initializable {
 	}
 
 	public void carregarTableView() {
+		ObservableList<String> listUni = FXCollections.observableArrayList("Condômino", "Morador", "Visitante",
+				"Veículo");
+
+		ObservableList<String> listServico = FXCollections.observableArrayList("Serviço geral", "Serviço de produto");
+
+		button_unidade.setItems(listUni);
+		button_servico.setItems(listServico);
 		ObservableList<Integer> list1 = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values());
 		ObservableList<Integer> list5 = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
