@@ -20,10 +20,10 @@ import javafx.stage.Stage;
 public class Administrativo implements Initializable {
 
     @FXML
-    private ComboBox button_unidade;
+    private ComboBox<String> button_unidade;
 
     @FXML
-    private ComboBox button_servico;
+    private ComboBox<String> button_servico;
     
     @FXML
     private Button btn_funcionario;

@@ -1,24 +1,35 @@
 package br.upe.controllersJavaFX;
 
 import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import br.upe.controller.FuncionarioController;
 import br.upe.model.entity.FuncaoFuncionario;
 import br.upe.model.entity.Funcionario;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-public class FuncionarioViewController {
+public class FuncionarioViewController implements Initializable{
 	
-	 @FXML
+	FuncionarioController funcionarioController = new FuncionarioController();
+		private ObservableList<Funcionario> select;
+	
+	 	@FXML
 	    private Button btn_excluir;
 
 	    @FXML
@@ -46,48 +57,56 @@ public class FuncionarioViewController {
 	    private DatePicker dataAdm;
 
 	    @FXML
-	    private TableView<?> funcionarioTable;
+	    private TableView<Funcionario> funcionarioTable;
 
 	    @FXML
 	    private TextField nome;
 	    
 	    @FXML
-	    private ComboBox<?> funcaoFuncionario;
+	    private ComboBox<FuncaoFuncionario> funcaoFuncionario;
 
 	    @FXML
-	    private TextField senha;
+	    private PasswordField senha;
 
 	    @FXML
-	    private TextField senhaConfirm;
+	    private PasswordField senhaConfirm;
 
 	    @FXML
-	    private TableColumn<?, ?> tableCPF;
+	    private TableColumn<Funcionario, String> tableCPF;
 
 	    @FXML
-	    private TableColumn<?, ?> tableCTPS;
+	    private TableColumn<Funcionario, String> tableCTPS;
 
 	    @FXML
-	    private TableColumn<?, ?> tableData;
+	    private TableColumn<Funcionario, LocalDate> tableData;
 
 	    @FXML
-	    private TableColumn<?, ?> tableFuncao;
+	    private TableColumn<Funcionario, FuncaoFuncionario> tableFuncao;
 
 	    @FXML
-	    private TableColumn<?, ?> tableNome;
+	    private TableColumn<Funcionario, String> tableNome;
 
 	    @FXML
 	    void EditarFuncionario(MouseEvent event) {
+	    	this.select = funcionarioTable.getSelectionModel().getSelectedItems();
+	    	this.nome.setText(this.select.get(0).getNome());
+	    	this.cpf.setText(this.select.get(0).getCpf());
+	    	this.ctps.setText(this.select.get(0).getCarteiraTrabalho());
+	    	this.dataAdm.setValue(this.select.get(0).getDataAdmissao());
+	    	this.funcaoFuncionario.setValue(this.select.get(0).getFuncao());
 
 	    }
 
 	    @FXML
 	    void ExcluirFuncionario(MouseEvent event) {
 
-	    }
-
-	    @FXML
-	    void Pesquisar(MouseEvent event) {
-
+			if(Alerts.alertConfirmation("Excluir", "Deseja prosseguir com a operação?")) {
+				excluirFuncionario();
+			}
+	    	
+	    	funcionarioTable.getSelectionModel().clearSelection();
+			limpaTela();
+			atualizaTabela();
 	    }
 
 	    @FXML
@@ -97,57 +116,143 @@ public class FuncionarioViewController {
 
 	    @FXML
 	    void salvarFuncionario(MouseEvent event) throws IOException {
-	    	cadastrarFuncionario();
+	    	if (this.select == null || this.select.isEmpty()) {
+	    		cadastrarFuncionario();
+	    	}else {
+	    		editarFuncionario(funcionarioTable.getSelectionModel().getSelectedItem().getId());
+	    	}
+	    	
+	    	funcionarioTable.getSelectionModel().clearSelection();
 
 	    }
 
-	FuncionarioController funcionarioController = new FuncionarioController();
-	
+		
 	private void cadastrarFuncionario() throws IOException {
 		String nome = this.nome.getText();
 		String cpf = this.cpf.getText();
 		String password = this.senha.getText();
+		String passwordConfirm = this.senhaConfirm.getText();
 		String carteiraTrabalhoString = this.ctps.getText();
-		//Date dataAdmissao = this.data.getValue();
+		LocalDate dataAdmissao = this.dataAdm.getValue();
 		FuncaoFuncionario funcao = (FuncaoFuncionario) this.funcaoFuncionario.getSelectionModel().getSelectedItem();
 		
-		try {
-			Funcionario funcionario = new Funcionario();
-			funcionario.setNome(nome);
-			funcionario.setCpf(cpf);
-			funcionario.setFuncao(funcao);
-			funcionario.setCarteiraTrabalho(carteiraTrabalhoString);
+		try {		
+			Funcionario funcionario;
 			
-			if(isUser()) {
-				funcionario.setSenha(password);
-			}
+			if (nome == null || cpf == null || carteiraTrabalhoString == null || dataAdmissao == null) {
+				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
+			}else {
+			
+				
+				if(isUser()) {
+					if(!password.equals(passwordConfirm)){
+						throw new Exception("As senhas digitadas não conferem.");
+					}
+					funcionario = new Funcionario(null, nome, cpf, dataAdmissao, carteiraTrabalhoString, funcao, password);
+					
+				}else {
+					funcionario = new Funcionario(null, nome, cpf, dataAdmissao, carteiraTrabalhoString, funcao);
+				} 
+				
 				funcionarioController.cadastrar(funcionario);
 				Alerts.alertSuccess("Funcionario cadastrado com sucesso!");
+				limpaTela();
+				atualizaTabela();
+			}
+			
+		}catch(Exception e) {
+			Alerts.alertError("Erro ao tentar cadastrar esse Funcionario!\n" + (e.getMessage()));
+		}
+	}
+	
+	private void editarFuncionario(Long id) {
 		
-		}catch(Exception e) {
-			Alerts.alertError("Erro ao tentar cadastrar esse Funcionario!");
-		}
-	}
-
-
-
-	
-	@FXML
-	private void excluir(Funcionario Funcionario) {
 		try {
-			funcionarioController.remover(Funcionario);
+			Funcionario f = funcionarioController.buscarPorId(id);
+			Funcionario funcionario = new Funcionario();
+			funcionario.setId(id);
+			funcionario.setCpf(this.cpf.getText());
+			funcionario.setCarteiraTrabalho(this.ctps.getText());
+			funcionario.setDataAdmissao(this.dataAdm.getValue());
+			funcionario.setNome(this.nome.getText());
+			funcionario.setSenha(f.getSenha());
+			funcionario.setFuncao((FuncaoFuncionario) this.funcaoFuncionario.getSelectionModel().getSelectedItem());
+			funcionarioController.atualizar(funcionario);
+			Alerts.alertSuccess("Funcionario atualizado com sucesso!");
+			limpaTela();
+			atualizaTabela();
 		}catch(Exception e) {
-			Alerts.alertError("Não foi possível excluir esse Funcionario!");
+			Alerts.alertError("Erro ao tentar atualizar esse Funcionario!" + (e.getMessage()));
 		}
 	}
 	
-	@FXML
+    private void excluirFuncionario() {
+		try {
+			funcionarioController.remover(funcionarioTable.getSelectionModel().getSelectedItem().getId());
+			Alerts.alertSuccess("Funcionario deletado com sucesso!");
+		} catch (Exception e) {
+			Alerts.alertError("Não foi possível excluir esse funcionario!");
+			e.printStackTrace();
+		}
+	}
+	
 	private boolean isUser() {
 		if (checkAcesso.selectedProperty().getValue() == true) {
 			return true;
-		}else {
-			return false;
 		}
+		
+		return false;
 	}
+	
+    @FXML
+    void checkAcesso(MouseEvent event) {
+    	if (checkAcesso.selectedProperty().getValue() == true) {
+			this.senha.setDisable(false);
+			this.senhaConfirm.setDisable(false);
+		}else {
+			this.senha.setDisable(true);
+			this.senhaConfirm.setDisable(true);
+		}
+    }
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		this.senha.setDisable(true);
+		this.senhaConfirm.setDisable(true);
+		limpaTela();
+		carregarTableView();
+		atualizaTabela();
+		ObservableList<FuncaoFuncionario> list = FXCollections.observableArrayList(FuncaoFuncionario.values());
+		funcaoFuncionario.setItems(list);
+	}
+	
+	 private void atualizaTabela() {
+	    	try {
+				this.funcionarioTable.setItems(FXCollections.observableArrayList(funcionarioController.listar()));
+			} catch (Exception e) {
+				e.printStackTrace();
+		}
+	    }
+	 
+	 private void limpaTela() {
+		 this.nome.setText(null);
+		 this.cpf.setText(null);
+		 this.ctps.setText(null);
+		 this.dataAdm.setValue(null);
+		 this.funcaoFuncionario.setValue(null);
+		 this.senha.setText(null);
+		 this.senhaConfirm.setText(null);
+	 }
+	
+	public void carregarTableView() {
+
+			tableNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+			tableCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+			tableCTPS.setCellValueFactory(new PropertyValueFactory<>("carteiraTrabalho"));
+			tableData.setCellValueFactory(new PropertyValueFactory<>("dataAdmissao"));
+			tableFuncao.setCellValueFactory(new PropertyValueFactory<>("funcao"));
+
+	}
+
 
 }

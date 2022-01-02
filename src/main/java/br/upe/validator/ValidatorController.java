@@ -1,6 +1,6 @@
 package br.upe.validator;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ValidatorController {
 	
@@ -28,20 +28,17 @@ public class ValidatorController {
 		}
 	}
 	
-	public static void dataAntes(Date date) throws Exception{
-		
-		Date data = new Date();
-		
-		if(data.before(date)) {
+	public static void dataAntes(LocalDate date) throws Exception{
+
+		if(LocalDate.now().isBefore(date)) {
 			throw new Exception("Data invalida");
 		}
 	}
 	
-public static void dataDepois(Date date) throws Exception{
+public static void dataDepois(LocalDate date) throws Exception{
 		
-		Date data = new Date();
 		
-		if(data.after(date)) {
+		if(LocalDate.now().isAfter(date)) {
 			throw new Exception("Data invalida");
 		}
 	}

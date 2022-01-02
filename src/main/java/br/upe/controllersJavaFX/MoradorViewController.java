@@ -249,20 +249,11 @@ public class MoradorViewController implements Initializable{
     		System.out.println("Numero : " + num);
     	}
     	
-    	try {
-    		List<Morador> m = new ArrayList<Morador>();
-			
-			ObservableList<Morador> list3 = FXCollections.observableArrayList(m);
-
 			tableNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 			tableCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 			/*tableAcoes.setCellValueFactory(new PropertyValueFactory<>("bloco"));
 			tableAcoes1.setCellValueFactory(new PropertyValueFactory<>("numero"));*/
-    		
-    		moradorTable.setItems(list3);
-    	}catch(Exception e) {
-    		
-    	}
+  
     }
 
 }
