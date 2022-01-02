@@ -34,8 +34,11 @@ public class FuncionarioController {
 		return dao.listar();
 	}
 	
-	public Funcionario atualizar(Funcionario Funcionario) throws Exception{
-		return dao.atualizar(Funcionario);
+	public Funcionario atualizar(Funcionario funcionario) throws Exception{
+		ValidatorController.validaCPF(funcionario.getCpf());
+		ValidatorController.apenasLetras(funcionario.getNome());
+		ValidatorController.dataAntes(funcionario.getDataAdmissao());
+		return dao.atualizar(funcionario);
 	}
 	
 	public void remover(Long id) throws Exception{

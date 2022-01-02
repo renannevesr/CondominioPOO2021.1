@@ -103,7 +103,6 @@ public class FuncionarioViewController implements Initializable{
 			if(Alerts.alertConfirmation("Excluir", "Deseja prosseguir com a operação?")) {
 				excluirFuncionario();
 			}
-	    	
 	    	funcionarioTable.getSelectionModel().clearSelection();
 			limpaTela();
 			atualizaTabela();
@@ -168,14 +167,13 @@ public class FuncionarioViewController implements Initializable{
 	private void editarFuncionario(Long id) {
 		
 		try {
-			Funcionario f = funcionarioController.buscarPorId(id);
-			Funcionario funcionario = new Funcionario();
+			Funcionario funcionario = funcionarioController.buscarPorId(id);
 			funcionario.setId(id);
 			funcionario.setCpf(this.cpf.getText());
 			funcionario.setCarteiraTrabalho(this.ctps.getText());
 			funcionario.setDataAdmissao(this.dataAdm.getValue());
 			funcionario.setNome(this.nome.getText());
-			funcionario.setSenha(f.getSenha());
+			funcionario.setSenha(funcionario.getSenha());
 			funcionario.setFuncao((FuncaoFuncionario) this.funcaoFuncionario.getSelectionModel().getSelectedItem());
 			funcionarioController.atualizar(funcionario);
 			Alerts.alertSuccess("Funcionario atualizado com sucesso!");
