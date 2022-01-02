@@ -38,6 +38,9 @@ public class CondominoController {
 	}
 	
 	public Condomino atualizar(Condomino condomino) throws Exception{
+		ValidatorController.validaCPF(condomino.getCpf());
+		ValidatorController.apenasLetras(condomino.getNome());
+		ValidatorController.apenasNumeros(condomino.getContato());
 		return dao.atualizar(condomino);
 	}
 	
