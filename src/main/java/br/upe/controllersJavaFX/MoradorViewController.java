@@ -14,6 +14,7 @@ import br.upe.model.dao.PessoaDAO.JPAPessoaDAO;
 import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Blocos;
 import br.upe.model.entity.Morador;
+import br.upe.model.entity.TableMoradorAp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,7 +33,7 @@ public class MoradorViewController implements Initializable{
 	ApartamentoController apartamentoController = new ApartamentoController();
 	JPAPessoaDAO dao = new JPAPessoaDAO();
 
-	private ObservableList<Morador> select;
+	private ObservableList<TableMoradorAp> select;
     @FXML
     private ComboBox<Blocos> bloco_AP;
 
@@ -53,9 +54,9 @@ public class MoradorViewController implements Initializable{
 
     @FXML
     private ComboBox<?> button_unidade;
-
+   
     @FXML
-    private TableView<Morador> moradorTable;
+    private TableView<TableMoradorAp> moradorApTable;
 
     @FXML
     private TextField cpf;
@@ -92,38 +93,55 @@ public class MoradorViewController implements Initializable{
     }
     
     @FXML
-    void salvarMorador(MouseEvent event) throws IOException {
+    void salvarMorador(MouseEvent event) throws Exception {
     	if (this.select == null || this.select.isEmpty()) {
-    		moradorTable.getSelectionModel().clearSelection();
-    		cadastrarMorador(null);
+    		moradorApTable.getSelectionModel().clearSelection();
+    		cadastrarMorador();
     	} else {
-    		Morador m = new Morador();
-    		m = (Morador) moradorTable.getSelectionModel().getSelectedItem();
-    		cadastrarMorador(m.getId());
+    		editarMorador(moradorApTable.getSelectionModel().getSelectedItem().getIdMorador());
     	}
     	
+    	moradorApTable.getSelectionModel().clearSelection();
     }
     
     @FXML
-    void EditarMorador(MouseEvent event) {
-    	this.select = moradorTable.getSelectionModel().getSelectedItems();
+    void EditarMorador(MouseEvent event){
+    	this.select = moradorApTable.getSelectionModel().getSelectedItems();
     	this.cpf.setText(this.select.get(0).getCpf());
     	this.nome.setText(this.select.get(0).getNome());
-    	/*this.bloco_set.setValue(.getApartamentos().get(0).getBloco());
-    	this.unidade_set.setValue(c.getApartamentos().get(0).getNumero());*/
-    }
-    
+    	this.bloco_set.setValue(this.select.get(0).getBloco());
+    	this.unidade_set.setValue(this.select.get(0).getNumero());
+    }    
 
     @FXML
-    void ExcluirMorador(MouseEvent event) {
-
+    void ExcluirMorador(MouseEvent event) throws Exception {
+    	if(Alerts.alertConfirmation("Excluir", "Deseja prosseguir com a operação?")) {
+			excluirMorador();
+		}
+    	limpaTela();
+		atualizaTabela();
+    }
+    
+    private void excluirMorador(){
+    	try {
+    		moradorController.remover(moradorApTable.getSelectionModel().getSelectedItem().getIdMorador());
+    		Alerts.alertSuccess("Morador deletado com sucesso!");
+    	}catch(Exception e) {
+    		Alerts.alertError("Não foi possível excluir esse morador!");
+    	}
+    	
     }
 
     @FXML
     void PesquisaAp(MouseEvent event) {
-
+    	int numero = 0;
+		if (this.num_AP.getSelectionModel().getSelectedItem() != null)
+			numero = (int) this.num_AP.getSelectionModel().getSelectedItem();
+		
+		Blocos bloco = (Blocos) this.bloco_AP.getSelectionModel().getSelectedItem();
+		buscarPorAp(numero, bloco);
     }
-
+    
     @FXML
     void Select(ActionEvent event) {
 
@@ -135,8 +153,39 @@ public class MoradorViewController implements Initializable{
 		this.unidade_set.setValue(null);
 	}
     
+	private void editarMorador(Long id) {
+		String nome = this.nome.getText();
+		String cpf = this.cpf.getText();
+
+		int numero = 0;
+		if (this.unidade_set.getSelectionModel().getSelectedItem() != null)
+			numero = (int) this.unidade_set.getSelectionModel().getSelectedItem();
+
+		Blocos bloco = (Blocos) this.bloco_set.getSelectionModel().getSelectedItem();
+		
+		try {
+			if (nome == null || cpf == null || bloco == null || numero == 0) {
+				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
+			}else {
+				Morador m = moradorController.buscarPorId(id);
+				Apartamento ap = new Apartamento();
+				m.setCpf(cpf);
+				m.setNome(nome);
+				ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
+				m.setApartamento(ap);
+				moradorController.atualizar(m);
+				Alerts.alertSuccess("Morador atualizado com sucesso!");
+				limpaTela();
+				atualizaTabela();
+			}
+			
+			
+		}catch(Exception e) {
+			Alerts.alertError("Erro ao tentar atualizar esse Morador!\n" + (e.getMessage()));
+		}
+	}
     
-    private void cadastrarMorador(Long id) throws IOException {
+    private void cadastrarMorador() throws IOException {
 		String nome = this.nome.getText();
 		String cpf = this.cpf.getText();
 
@@ -158,35 +207,29 @@ public class MoradorViewController implements Initializable{
 				morador.setCpf(cpf);
 				morador.setApartamento(ap);
 				
-				if(id == null) {
-					if(isCadastrado(morador.getCpf())) {
+				if(isCadastrado(cpf)){
 						if(Alerts.alertConfirmation("Já existe um Morador cadastrado nesse CPF. Atribuir morador a novo apartamento?", null)) {
+							morador = moradorController.buscarPorCpf(morador, cpf);
+							morador.setApartamento(ap);
 							moradorController.atualizar(morador);
+							Alerts.alertSuccess("Apartamento atualizado com sucesso!");
 						}else {
 							limpaTela();
 						}
 				
+					}else {
+						moradorController.cadastrar(morador);
+						Alerts.alertSuccess("Morador cadastrado com sucesso!");
+						
 					}
-					moradorController.cadastrar(morador);
-					Alerts.alertSuccess("Morador cadastrado com sucesso!");
-				}else {
-					moradorController.atualizar(morador);
-					Alerts.alertSuccess("Morador atualizado com sucesso!");
-					
 				}
 				
 				limpaTela();
 				atualizaTabela();
-				
-			}
-				
+					
 		}
-
 		catch (Exception e) {
-			Alerts.alertError("Erro ao tentar cadastrar esse Morador!\n" + (e.getMessage()
-					.compareTo("org.hibernate.exception.ConstraintViolationException: could not execute statement") == 0
-							? "CPF já cadastrado"
-							: e.getMessage()));
+			Alerts.alertError("Erro ao tentar cadastrar esse Morador!\n" + (e.getMessage()));
 		}
 
 	}
@@ -212,23 +255,46 @@ public class MoradorViewController implements Initializable{
     
     private void atualizaTabela() {
     	try {
-			this.moradorTable.setItems(FXCollections.observableArrayList(moradorController.listar()));
+			this.moradorApTable.setItems(FXCollections.observableArrayList(listMoradorAp()));
 		} catch (Exception e) {
 			e.printStackTrace();
 	}
     }
     
-    
-    public void carregarTableView() {
-    	List<Morador> listMorador = new ArrayList<Morador>();
-   
-    	try {
-			listMorador = moradorController.listar();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+    private void buscarPorAp(int numero, Blocos bloco) {
+		try {
+			Apartamento ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
+			this.listMorador = moradorController.buscarPorAp(ap);
+			System.out.println(listMorador);
+		
+			carregarTableView();
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+	}
+    
+    List<Morador> listMorador = new ArrayList<Morador>();
+    
+    private List<TableMoradorAp> listMoradorAp(){
+    	List<TableMoradorAp> listMoradorAp = new ArrayList<TableMoradorAp>();
     	
+    	try {
+    		this.listMorador =  moradorController.listar();
+    	}catch(Exception e) {
+    		
+    	}
+    	
+    	for(Morador m: listMorador) {
+    		listMoradorAp.add(new TableMoradorAp(m ,m.getApartamento()));
+    	}
+    	return listMoradorAp;
+    }
+    
+    
+    public void carregarTableView(){
+
     	ObservableList<Integer> list1 = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     	ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values());
     	ObservableList<Integer> list5 = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -238,21 +304,15 @@ public class MoradorViewController implements Initializable{
     	bloco_AP.setItems(list2);
     	bloco_set.setItems(list6);
     	unidade_set.setItems(list5);
+    	    	
+    	ObservableList<TableMoradorAp> list3 = FXCollections.observableArrayList(listMoradorAp());
     	
-    	Blocos b = null;
-    	int num = 0;
-    	
-    	for(Morador m: listMorador) {
-    		b= m.getApartamento().getBloco();
-    		num = m.getApartamento().getNumero();
-    		System.out.println("Blocos : " + b);
-    		System.out.println("Numero : " + num);
-    	}
-    	
-			tableNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-			tableCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-			/*tableAcoes.setCellValueFactory(new PropertyValueFactory<>("bloco"));
-			tableAcoes1.setCellValueFactory(new PropertyValueFactory<>("numero"));*/
+		tableNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		tableCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+		tableAcoes.setCellValueFactory(new PropertyValueFactory<>("bloco"));
+		tableAcoes1.setCellValueFactory(new PropertyValueFactory<>("numero"));
+		
+		moradorApTable.setItems(list3);
   
     }
 
