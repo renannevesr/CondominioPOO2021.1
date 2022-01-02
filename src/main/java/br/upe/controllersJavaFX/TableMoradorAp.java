@@ -1,5 +1,8 @@
-package br.upe.model.entity;
+package br.upe.controllersJavaFX;
 
+import br.upe.model.entity.Apartamento;
+import br.upe.model.entity.Blocos;
+import br.upe.model.entity.Morador;
 import lombok.Data;
 
 @Data

@@ -12,7 +12,6 @@ import br.upe.model.dao.PessoaDAO.JPAPessoaDAO;
 import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Blocos;
 import br.upe.model.entity.Condomino;
-import br.upe.model.entity.TableCondominoAp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javax.persistence.NoResultException;
