@@ -36,130 +36,156 @@ public class VisitanteViewController implements Initializable{
 	ApartamentoController apartamentoController = new ApartamentoController();
 	JPAPessoaDAO dao = new JPAPessoaDAO();
 
-	private ObservableList<Visitante> select;
+	private ObservableList<TableVisitanteAp> select;
+    @FXML
+    private ComboBox<Blocos> bloco_AP;
 
-	@FXML
-	private ComboBox<Blocos> bloco_AP;
+    @FXML
+    private ComboBox<Blocos> bloco_set;
 
-	@FXML
-	private ComboBox<Blocos> bloco_set;
+    @FXML
+    private Button btn_excluir;
 
-	@FXML
-	private Button btn_excluir;
-
-	@FXML
+    @FXML
     private Button btn_funcionario;
 
     @FXML
     private Button btn_reserva;
+
+    @FXML
+    private ComboBox<String> button_servico;
+
+    @FXML
+    private ComboBox<String> button_unidade;
+   
+    @FXML
+    private TableView<TableVisitanteAp> visitanteApTable;
+
+    @FXML
+    private TextField cpf;
+
+    @FXML
+    private TextField nome;
+
+    @FXML
+    private ComboBox<Integer> num_AP;
+
+    @FXML
+    private TableColumn<?, ?> tableAcoes;
+
+    @FXML
+    private TableColumn<?, ?> tableAcoes1;
+
+    @FXML
+    private TableColumn<?, ?> tableCPF;
+
+    @FXML
+    private TableColumn<?, ?> tableNome;
+
+    @FXML
+    private ComboBox<Integer> unidade_set;
+
+    @FXML
+    void switchToFuncionario(MouseEvent event) throws IOException {
+    	switchScreen("administrativo_funcionario");
+    }
     
-	@FXML
-	private ComboBox<String> button_servico;
+    @FXML
+    void Select(ActionEvent event) throws IOException {
+    	String opcaoUnidade = button_unidade.getSelectionModel().getSelectedItem().toString();
+    	switch (opcaoUnidade) {
+    	case "Condômino":
+    		switchScreen("administrativo_condomino");
+    		break;
+    	case "Morador":
+    		// trocar tela da direita
+    		switchScreen("administrativo_morador");
+    		break;
+    	case "Visitante":
+    		// trocar tela da direita
+    		switchScreen("administrativo_visitante");
+    		break;
+    	case "Veículo":
+    		// trocar tela da direita
+    		switchScreen("administrativo_veiculo");
+    		break;
+    	}
+    	
+    }
+	public void switchScreen(String screen) throws IOException {
+		Stage stage;
+        Parent root;
+        
+        stage = (Stage) button_unidade.getScene().getWindow();
+        root = App.loadFXML(screen);
+        Scene scene = new Scene(root, 1280, 720);
+        stage.setScene(scene);
+        stage.show();
+	}
 
-	@FXML
-	private ComboBox<String> button_unidade;
-
-	@FXML
-	private TextField cpf;
-
-	@FXML
-	private TableView<Visitante> visitanteTable;
-
-	@FXML
-	private TextField nome;
-
-	@FXML
-	private ComboBox<Integer> num_AP;
-
-	@FXML
-	private TableColumn<?, ?> tableAcoes;
-
-	@FXML
-	private TableColumn<?, ?> tableAcoes1;
-
-	@FXML
-	private TableColumn<?, ?> tableCPF;
-
-	@FXML
-	private TableColumn<?, ?> tableNome;
-
-	@FXML
-	private ComboBox<Integer> unidade_set;
-	
     @FXML
     void switchToReserva(MouseEvent event) {
 
     }
+    
+    @FXML
+    void salvarVisitante(MouseEvent event) throws Exception {
+    	if (this.select == null || this.select.isEmpty()) {
+    		visitanteApTable.getSelectionModel().clearSelection();
+    		cadastrarVisitante();
+    	} else {
+    		editarVisitante(visitanteApTable.getSelectionModel().getSelectedItem().getIdVisitante());
+    	}
+    	
+    	visitanteApTable.getSelectionModel().clearSelection();
+    }
+    
+    @FXML
+    void EditarVisitante(MouseEvent event){
+    	this.select = visitanteApTable.getSelectionModel().getSelectedItems();
+    	this.cpf.setText(this.select.get(0).getCpf());
+    	this.nome.setText(this.select.get(0).getNome());
+    	this.bloco_set.setValue(this.select.get(0).getBloco());
+    	this.unidade_set.setValue(this.select.get(0).getNumero());
+    }    
 
-	@FXML
-	void EditarVisitante(MouseEvent event) {
-
-	}
-
-	@FXML
-	void ExcluirVisitante(MouseEvent event) {
-
-	}
-
-	@FXML
-	void PesquisaAp(MouseEvent event) {
-
-	}
-
-	 @FXML
-		void switchToFuncionario(MouseEvent event) throws IOException {
-			switchScreen("administrativo_funcionario");
+    @FXML
+    void ExcluirVisitante(MouseEvent event) throws Exception {
+    	if(Alerts.alertConfirmation("Excluir", "Deseja prosseguir com a operação?")) {
+			excluirVisitante();
 		}
+    	limpaTela();
+		atualizaTabela();
+    }
+    
+    private void excluirVisitante(){
+    	try {
+    		visitanteController.remover(visitanteApTable.getSelectionModel().getSelectedItem().getIdVisitante());
+    		Alerts.alertSuccess("Visitante deletado com sucesso!");
+    	}catch(Exception e) {
+    		Alerts.alertError("Não foi possível excluir esse visitante!");
+    	}
+    	
+    }
 
-		@FXML
-		void Select(ActionEvent event) throws IOException {
-			String opcaoUnidade = button_unidade.getSelectionModel().getSelectedItem().toString();
-			switch (opcaoUnidade) {
-			case "Condômino":
-				switchScreen("administrativo_condomino");
-				break;
-			case "Morador":
-				// trocar tela da direita
-				switchScreen("administrativo_morador");
-				break;
-			case "Visitante":
-				// trocar tela da direita
-				switchScreen("administrativo_visitante");
-				break;
-			case "Veículo":
-				// trocar tela da direita
-				switchScreen("administrativo_veiculo");
-				break;
-			}
-
-		}
+    @FXML
+    void PesquisaAp(MouseEvent event) {
+    	int numero = 0;
+		if (this.num_AP.getSelectionModel().getSelectedItem() != null)
+			numero = (int) this.num_AP.getSelectionModel().getSelectedItem();
 		
-		public void switchScreen(String screen) throws IOException {
-			Stage stage;
-			Parent root;
-
-			stage = (Stage) button_unidade.getScene().getWindow();
-			root = App.loadFXML(screen);
-			Scene scene = new Scene(root, 1280, 720);
-			stage.setScene(scene);
-			stage.show();
-		}
-
-	@FXML
-	void salvarVisitante(MouseEvent event) throws IOException {
-
-		if (this.select == null || this.select.isEmpty()) {
-			visitanteTable.getSelectionModel().clearSelection();
-			cadastrarVisitante(null);
-		} else {
-			Visitante v = new Visitante();
-			v = (Visitante) visitanteTable.getSelectionModel().getSelectedItem();
-			cadastrarVisitante(v.getId());
-		}
+		Blocos bloco = (Blocos) this.bloco_AP.getSelectionModel().getSelectedItem();
+		buscarPorAp(numero, bloco);
+    }
+    
+	private void limpaTela() {
+		this.nome.setText(null);
+		this.cpf.setText(null);
+		this.bloco_set.setValue(null);
+		this.unidade_set.setValue(null);
 	}
-	
-
-	private void cadastrarVisitante(Long id) throws IOException {
+    
+	private void editarVisitante(Long id) {
 		String nome = this.nome.getText();
 		String cpf = this.cpf.getText();
 
@@ -168,11 +194,44 @@ public class VisitanteViewController implements Initializable{
 			numero = (int) this.unidade_set.getSelectionModel().getSelectedItem();
 
 		Blocos bloco = (Blocos) this.bloco_set.getSelectionModel().getSelectedItem();
-
+		
 		try {
 			if (nome == null || cpf == null || bloco == null || numero == 0) {
 				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
-			} else {
+			}else {
+				Visitante m = visitanteController.buscarPorId(id);
+				Apartamento ap = new Apartamento();
+				m.setCpf(cpf);
+				m.setNome(nome);
+				ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
+				m.setApartamento(ap);
+				visitanteController.atualizar(m);
+				Alerts.alertSuccess("Visitante atualizado com sucesso!");
+				limpaTela();
+				atualizaTabela();
+			}
+			
+			
+		}catch(Exception e) {
+			Alerts.alertError("Erro ao tentar atualizar esse Visitante!\n" + (e.getMessage()));
+		}
+	}
+    
+    private void cadastrarVisitante() throws IOException {
+		String nome = this.nome.getText();
+		String cpf = this.cpf.getText();
+
+		int numero = 0;
+		if (this.unidade_set.getSelectionModel().getSelectedItem() != null)
+			numero = (int) this.unidade_set.getSelectionModel().getSelectedItem();
+
+		Blocos bloco = (Blocos) this.bloco_set.getSelectionModel().getSelectedItem();
+		
+		try {
+			if (nome == null || cpf == null || bloco == null || numero == 0) {
+				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
+			} 
+			else {
 				Visitante visitante = new Visitante();
 				Apartamento ap = new Apartamento();
 				ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
@@ -180,63 +239,37 @@ public class VisitanteViewController implements Initializable{
 				visitante.setCpf(cpf);
 				visitante.setApartamento(ap);
 				
-				// cadastrar
-				if(id == null) {
-					if(isCadastrado(visitante.getCpf())) {
-						if(Alerts.alertConfirmation("Já existe um Visitante cadastrado nesse CPF. Atribuir visita a outro apartamento?", null)) {
+				if(isCadastrado(cpf)){
+						if(Alerts.alertConfirmation("Já existe um Visitante cadastrado nesse CPF. Atribuir visitante a novo apartamento?", null)) {
+							visitante = visitanteController.buscarPorCpf(visitante, cpf);
+							visitante.setApartamento(ap);
 							visitanteController.atualizar(visitante);
+							Alerts.alertSuccess("Apartamento atualizado com sucesso!");
 						}else {
 							limpaTela();
 						}
 				
+					}else {
+						visitanteController.cadastrar(visitante);
+						Alerts.alertSuccess("Visitante cadastrado com sucesso!");
+						
 					}
-					visitanteController.cadastrar(visitante);
-					Alerts.alertSuccess("Visitante cadastrado com sucesso!");
-				}else {
-					
-					
 				}
 				
 				limpaTela();
 				atualizaTabela();
-			}
+					
 		}
-
 		catch (Exception e) {
-			Alerts.alertError("Erro ao tentar cadastrar esse Visitante!\n" + (e.getMessage()
-					.compareTo("org.hibernate.exception.ConstraintViolationException: could not execute statement") == 0
-							? "CPF já cadastrado"
-							: e.getMessage()));
+			Alerts.alertError("Erro ao tentar cadastrar esse Visitante!\n" + (e.getMessage()));
 		}
 
 	}
-
-	private void limpaTela() {
-		this.nome.setText(null);
-		this.cpf.setText(null);
-		this.bloco_set.setValue(null);
-		this.unidade_set.setValue(null);
-	}
-
-	  @Override
-		public void initialize(URL location, ResourceBundle resources) {
-	    	limpaTela();
-			carregarTableView();
-			atualizaTabela();
-		}
-	    
-	    private void atualizaTabela() {
-	    	try {
-				this.visitanteTable.setItems(FXCollections.observableArrayList(visitanteController.listar()));
-			} catch (Exception e) {
-				e.printStackTrace();
-		}
-	    }
-
+    
 	private boolean isCadastrado(String cpf) {
-		Visitante v = new Visitante();
+		Visitante m = new Visitante();
 		try {
-			v = (Visitante) dao.buscarCPF(v, cpf);
+			m = (Visitante) dao.buscarCPF(m, cpf);
 			return true;
 		} catch (Exception e) {
 			if (e instanceof NoResultException) {
@@ -245,16 +278,62 @@ public class VisitanteViewController implements Initializable{
 		return false;
 	}
 	
-	public void carregarTableView() {
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+    	limpaTela();
+		carregarTableView();
+		atualizaTabela();
+	}
+    
+    private void atualizaTabela() {
+    	try {
+			this.visitanteApTable.setItems(FXCollections.observableArrayList(listVisitanteAp()));
+		} catch (Exception e) {
+			e.printStackTrace();
+	}
+    }
+    
+    private void buscarPorAp(int numero, Blocos bloco) {
+		try {
+			Apartamento ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
+			this.listVisitante = visitanteController.buscarPorAp(ap);
+			System.out.println(listVisitante);
 		
-		ObservableList<String> listUni = FXCollections.observableArrayList("Condômino", "Morador", "Visitante",
-				"Veículo");
+			carregarTableView();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+    
+    List<Visitante> listVisitante = new ArrayList<Visitante>();
+    
+    private List<TableVisitanteAp> listVisitanteAp(){
+    	List<TableVisitanteAp> listVisitanteAp = new ArrayList<TableVisitanteAp>();
+    	
+    	try {
+    		this.listVisitante =  visitanteController.listar();
+    	}catch(Exception e) {
+    		
+    	}
+    	
+    	for(Visitante m: listVisitante) {
+    		listVisitanteAp.add(new TableVisitanteAp(m ,m.getApartamento()));
+    	}
+    	return listVisitanteAp;
+    }
+    
+    
+    public void carregarTableView(){
+    	
+    	ObservableList<String> listUni = FXCollections.observableArrayList("Condômino", "Visitante", "Visitante", "Veículo");
 
 		ObservableList<String> listServico = FXCollections.observableArrayList("Serviço geral", "Serviço de produto");
 
 		button_unidade.setItems(listUni);
 		button_servico.setItems(listServico);
- 
+
     	ObservableList<Integer> list1 = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     	ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values());
     	ObservableList<Integer> list5 = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -264,23 +343,16 @@ public class VisitanteViewController implements Initializable{
     	bloco_AP.setItems(list2);
     	bloco_set.setItems(list6);
     	unidade_set.setItems(list5);
+    	    	
+    	ObservableList<TableVisitanteAp> list3 = FXCollections.observableArrayList(listVisitanteAp());
     	
-    	
-    	try {
-    		List<Visitante> v = new ArrayList<Visitante>();
-			
-			ObservableList<Visitante> list3 = FXCollections.observableArrayList(v);
-
-			tableNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-			tableCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-			/*tableAcoes.setCellValueFactory(new PropertyValueFactory<>("bloco"));
-			tableAcoes1.setCellValueFactory(new PropertyValueFactory<>("numero"));*/
-    		
-    		visitanteTable.setItems(list3);
-    	}catch(Exception e) {
-    		
-    	}
+		tableNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		tableCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+		tableAcoes.setCellValueFactory(new PropertyValueFactory<>("bloco"));
+		tableAcoes1.setCellValueFactory(new PropertyValueFactory<>("numero"));
+		
+		visitanteApTable.setItems(list3);
+  
     }
-
 
 }
