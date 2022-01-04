@@ -2,6 +2,7 @@ package br.upe.controller;
 
 import br.upe.model.dao.VeiculoDAO.JPAVeiculoDAO;
 import br.upe.model.entity.Veiculo;
+import br.upe.validator.ValidatorController;
 
 public class VeiculoController {
 
@@ -9,11 +10,9 @@ public class VeiculoController {
 	
 	public void cadastrar (Veiculo veiculo) {
 		try {
-			if(veiculo.getCor().matches("\\d+")) {
-				System.out.print("Cor invalida");
-			} else {
-				dao.salvar(veiculo);
-			}
+			ValidatorController.apenasLetras(veiculo.getCor());
+			dao.salvar(veiculo);
+
 		}catch(Exception e) {
 			e.getMessage();
 		}

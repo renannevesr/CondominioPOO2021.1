@@ -18,7 +18,8 @@ public class Veiculo{
 	private String placa;
 	private String modelo;
 	private String cor;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
+	@JoinColumn (name = "apartamento_id")
 	private Apartamento apartamento;
 
 }

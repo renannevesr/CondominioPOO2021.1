@@ -5,7 +5,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.upe.App;
+import br.upe.controller.ApartamentoController;
+import br.upe.controller.VeiculoController;
+import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Blocos;
+import br.upe.model.entity.Veiculo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,9 +26,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class VeiculoViewController implements Initializable{
+	
+	ApartamentoController apartamentoController = new ApartamentoController();
+	VeiculoController veiculoController = new VeiculoController();
+	
+	private ObservableList<TableVeiculoAp> select;
 
     @FXML
-    private TableView<?> VeiculoTable;
+    private TableView<TableVeiculoAp> veiculoTable;
 
     @FXML
     private ComboBox<Blocos> bloco_AP;
@@ -98,8 +107,49 @@ public class VeiculoViewController implements Initializable{
     }
 
     @FXML
-    void salvarVeiculo(MouseEvent event) {
+    void salvarVeiculo(MouseEvent event) throws IOException {
+    	if (this.select == null || this.select.isEmpty()) {
+    		veiculoTable.getSelectionModel().clearSelection();
+    		cadastrarVeiculo();
+    	} else {
+    		veiculoTable.getSelectionModel().getSelectedItem().getIdVeiculo();
+    	}
+    	
+    	veiculoTable.getSelectionModel().clearSelection();
+    }
+    
+    private void cadastrarVeiculo() throws IOException{
+    	String placa = this.placa.getText();
+    	String cor = this.cor.getText();
+    	String modelo = this.modelo.getText();
+    	
+    	int numero = 0;
+		if (this.unidade_set.getSelectionModel().getSelectedItem() != null)
+			numero = (int) this.unidade_set.getSelectionModel().getSelectedItem();
 
+		Blocos bloco = (Blocos) this.bloco_set.getSelectionModel().getSelectedItem();
+		
+		try {
+			if (placa == null || cor == null || modelo == null|| bloco == null || numero == 0) {
+				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
+			} 
+			else {
+		
+				Apartamento ap = new Apartamento();
+				ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
+				System.out.println(ap);
+				Veiculo veiculo = new Veiculo (null, placa, modelo, cor, ap);
+				veiculoController.cadastrar(veiculo);
+				Alerts.alertSuccess("Veiculo cadastrado com sucesso!");
+		
+				}
+				
+				
+					
+		}
+		catch (Exception e) {
+			Alerts.alertError("Erro ao tentar cadastrar esse Veiculo!\n" + (e.getMessage()));
+		}
     }
     
 
