@@ -11,16 +11,15 @@ public class FuncionarioController {
 
 	private JPAFuncionarioDAO dao = new JPAFuncionarioDAO();
 	
-	public void cadastrar(Funcionario funcionario) {
-		
+	public void cadastrar(Funcionario funcionario) throws Exception {
+
 		try {			
 			ValidatorController.validaCPF(funcionario.getCpf());
 			ValidatorController.apenasLetras(funcionario.getNome());
 			ValidatorController.dataAntes(funcionario.getDataAdmissao());
 			dao.salvar(funcionario);	
 		}catch (Exception e) {
-			System.out.print(e.getMessage());
-			//e.printStackTrace();
+			throw e;
 		}
 		
 
@@ -35,11 +34,18 @@ public class FuncionarioController {
 		return dao.listar();
 	}
 	
-	public Funcionario atualizar(Funcionario Funcionario) throws Exception{
-		return dao.atualizar(Funcionario);
+	public Funcionario atualizar(Funcionario funcionario) throws Exception{
+		ValidatorController.validaCPF(funcionario.getCpf());
+		ValidatorController.apenasLetras(funcionario.getNome());
+		ValidatorController.dataAntes(funcionario.getDataAdmissao());
+		return dao.atualizar(funcionario);
 	}
 	
-	public void remover(Funcionario Funcionario) throws Exception{
-		dao.remover(Funcionario.getId());
+	public void remover(Long id) throws Exception{
+		dao.remover(id);
+	}
+	
+	public Funcionario buscarPorId(Long id) throws Exception{
+		return dao.buscarPorId(id);
 	}
 }

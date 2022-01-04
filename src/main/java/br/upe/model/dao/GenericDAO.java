@@ -1,12 +1,10 @@
 package br.upe.model.dao;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.hibernate.boot.model.relational.Database;
 import org.hibernate.exception.ConstraintViolationException;
 
 import br.upe.connectionDB.ConnectionDB;

@@ -10,7 +10,7 @@ public class ReservasController {
 	
 	public void cadastrar (Reservas reservas) {
 		try {
-			ValidatorController.dataDepois(reservas.getDataUtilizacao());
+			//ValidatorController.dataDepois(reservas.getDataUtilizacao());
 			dao.salvar(reservas);
 		} catch (Exception e) {
 			System.out.print(e.getMessage());

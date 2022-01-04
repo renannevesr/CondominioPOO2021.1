@@ -30,8 +30,8 @@ public abstract class OperacaoEntrada{
 	@JoinColumn (name = "apartamento_id")
 	private Apartamento apartamento;
 	private double valor;
-	@ManyToOne (cascade = CascadeType.ALL)
-	@JoinColumn(name = "conta_id")
-	private Conta conta;
-	
+////	@ManyToOne (cascade = CascadeType.ALL)
+////	@JoinColumn(name = "conta_id")
+////	private Conta conta;
+//	
 }

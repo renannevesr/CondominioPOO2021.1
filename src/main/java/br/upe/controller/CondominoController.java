@@ -5,7 +5,6 @@ import java.util.List;
 import br.upe.model.dao.ApartamentoDAO.JPAApartamentoDAO;
 import br.upe.model.dao.CondominoDAO.JPACondominoDAO;
 import br.upe.model.entity.Apartamento;
-import br.upe.model.entity.Blocos;
 import br.upe.model.entity.Condomino;
 import br.upe.validator.ValidatorController;
 
@@ -39,6 +38,9 @@ public class CondominoController {
 	}
 	
 	public Condomino atualizar(Condomino condomino) throws Exception{
+		ValidatorController.validaCPF(condomino.getCpf());
+		ValidatorController.apenasLetras(condomino.getNome());
+		ValidatorController.apenasNumeros(condomino.getContato());
 		return dao.atualizar(condomino);
 	}
 	
@@ -48,14 +50,7 @@ public class CondominoController {
 			apartamento.setCondomino(null);
 			daoAp.atualizar(apartamento);
 		}
-	
-
 		dao.remover(condomino.getId());
-	}
-	
-	public List<Apartamento> buscarApartamento(Blocos bloco, int numero) throws Exception{
-		
-		return daoAp.buscarAp(bloco, numero);
 	}
 	
 }

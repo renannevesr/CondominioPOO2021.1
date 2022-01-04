@@ -1,7 +1,5 @@
 package br.upe.migrations;
 
-import java.util.Date;
-
 import br.upe.controller.ContaController;
 import br.upe.controller.FuncionarioController;
 import br.upe.model.dao.ApartamentoDAO.JPAApartamentoDAO;
@@ -14,17 +12,17 @@ import br.upe.model.entity.Funcionario;
 
 public class Migration {
 	
-	public static void init() {
-		JPAFuncionarioDAO funcionarioDAO = new JPAFuncionarioDAO();
-		if(funcionarioDAO.listar().isEmpty()) {
-		   	Funcionario novoFuncionario = new Funcionario();
-	    	novoFuncionario.setDataAdmissao(new Date());
-	        novoFuncionario.setNome("Xando Maranhao");
-	        novoFuncionario.setCpf("12345678900");
-	        novoFuncionario.setSenha("20000");
-	        FuncionarioController funcionario = new FuncionarioController();
-	        funcionario.cadastrar(novoFuncionario);
-		}
+	public static void init() throws Exception {
+//		JPAFuncionarioDAO funcionarioDAO = new JPAFuncionarioDAO();
+//		if(funcionarioDAO.listar().isEmpty()) {
+//		   	Funcionario novoFuncionario = new Funcionario();
+////	    	novoFuncionario.setDataAdmissao(new Date());
+//	        novoFuncionario.setNome("Xando Maranhao");
+//	        novoFuncionario.setCpf("12345678900");
+//	        novoFuncionario.setSenha("20000");
+//	        FuncionarioController funcionario = new FuncionarioController();
+//	        funcionario.cadastrar(novoFuncionario);
+//		}
 		
 		/*JPAEspacoDAO espacoDAO = new JPAEspacoDAO();
 		if (espacoDAO.listar().isEmpty()) {

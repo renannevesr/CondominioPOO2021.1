@@ -12,23 +12,25 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class Administrativo implements Initializable {
 
     @FXML
-    private ComboBox button_unidade;
+    private ComboBox<String> button_unidade;
 
     @FXML
-    private ComboBox button_reserva;
-
-    @FXML
-    private ComboBox button_servico;
+    private ComboBox<String> button_servico;
     
     @FXML
-    private ComboBox button_funcionario;
-
+    private Button btn_funcionario;
+    
+    @FXML
+    private Button btn_reserva;
+   
 
     @FXML
     void Select(ActionEvent event) throws IOException {
@@ -39,43 +41,40 @@ public class Administrativo implements Initializable {
     			break;
     		case "Morador":
     			// trocar tela da direita
-    			System.out.println(opcaoUnidade);
     			switchScreen("administrativo_morador");
     			break;
     		case "Visitante":
     			// trocar tela da direita
-    			System.out.println(opcaoUnidade);
+    			switchScreen("administrativo_visitante");
     			break;
     		case "Veículo":
     			// trocar tela da direita
-    			System.out.println(opcaoUnidade);
+    			switchScreen("administrativo_veiculo");
     			break;
     	}
-    	
-    	String opcaoReserva = button_reserva.getSelectionModel().getSelectedItem().toString();
-    	switch (opcaoReserva) {
-    		case "Espaços":
-    			// trocar tela da direita
-    			System.out.println(opcaoReserva);
-    			break;
-    		case "Nova reserva":
-    			// trocar tela da direita
-    			System.out.println(opcaoReserva);
-    			break;
-    	}
+    
+    }
+    
+    @FXML
+    void switchToFuncionario(MouseEvent event) throws IOException {
+    	switchScreen("administrativo_funcionario");
+
+    }
+    
+    @FXML
+    void switchToReserva(MouseEvent event) {
+
     }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ObservableList<String> list1 = FXCollections.observableArrayList("Condômino", "Morador", "Visitante", "Veículo");
-		ObservableList<String> list2 = FXCollections.observableArrayList("Espaços", "Nova reserva");
-		ObservableList<String> list3 = FXCollections.observableArrayList("Serviço geral", "Serviço de produto");
-		ObservableList<String> list4 = FXCollections.observableArrayList("Novo funcionário", "Procurar funcionario");
-		
+
+		ObservableList<String> list2 = FXCollections.observableArrayList("Serviço geral", "Serviço de produto");
+
 		button_unidade.setItems(list1);
-		button_reserva.setItems(list2);
-		button_servico.setItems(list3);
-		button_funcionario.setItems(list4);
+		button_servico.setItems(list2);
+
 		
 	}
 	
