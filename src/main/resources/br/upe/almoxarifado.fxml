@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="860.0" minWidth="1280.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.controllersJavaFX.Almoxarifado">
+   <left>
+      <AnchorPane prefHeight="860.0" prefWidth="128.0" style="-fx-background-color: #2C94DC;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="18.0" layoutY="149.0" onMouseClicked="#switchToAdministrativo" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
+               <image>
+                  <Image url="@../../assets/icons/admin/Admin@5x_light.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
+               <image>
+                  <Image url="@../../assets/icons/user/Shape_14@5x.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="4.0" layoutY="358.0" onMouseClicked="#switchToContabil" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
+               <image>
+                  <Image url="@../../assets/icons/dolar/Vector@5x.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-15.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
+               <image>
+                  <Image url="@../../assets/icons/estoque/Vector@5x_dark.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to right, #4EADEE, #F2F7F9);" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#838181" layoutX="41.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 700;" text="Almoxarifado">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <Button fx:id="btn_produto" layoutX="31.0" layoutY="208.0" mnemonicParsing="false" onMouseClicked="#switchToAlmoxarifado_produto" prefHeight="32.0" prefWidth="230.0" text="Produto" textFill="#838181">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btn_funcionario1" layoutX="30.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#switchToAlmoxarifado_requisicao" prefHeight="32.0" prefWidth="230.0" text="Requisição" textFill="#838181">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+   </center>
+   <right>
+      <AnchorPane prefHeight="860.0" prefWidth="820.0" style="-fx-background-color: #F2F7F9;" BorderPane.alignment="CENTER">
+         <children>
+         </children></AnchorPane>
+   </right>
+</BorderPane>
