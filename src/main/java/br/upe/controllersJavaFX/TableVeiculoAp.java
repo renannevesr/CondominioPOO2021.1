@@ -22,7 +22,7 @@ public class TableVeiculoAp {
 		this.bloco = a.getBloco();
 		this.idAp = a.getId();
 		this.placa = v.getPlaca();
-		this.modelo = v.getPlaca();
+		this.modelo = v.getModelo();
 		this.cor = v.getCor();
 		this.idVeiculo = v.getId();
 	}

@@ -2,6 +2,8 @@ package br.upe.controllersJavaFX;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import br.upe.App;
@@ -22,6 +24,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -93,7 +96,12 @@ public class VeiculoViewController implements Initializable{
 
     @FXML
     void EditarVeiculo(MouseEvent event) {
-
+    	this.select = veiculoTable.getSelectionModel().getSelectedItems();
+    	this.placa.setText(this.select.get(0).getPlaca());
+    	this.cor.setText(this.select.get(0).getCor());
+    	this.modelo.setText(this.select.get(0).getModelo());
+    	this.bloco_set.setValue(this.select.get(0).getBloco());
+    	this.unidade_set.setValue(this.select.get(0).getNumero());
     }
 
     @FXML
@@ -112,7 +120,7 @@ public class VeiculoViewController implements Initializable{
     		veiculoTable.getSelectionModel().clearSelection();
     		cadastrarVeiculo();
     	} else {
-    		veiculoTable.getSelectionModel().getSelectedItem().getIdVeiculo();
+    		editarVeiculo(veiculoTable.getSelectionModel().getSelectedItem().getIdVeiculo());
     	}
     	
     	veiculoTable.getSelectionModel().clearSelection();
@@ -141,7 +149,8 @@ public class VeiculoViewController implements Initializable{
 				Veiculo veiculo = new Veiculo (null, placa, modelo, cor, ap);
 				veiculoController.cadastrar(veiculo);
 				Alerts.alertSuccess("Veiculo cadastrado com sucesso!");
-		
+				limpaTela();
+				atualizaTabela();
 				}
 				
 				
@@ -149,6 +158,39 @@ public class VeiculoViewController implements Initializable{
 		}
 		catch (Exception e) {
 			Alerts.alertError("Erro ao tentar cadastrar esse Veiculo!\n" + (e.getMessage()));
+		}
+    }
+    
+    private void editarVeiculo(Long id) {
+    	String placa = this.placa.getText();
+    	String cor = this.cor.getText();
+    	String modelo = this.modelo.getText();
+    	
+    	int numero = 0;
+		if (this.unidade_set.getSelectionModel().getSelectedItem() != null)
+			numero = (int) this.unidade_set.getSelectionModel().getSelectedItem();
+
+		Blocos bloco = (Blocos) this.bloco_set.getSelectionModel().getSelectedItem();
+		
+		try {
+			if (placa == null || cor == null || modelo == null || bloco == null || numero == 0) {
+				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
+			}else {
+				Veiculo v = veiculoController.buscarPorId(id);
+				Apartamento ap = new Apartamento();
+				ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
+				v.setCor(cor);
+				v.setModelo(modelo);
+				v.setPlaca(placa);
+				v.setApartamento(ap);
+				veiculoController.atualizar(v);
+				Alerts.alertSuccess("Veiculo atualizado com sucesso!");
+				limpaTela();
+				atualizaTabela();
+			}
+			
+		}catch(Exception e) {
+			Alerts.alertError("Erro ao tentar atualizar esse Veiculo!\n" + (e.getMessage()));
 		}
     }
     
@@ -194,9 +236,43 @@ public class VeiculoViewController implements Initializable{
 		
 		  @Override
 			public void initialize(URL location, ResourceBundle resources) {
+			  	limpaTela();
 				carregarTableView();
-				//atualizaTabela();
+				atualizaTabela();
 		}
+		  
+		    private void atualizaTabela() {
+		    	try {
+					this.veiculoTable.setItems(FXCollections.observableArrayList(listVeiculoAp()));
+				} catch (Exception e) {
+					e.printStackTrace();
+			}
+		    }
+		    
+		    private void limpaTela() {
+				this.placa.setText(null);
+				this.modelo.setText(null);
+				this.cor.setText(null);
+				this.bloco_set.setValue(null);
+				this.unidade_set.setValue(null);
+			}
+		  
+		 List<Veiculo> listVeiculo = new ArrayList<Veiculo>();
+		    
+		    private List<TableVeiculoAp> listVeiculoAp(){
+		    	List<TableVeiculoAp> listVeiculoAp = new ArrayList<TableVeiculoAp>();
+		    	
+		    	try {
+		    		this.listVeiculo =  veiculoController.listar();
+		    	}catch(Exception e) {
+		    		
+		    	}
+		    	
+		    	for(Veiculo v: listVeiculo) {
+		    		listVeiculoAp.add(new TableVeiculoAp(v ,v.getApartamento()));
+		    	}
+		    	return listVeiculoAp;
+		    }
 		  
 		  public void carregarTableView() {
 				
@@ -212,6 +288,12 @@ public class VeiculoViewController implements Initializable{
 		    	ObservableList<Blocos> list2 = FXCollections.observableArrayList(Blocos.values());
 		    	ObservableList<Integer> list5 = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		    	ObservableList<Blocos> list6 = FXCollections.observableArrayList(Blocos.A, Blocos.B, Blocos.C);
+		    	
+		    	tablePlaca.setCellValueFactory(new PropertyValueFactory<>("placa"));
+				tableModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+				tableCor.setCellValueFactory(new PropertyValueFactory<>("cor"));
+				tableBloco.setCellValueFactory(new PropertyValueFactory<>("bloco"));
+				tableUnidade.setCellValueFactory(new PropertyValueFactory<>("numero"));
 		    	
 		    	num_AP.setItems(list1);
 		    	bloco_AP.setItems(list2);
