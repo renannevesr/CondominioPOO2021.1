@@ -327,7 +327,7 @@ public class VisitanteViewController implements Initializable{
     
     public void carregarTableView(){
     	
-    	ObservableList<String> listUni = FXCollections.observableArrayList("Condômino", "Visitante", "Visitante", "Veículo");
+    	ObservableList<String> listUni = FXCollections.observableArrayList("Condômino", "Morador", "Visitante", "Veículo");
 
 		ObservableList<String> listServico = FXCollections.observableArrayList("Serviço geral", "Serviço de produto");
 

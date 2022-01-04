@@ -6,7 +6,6 @@ import br.upe.model.dao.MoradorDAO.JPAMoradorDAO;
 import br.upe.model.dao.PessoaDAO.JPAPessoaDAO;
 import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Morador;
-import br.upe.model.entity.Pessoa;
 import br.upe.validator.ValidatorController;
 
 public class MoradorController {
