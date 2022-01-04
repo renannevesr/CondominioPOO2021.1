@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -30,6 +31,16 @@ public class Administrativo implements Initializable {
     
     @FXML
     private Button btn_reserva;
+    
+    @FXML
+    private ImageView user;
+    
+    @FXML
+    void logout(MouseEvent event) throws IOException {
+    	if (Alerts.alertConfirmation("Desejar sair do sistema?", null)) {
+    		switchScreen("login");
+    	}
+    }
    
 
     @FXML
@@ -81,10 +92,17 @@ public class Administrativo implements Initializable {
 	public void switchScreen(String screen) throws IOException {
 		Stage stage;
         Parent root;
+        Scene scene;
+        
         
         stage = (Stage) button_unidade.getScene().getWindow();
         root = App.loadFXML(screen);
-        Scene scene = new Scene(root, 1280, 720);
+//        (screen.equals("login") ? scene = new Scene(root, 700, 500) : scene = new Scene(root, 1280, 720));
+        if (screen.equals("login")) {
+        	scene = new Scene(root, 700, 500);
+        }else {
+        	scene = new Scene(root, 1280, 720);
+        }
         stage.setScene(scene);
         stage.show();
 	}
