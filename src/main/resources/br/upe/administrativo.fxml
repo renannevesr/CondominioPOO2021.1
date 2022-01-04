@@ -38,7 +38,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-15.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-15.0" layoutY="251.0" onMouseClicked="#switchToAlmoxarifado" pickOnBounds="true" preserveRatio="true" scaleX="0.4" scaleY="0.4">
                <image>
                   <Image url="@../../assets/icons/estoque/Vector@5x.png" />
                </image>

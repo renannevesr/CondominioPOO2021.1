@@ -41,6 +41,11 @@ public class Administrativo implements Initializable {
     		switchScreen("login");
     	}
     }
+    
+    @FXML
+    void switchToAlmoxarifado(MouseEvent event) throws IOException {
+    	switchScreen("almoxarifado");
+    }
    
 
     @FXML
@@ -94,10 +99,8 @@ public class Administrativo implements Initializable {
         Parent root;
         Scene scene;
         
-        
         stage = (Stage) button_unidade.getScene().getWindow();
         root = App.loadFXML(screen);
-//        (screen.equals("login") ? scene = new Scene(root, 700, 500) : scene = new Scene(root, 1280, 720));
         if (screen.equals("login")) {
         	scene = new Scene(root, 700, 500);
         }else {
