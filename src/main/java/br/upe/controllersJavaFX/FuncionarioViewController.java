@@ -25,6 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -89,6 +90,16 @@ public class FuncionarioViewController implements Initializable{
 
 	    @FXML
 	    private TableColumn<Funcionario, String> tableNome;
+	    
+	    @FXML
+	    private ImageView user;
+	    
+	    @FXML
+	    void logout(MouseEvent event) throws IOException {
+	    	if (Alerts.alertConfirmation("Desejar sair do sistema?", null)) {
+	    		switchScreen("login");
+	    	}
+	    }
 	    
 	    @FXML
 		void switchToFuncionario(MouseEvent event) throws IOException {
