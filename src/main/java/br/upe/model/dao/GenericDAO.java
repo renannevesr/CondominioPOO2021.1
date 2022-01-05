@@ -1,6 +1,5 @@
 package br.upe.model.dao;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -30,14 +29,15 @@ public class GenericDAO<Generic, Id extends Serializable>{
 				conexao.em.getTransaction().begin();
 				conexao.em.persist(g);
 				conexao.em.getTransaction().commit();
+			}catch(ConstraintViolationException e) {
+				System.out.println(e.getMessage());
+				throw new Exception("Dados duplicados!");
 			}
 			catch(Exception e){
-				if(e instanceof SQLException) {
-					throw new Exception ("Dados duplicados!");
-				}
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 				conexao.em.getTransaction().rollback();
+				throw e;
 			}
 			finally {
 				conexao.em.close();
@@ -53,11 +53,13 @@ public class GenericDAO<Generic, Id extends Serializable>{
 			try {
 				conexao.em.getTransaction().begin();
 				conexao.em.merge(g);
+				conexao.em.flush();
 				conexao.em.getTransaction().commit();
 			}catch(Exception e){
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 				conexao.em.getTransaction().rollback();
+				throw e;
 			}
 			finally {
 				conexao.em.close();
@@ -82,7 +84,11 @@ public class GenericDAO<Generic, Id extends Serializable>{
 		
 		public Generic buscarPorId(Id id) {
 			  ConnectionDB conexao = new ConnectionDB();
-		       return conexao.em.find(persistedClass, id);
+			  
+			  Generic result = conexao.em.find(persistedClass, id);
+			  conexao.em.close();
+			
+		      return result;
 		 }
 		
 		public void remover(Id id) {
@@ -92,9 +98,10 @@ public class GenericDAO<Generic, Id extends Serializable>{
 			Generic entity = buscarPorId(id);
 			try {
 				conexao.em.getTransaction().begin();
-				conexao.em.remove(entity);
+				conexao.em.remove(conexao.em.contains(entity) ? entity : conexao.em.merge(entity));
 				conexao.em.getTransaction().commit();
 			}catch(Exception e) {
+				System.out.println("Entrou no exception");
 				System.out.print(e.getMessage());
 				conexao.em.getTransaction().rollback();
 			}

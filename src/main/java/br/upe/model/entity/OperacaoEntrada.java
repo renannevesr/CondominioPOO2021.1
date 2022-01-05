@@ -22,16 +22,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public abstract class OperacaoEntrada{
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@CreationTimestamp
-	private Date dataEmissao;//dataEmissao iniciar como newDate (solicitacao feita naquele momento)
-	@ManyToOne (cascade = CascadeType.ALL)
-	@JoinColumn (name = "apartamento_id")
-	private Apartamento apartamento;
-	private double valor;
-	@ManyToOne 
-	@JoinColumn(name = "conta_id")
-	private Conta conta;
-	
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @CreationTimestamp
+    private Date dataEmissao;
+    @ManyToOne
+    @JoinColumn (name = "apartamento_id")
+    private Apartamento apartamento;
+    private double valor;
+////    @ManyToOne (cascade = CascadeType.ALL)
+////    @JoinColumn(name = "conta_id")
+////    private Conta conta;
+//
 }

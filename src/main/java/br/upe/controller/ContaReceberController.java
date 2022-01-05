@@ -10,7 +10,7 @@ public class ContaReceberController {
 	
 	public void cadastrar (ContaReceber ContaReceber) {
 		try {
-			ValidatorController.dataDepois(ContaReceber.getDataVencimento());
+			//ValidatorController.dataDepois(ContaReceber.getDataVencimento());
 			dao.salvar(ContaReceber);
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
