@@ -46,6 +46,11 @@ public class Administrativo implements Initializable {
     void switchToAlmoxarifado(MouseEvent event) throws IOException {
     	switchScreen("almoxarifado");
     }
+    
+    @FXML
+    void switchToContabil(MouseEvent event) throws IOException {
+    	switchScreen("contabil");
+    }
    
 
     @FXML

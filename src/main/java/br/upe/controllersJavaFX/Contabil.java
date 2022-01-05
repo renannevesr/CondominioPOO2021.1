@@ -53,13 +53,25 @@ public class Contabil {
 
     }
     
+    @FXML
+    void logout(MouseEvent event) throws IOException {
+    	if (Alerts.alertConfirmation("Desejar sair do sistema?", null)) {
+    		switchScreen("login");
+    	}
+    }
+    
     public void switchScreen(String screen) throws IOException {
 		Stage stage;
         Parent root;
+        Scene scene;
         
         stage = (Stage) btn_administrativo.getScene().getWindow();
         root = App.loadFXML(screen);
-        Scene scene = new Scene(root, 1280, 720);
+        if (screen.equals("login")) {
+        	scene = new Scene(root, 700, 500);
+        }else {
+        	scene = new Scene(root, 1280, 720);
+        }
         stage.setScene(scene);
         stage.show();
 	}

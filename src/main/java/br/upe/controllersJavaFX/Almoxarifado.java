@@ -22,6 +22,12 @@ public class Almoxarifado {
     void switchToAdministrativo(MouseEvent event) throws IOException {
     	switchScreen("administrativo");
     }
+    
+    @FXML
+    void switchToContabil(MouseEvent event) throws IOException {
+    	switchScreen("contabil");
+    }
+    
 
     @FXML
     void switchToAlmoxarifado_produto(MouseEvent event) {
@@ -33,11 +39,6 @@ public class Almoxarifado {
 
     }
 
-    @FXML
-    void switchToContabil(MouseEvent event) {
-
-    }
-    
     @FXML
     void logout(MouseEvent event) throws IOException {
     	if (Alerts.alertConfirmation("Desejar sair do sistema?", null)) {

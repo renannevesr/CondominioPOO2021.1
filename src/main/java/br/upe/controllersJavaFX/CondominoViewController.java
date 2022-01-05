@@ -103,6 +103,21 @@ public class CondominoViewController implements Initializable {
 	void switchToFuncionario(MouseEvent event) throws IOException {
 		switchScreen("administrativo_funcionario");
 	}
+	
+	@FXML
+	void switchToContabil(MouseEvent event) throws IOException {
+		switchScreen("contabil");
+	}
+	
+	@FXML
+	void switchToAdministrativo(MouseEvent event) throws IOException {
+		switchScreen("administrativo");
+	}
+	
+	@FXML
+	void switchToAlmoxarifado(MouseEvent event) throws IOException {
+		switchScreen("almoxarifado");
+	}
 
 	@FXML
 	void Select(ActionEvent event) throws IOException {
