@@ -197,8 +197,6 @@ public class VeiculoViewController implements Initializable{
 				atualizaTabela();
 				}
 				
-				
-					
 		}
 		catch (Exception e) {
 			Alerts.alertError("Erro ao tentar cadastrar esse Veiculo!\n" + (e.getMessage()));
