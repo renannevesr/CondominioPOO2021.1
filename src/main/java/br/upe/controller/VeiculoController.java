@@ -33,4 +33,8 @@ public class VeiculoController {
 		return dao.listar();
 	}
 	
+	public void remover(Long id) throws Exception{
+		dao.remover(id);
+	}
+	
 }

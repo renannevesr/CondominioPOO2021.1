@@ -118,9 +118,15 @@ public class VeiculoViewController implements Initializable{
 
     @FXML
     void ExcluirVeiculo(MouseEvent event) {
-
+    	this.select = veiculoTable.getSelectionModel().getSelectedItems();
+		if (Alerts.alertConfirmation("Excluir", "Deseja prosseguir com a operação?")) {
+			excluirVeiculo();
+		}
+		veiculoTable.getSelectionModel().clearSelection();
+		limpaTela();
+		atualizaTabela();
     }
-
+    
     @FXML
     void PesquisaAp(MouseEvent event) {
 
@@ -203,6 +209,16 @@ public class VeiculoViewController implements Initializable{
 			
 		}catch(Exception e) {
 			Alerts.alertError("Erro ao tentar atualizar esse Veiculo!\n" + (e.getMessage()));
+		}
+    }
+    
+    private void excluirVeiculo() {
+    	try {
+			veiculoController.remover(veiculoTable.getSelectionModel().getSelectedItem().getIdVeiculo());
+			Alerts.alertSuccess("Veiculo deletado com sucesso!");
+		} catch (Exception e) {
+			Alerts.alertError("Não foi possível excluir esse veiculo!");
+			e.printStackTrace();
 		}
     }
     
