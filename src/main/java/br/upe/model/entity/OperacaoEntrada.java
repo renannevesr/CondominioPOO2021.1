@@ -25,8 +25,8 @@ public abstract class OperacaoEntrada{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@CreationTimestamp
-	private Date dataEmissao;//dataEmissao iniciar como newDate (solicitacao feita naquele momento)
-	@ManyToOne (cascade = CascadeType.ALL)
+	private Date dataEmissao;
+	@ManyToOne
 	@JoinColumn (name = "apartamento_id")
 	private Apartamento apartamento;
 	private double valor;

@@ -25,12 +25,9 @@ import lombok.Setter;
 	)
 public class Reservas extends OperacaoEntrada {
 	
-//	@ManyToOne
-//	@JoinColumn(name = "espaco_id")
-//	private Espaco espaco;
 	@Enumerated (EnumType.STRING)
 	private Espacos espaco;
 	private LocalDate dataUtilizacao;
-	private String observacoes;
+
 
 }

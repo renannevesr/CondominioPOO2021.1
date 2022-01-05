@@ -121,7 +121,7 @@
             <Label layoutX="42.0" layoutY="440.0" text="Espaço" textFill="#807e7e" />
             <TextField fx:id="valor" layoutX="371.0" layoutY="461.0" prefHeight="32.0" prefWidth="105.0" />
             <Label layoutX="372.0" layoutY="442.0" text="Valor" textFill="#807e7e" />
-            <Button alignment="CENTER" layoutX="43.0" layoutY="520.0" mnemonicParsing="false" onMouseClicked="#salvarCondomino" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Salvar" textFill="WHITE">
+            <Button alignment="CENTER" layoutX="43.0" layoutY="520.0" mnemonicParsing="false" onMouseClicked="#salvarReserva" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Salvar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -129,7 +129,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <TableView fx:id="condominoTable" layoutX="41.0" layoutY="212.0" prefHeight="200.0" prefWidth="646.0">
+            <TableView fx:id="reservaTable" layoutX="41.0" layoutY="212.0" prefHeight="200.0" prefWidth="646.0">
               <columns>
                 <TableColumn fx:id="tableEspaco" prefWidth="200.0" text="Espaço" />
                 <TableColumn fx:id="tableData" minWidth="0.0" prefWidth="142.0" text="Data de Utilização" />
@@ -138,7 +138,7 @@
                   <TableColumn fx:id="tableUnidade" prefWidth="94.0" text="Unidade" />
               </columns>
             </TableView>
-            <Button fx:id="btn_excluir" alignment="CENTER" layoutX="606.0" layoutY="520.0" mnemonicParsing="false" onMouseClicked="#ExcluirCondomino" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Excluir" textFill="WHITE">
+            <Button fx:id="btn_excluir" alignment="CENTER" layoutX="606.0" layoutY="520.0" mnemonicParsing="false" onMouseClicked="#ExcluirReserva" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Excluir" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -146,7 +146,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" layoutX="140.0" layoutY="520.0" mnemonicParsing="false" onMouseClicked="#EditarCondomino" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Editar" textAlignment="CENTER" textFill="WHITE">
+            <Button alignment="CENTER" layoutX="140.0" layoutY="520.0" mnemonicParsing="false" onMouseClicked="#EditarReserva" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #4EADEE;" text="Editar" textAlignment="CENTER" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
