@@ -1,9 +1,12 @@
 package br.upe.controllersJavaFX;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import br.upe.App;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,7 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class Contabil {
+public class Contabil implements Initializable{
 
     @FXML
     private ImageView btn_administrativo;
@@ -47,6 +50,11 @@ public class Contabil {
     void switchToAlmoxarifado_requisicao(MouseEvent event) {
 
     }
+    
+    @FXML
+    void switchToMulta(MouseEvent event) {
+    	Music.playMusic("./mp3/multa.mp3");
+    }
 
     @FXML
     void switchToContabil(MouseEvent event) {
@@ -58,6 +66,11 @@ public class Contabil {
     	if (Alerts.alertConfirmation("Desejar sair do sistema?", null)) {
     		switchScreen("login");
     	}
+    }
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    	 Music.playMusic("./mp3/crédito.mp3");
     }
     
     public void switchScreen(String screen) throws IOException {

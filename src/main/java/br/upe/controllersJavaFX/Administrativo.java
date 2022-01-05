@@ -95,8 +95,6 @@ public class Administrativo implements Initializable {
 
 		button_unidade.setItems(list1);
 		button_servico.setItems(list2);
-
-		
 	}
 	
 	public void switchScreen(String screen) throws IOException {

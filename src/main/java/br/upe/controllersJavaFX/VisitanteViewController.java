@@ -146,6 +146,7 @@ public class VisitanteViewController implements Initializable{
 
     @FXML
     void salvarVisitante(MouseEvent event) throws Exception {
+    	Music.playMusic("./mp3/movimento_de_pessoas_suspeitas.mp3");
     	if (this.select == null || this.select.isEmpty()) {
     		visitanteApTable.getSelectionModel().clearSelection();
     		cadastrarVisitante();

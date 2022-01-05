@@ -138,6 +138,8 @@ public class VeiculoViewController implements Initializable{
 
     @FXML
     void salvarVeiculo(MouseEvent event) throws IOException {
+    	Music.pauseMusic();
+    	Music.playMusic("./mp3/van.mp3");
     	if (this.select == null || this.select.isEmpty()) {
     		veiculoTable.getSelectionModel().clearSelection();
     		cadastrarVeiculo();
