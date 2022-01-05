@@ -96,6 +96,10 @@ public class VisitanteViewController implements Initializable{
     	}
     }
     
+    @FXML
+	void switchToReserva(MouseEvent event) throws IOException {
+		switchScreen("administrativo_reservas");
+	}
 
     @FXML
     void switchToFuncionario(MouseEvent event) throws IOException {
@@ -140,11 +144,6 @@ public class VisitanteViewController implements Initializable{
 		stage.show();
 	}
 
-    @FXML
-    void switchToReserva(MouseEvent event) {
-
-    }
-    
     @FXML
     void salvarVisitante(MouseEvent event) throws Exception {
     	if (this.select == null || this.select.isEmpty()) {

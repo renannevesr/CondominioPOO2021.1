@@ -84,7 +84,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button fx:id="btn_reserva" layoutX="31.0" layoutY="414.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="230.0" text="Reservas" textFill="#838181">
+            <Button fx:id="btn_reserva" onMouseClicked="#switchToReserva" layoutX="31.0" layoutY="414.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="230.0" text="Reservas" textFill="#838181">
                <font>
                   <Font size="18.0" />
                </font>

@@ -15,7 +15,6 @@ import br.upe.model.dao.VeiculoDAO;
 import br.upe.model.dao.VeiculoDAO.JPAVeiculoDAO;
 import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Blocos;
-import br.upe.model.entity.Condomino;
 import br.upe.model.entity.Veiculo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -106,9 +105,9 @@ public class VeiculoViewController implements Initializable{
     }
     
     @FXML
-    void switchToReserva(MouseEvent event) {
-
-    }
+	void switchToReserva(MouseEvent event) throws IOException {
+		switchScreen("administrativo_reservas");
+	}
     
 
     @FXML

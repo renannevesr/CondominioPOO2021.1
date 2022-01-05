@@ -118,6 +118,11 @@ public class CondominoViewController implements Initializable {
 	void switchToAlmoxarifado(MouseEvent event) throws IOException {
 		switchScreen("almoxarifado");
 	}
+	
+	@FXML
+	void switchToReserva(MouseEvent event) throws IOException {
+		switchScreen("administrativo_reservas");
+	}
 
 	@FXML
 	void Select(ActionEvent event) throws IOException {
@@ -156,11 +161,6 @@ public class CondominoViewController implements Initializable {
 	        }
 		stage.setScene(scene);
 		stage.show();
-	}
-
-	@FXML
-	void switchToReserva(MouseEvent event) {
-
 	}
 
 	@FXML

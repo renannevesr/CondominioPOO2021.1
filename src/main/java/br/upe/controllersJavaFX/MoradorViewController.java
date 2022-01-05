@@ -139,10 +139,10 @@ public class MoradorViewController implements Initializable{
 		stage.show();
 	}
 
-    @FXML
-    void switchToReserva(MouseEvent event) {
-
-    }
+	@FXML
+	void switchToReserva(MouseEvent event) throws IOException {
+		switchScreen("administrativo_reservas");
+	}
     
     @FXML
     void salvarMorador(MouseEvent event) throws Exception {

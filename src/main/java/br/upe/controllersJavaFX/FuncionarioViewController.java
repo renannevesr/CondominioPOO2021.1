@@ -105,6 +105,11 @@ public class FuncionarioViewController implements Initializable{
 		void switchToFuncionario(MouseEvent event) throws IOException {
 			switchScreen("administrativo_funcionario");
 		}
+	    
+	    @FXML
+		void switchToReserva(MouseEvent event) throws IOException {
+			switchScreen("administrativo_reservas");
+		}
 
 		@FXML
 		void Select(ActionEvent event) throws IOException {

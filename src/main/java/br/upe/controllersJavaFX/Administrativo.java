@@ -83,8 +83,8 @@ public class Administrativo implements Initializable {
     }
     
     @FXML
-    void switchToReserva(MouseEvent event) {
-
+    void switchToReserva(MouseEvent event) throws IOException {
+    	switchScreen("administrativo_reservas");
     }
 
 	@Override
