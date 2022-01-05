@@ -31,12 +31,10 @@ public class Almoxarifado {
 
     @FXML
     void switchToAlmoxarifado_produto(MouseEvent event) {
-
     }
 
     @FXML
     void switchToAlmoxarifado_requisicao(MouseEvent event) {
-
     }
 
     @FXML

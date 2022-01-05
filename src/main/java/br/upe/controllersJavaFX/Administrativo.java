@@ -79,7 +79,6 @@ public class Administrativo implements Initializable {
     @FXML
     void switchToFuncionario(MouseEvent event) throws IOException {
     	switchScreen("administrativo_funcionario");
-
     }
     
     @FXML
@@ -90,7 +89,6 @@ public class Administrativo implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ObservableList<String> list1 = FXCollections.observableArrayList("Condômino", "Morador", "Visitante", "Veículo");
-
 		ObservableList<String> list2 = FXCollections.observableArrayList("Serviço geral", "Serviço de produto");
 
 		button_unidade.setItems(list1);

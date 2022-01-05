@@ -11,7 +11,7 @@ public interface PessoaDAO {
 	
 	public Pessoa buscarCPF(Object o, String cpf);
 
-public class JPAPessoaDAO extends GenericDAO<Pessoa, Long>{
+public class JPAPessoaDAO extends GenericDAO<Pessoa, Long> implements PessoaDAO{
 	
 	public JPAPessoaDAO() {
 	       super(Pessoa.class);

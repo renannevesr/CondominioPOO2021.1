@@ -3,7 +3,6 @@ package br.upe;
 import java.io.IOException;
 
 import br.upe.controllersJavaFX.Music;
-import br.upe.migrations.Migration;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,8 +32,6 @@ public class App extends Application {
     }
 	
     public static void main(String[] args) throws Exception {
-    	Migration.init();
-    
     	launch();
     }
     

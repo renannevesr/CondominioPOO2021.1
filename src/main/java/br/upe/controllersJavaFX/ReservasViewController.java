@@ -240,9 +240,7 @@ public class ReservasViewController implements Initializable{
     		if(espaco == null || dataUtilizacao == null) {
     			Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
     		}else {
-    			System.out.println(id);
     		Reservas reserva = reservaController.buscarPorId(id);
-    		System.out.println("Reserva resgatada: " + reserva);
     		Apartamento ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
     		reserva.setApartamento(ap);
     		reserva.setDataUtilizacao(dataUtilizacao);

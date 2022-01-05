@@ -14,9 +14,9 @@ public class Music {
 			Media h = new Media(Paths.get(s).toUri().toString());
 			mediaPlayer = new MediaPlayer(h);
 			if (s.equals("./mp3/login_music.mp3")) {
-				mediaPlayer.setVolume(0.05);				
+				mediaPlayer.setVolume(0.045);				
 			}else {
-				mediaPlayer.setVolume(1);	
+				mediaPlayer.setVolume(0.09);	
 			}
 			mediaPlayer.play();
 		}catch(Exception e) {

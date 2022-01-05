@@ -6,16 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.persistence.NoResultException;
+
 import br.upe.App;
 import br.upe.controller.ApartamentoController;
 import br.upe.controller.CondominoController;
+import br.upe.model.dao.PessoaDAO;
 import br.upe.model.dao.PessoaDAO.JPAPessoaDAO;
 import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Blocos;
 import br.upe.model.entity.Condomino;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javax.persistence.NoResultException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,6 +34,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class CondominoViewController implements Initializable {
+
+	CondominoController condominoController = new CondominoController();
+	ApartamentoController apartamentoController = new ApartamentoController();
+	PessoaDAO dao = new JPAPessoaDAO();
 
 	private ObservableList<TableCondominoAp> select;
 
@@ -88,37 +94,37 @@ public class CondominoViewController implements Initializable {
 
 	@FXML
 	private ComboBox<Integer> unidade_set;
-	
-	 @FXML
-	    private ImageView user;
-	    
-	    @FXML
-	    void logout(MouseEvent event) throws IOException {
-	    	if (Alerts.alertConfirmation("Desejar sair do sistema?", null)) {
-	    		switchScreen("login");
-	    	}
-	    }
+
+	@FXML
+	private ImageView user;
+
+	@FXML
+	void logout(MouseEvent event) throws IOException {
+		if (Alerts.alertConfirmation("Desejar sair do sistema?", null)) {
+			switchScreen("login");
+		}
+	}
 
 	@FXML
 	void switchToFuncionario(MouseEvent event) throws IOException {
 		switchScreen("administrativo_funcionario");
 	}
-	
+
 	@FXML
 	void switchToContabil(MouseEvent event) throws IOException {
 		switchScreen("contabil");
 	}
-	
+
 	@FXML
 	void switchToAdministrativo(MouseEvent event) throws IOException {
 		switchScreen("administrativo");
 	}
-	
+
 	@FXML
 	void switchToAlmoxarifado(MouseEvent event) throws IOException {
 		switchScreen("almoxarifado");
 	}
-	
+
 	@FXML
 	void switchToReserva(MouseEvent event) throws IOException {
 		switchScreen("administrativo_reservas");
@@ -154,11 +160,11 @@ public class CondominoViewController implements Initializable {
 
 		stage = (Stage) button_unidade.getScene().getWindow();
 		root = App.loadFXML(screen);
-		 if (screen.equals("login")) {
-	        	scene = new Scene(root, 700, 500);
-	        }else {
-	        	scene = new Scene(root, 1280, 720);
-	        }
+		if (screen.equals("login")) {
+			scene = new Scene(root, 700, 500);
+		} else {
+			scene = new Scene(root, 1280, 720);
+		}
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -206,10 +212,6 @@ public class CondominoViewController implements Initializable {
 		condominoTable.getSelectionModel().clearSelection();
 	}
 
-	CondominoController condominoController = new CondominoController();
-	ApartamentoController apartamentoController = new ApartamentoController();
-	JPAPessoaDAO dao = new JPAPessoaDAO();
-
 	private void cadastrarCondomino(Long id) throws IOException {
 		String nome = this.nome.getText();
 		String cpf = this.cpf.getText();
@@ -236,6 +238,7 @@ public class CondominoViewController implements Initializable {
 
 				// cadastrar
 				if (id == null) {
+					ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 					// verifica se ja existe um condomino naquele apartamento
 					if (isExistent(bloco, numero)) {
 					} else {
@@ -248,7 +251,6 @@ public class CondominoViewController implements Initializable {
 									null)) {
 								// se apertar sim, mantém as informações e apenas coloca aquele condomino em
 								// outro Ap
-								ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 								ap.setCondomino(c);
 								apartamentoController.atualizar(ap);
 							} else {
@@ -257,7 +259,6 @@ public class CondominoViewController implements Initializable {
 								c.setNome(nome);
 								condominoController.atualizar(c);
 								Alerts.alertSuccess("Condomino atualizado com sucesso!");
-								ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
 								ap.setCondomino(c);
 								apartamentoController.atualizar(ap);
 							}
@@ -307,15 +308,12 @@ public class CondominoViewController implements Initializable {
 	}
 
 	private boolean isCadastrado(String cpf) {
-		Condomino c = new Condomino();
 		try {
-			c = (Condomino) dao.buscarCPF(c, cpf);
+			dao.buscarCPF(new Condomino(), cpf);
 			return true;
-		} catch (Exception e) {
-			if (e instanceof NoResultException) {
-			}
+		} catch (NoResultException e) {
+			return false;
 		}
-		return false;
 	}
 
 	private boolean isExistent(Blocos b, int n) {
@@ -375,7 +373,6 @@ public class CondominoViewController implements Initializable {
 
 	private void buscarAp(int numero, Blocos bloco) {
 		try {
-
 			this.ap = apartamentoController.buscarApartamento(bloco, numero);
 			carregarTableView();
 
@@ -389,9 +386,6 @@ public class CondominoViewController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		limpaTela();
 		carregarTableView();
-
-		condominoTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> selecionarItemTableViewCondomino(newValue));
 	}
 
 	public void carregarTableView() {
@@ -437,9 +431,4 @@ public class CondominoViewController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
-	private void selecionarItemTableViewCondomino(TableCondominoAp newValue) {
-		System.out.println("Cliente selecionado no TableView: " + newValue.getNome());
-	}
-
 }
