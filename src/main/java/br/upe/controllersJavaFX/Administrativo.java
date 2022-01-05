@@ -37,6 +37,7 @@ public class Administrativo implements Initializable {
     
     @FXML
     void logout(MouseEvent event) throws IOException {
+    	Music.playMusic("./mp3/bonus.mp3");
     	if (Alerts.alertConfirmation("Desejar sair do sistema?", null)) {
     		switchScreen("login");
     	}
@@ -88,6 +89,8 @@ public class Administrativo implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Music.stopMusic();
+		
 		ObservableList<String> list1 = FXCollections.observableArrayList("Condômino", "Morador", "Visitante", "Veículo");
 		ObservableList<String> list2 = FXCollections.observableArrayList("Serviço geral", "Serviço de produto");
 

@@ -172,6 +172,7 @@ public class ReservasViewController implements Initializable{
 
     @FXML
     void logout(MouseEvent event) throws IOException {
+    	Music.playMusic("./mp3/bonus.mp3");
     	if (Alerts.alertConfirmation("Desejar sair do sistema?", null)) {
     		switchScreen("login");
     	}
