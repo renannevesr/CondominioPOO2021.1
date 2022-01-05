@@ -6,11 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.persistence.NoResultException;
+
 import br.upe.App;
 import br.upe.controller.ApartamentoController;
 import br.upe.controller.VeiculoController;
+import br.upe.model.dao.VeiculoDAO;
+import br.upe.model.dao.VeiculoDAO.JPAVeiculoDAO;
 import br.upe.model.entity.Apartamento;
 import br.upe.model.entity.Blocos;
+import br.upe.model.entity.Condomino;
 import br.upe.model.entity.Veiculo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -148,6 +153,8 @@ public class VeiculoViewController implements Initializable{
     	String placa = this.placa.getText();
     	String cor = this.cor.getText();
     	String modelo = this.modelo.getText();
+
+    	VeiculoDAO dao = new JPAVeiculoDAO();
     	
     	int numero = 0;
 		if (this.unidade_set.getSelectionModel().getSelectedItem() != null)
@@ -160,13 +167,32 @@ public class VeiculoViewController implements Initializable{
 				Alerts.alertError("Seu burro, sua anta, preencha tudo sua misera!");
 			} 
 			else {
-		
-				Apartamento ap = new Apartamento();
-				ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
-				System.out.println(ap);
-				Veiculo veiculo = new Veiculo (null, placa, modelo, cor, ap);
-				veiculoController.cadastrar(veiculo);
-				Alerts.alertSuccess("Veiculo cadastrado com sucesso!");
+				if(isCadastrado(placa)) {
+					Veiculo veiculo = dao.procurarPlaca(placa);
+					Apartamento ap = new Apartamento();
+					ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
+					System.out.println(ap);
+					
+					if(Alerts.alertConfirmation("Já existe um Veiculo cadastrado com essa placa. Utilizar informações existentes?", null)) {
+						veiculo.setApartamento(ap);
+						veiculoController.atualizar(veiculo);
+						Alerts.alertSuccess("Veiculo cadastrado com sucesso!");
+					}else {
+						veiculo.setApartamento(ap);
+						veiculo.setCor(cor);
+						veiculo.setPlaca(placa);
+						veiculo.setModelo(modelo);
+						veiculoController.atualizar(veiculo);
+						Alerts.alertSuccess("Veiculo atualizado com sucesso!");
+					}
+				} else {
+					Apartamento ap = new Apartamento();
+					ap = apartamentoController.buscarApartamento(bloco, numero).get(0);
+					System.out.println(ap);
+					Veiculo veiculo = new Veiculo (null, placa, modelo, cor, ap);
+					veiculoController.cadastrar(veiculo);
+					Alerts.alertSuccess("Veiculo cadastrado com sucesso!");
+				}
 				limpaTela();
 				atualizaTabela();
 				}
@@ -178,6 +204,16 @@ public class VeiculoViewController implements Initializable{
 			Alerts.alertError("Erro ao tentar cadastrar esse Veiculo!\n" + (e.getMessage()));
 		}
     }
+    
+    private boolean isCadastrado(String placa) {
+		VeiculoDAO dao = new JPAVeiculoDAO();
+		try {
+			dao.procurarPlaca(placa);
+			return true;
+		} catch (NoResultException e) {			
+			return false;
+		}
+	}
     
     private void editarVeiculo(Long id) {
     	String placa = this.placa.getText();
